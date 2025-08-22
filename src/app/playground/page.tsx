@@ -67,7 +67,7 @@ import {
 } from '@/components/ui/tooltip';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Home, Inbox, Calendar, Search, Settings } from 'lucide-react';
+import { Home, Inbox, Calendar, Search, Settings, PanelLeft } from 'lucide-react';
 
 const components = {
   button: {
@@ -368,6 +368,7 @@ const components = {
 export default function PlaygroundPage() {
   const [selectedComponent, setSelectedComponent] = useState('button');
   const [componentProps, setComponentProps] = useState<Record<string, any>>({});
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const currentComponent = components[selectedComponent as keyof typeof components];
 
@@ -954,9 +955,9 @@ export default function PlaygroundPage() {
 
     if (selectedComponent === 'sidebar') {
       return (
-        <div className="h-[400px] w-full border rounded-lg relative">
-          <SidebarProvider>
-            <Component className="h-full absolute top-0 left-0">
+        <div className="h-[200px] w-full border rounded-lg relative overflow-hidden">          
+          <SidebarProvider open={sidebarOpen} onOpenChange={setSidebarOpen}>
+            <Component className={`h-full absolute top-0 left-0 bottom-0 transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : '-translate-x-60'}`}>
               <SidebarHeader>
                 <SidebarMenu>
                   <SidebarMenuItem>
@@ -1003,6 +1004,14 @@ export default function PlaygroundPage() {
               </SidebarHeader>
             </Component>
           </SidebarProvider>
+          <Button 
+            variant="outline"
+            size="icon"
+            className={`rounded-sm absolute top-1 transition-all duration-300 ${sidebarOpen ? 'left-65' : 'left-1'}`}
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+          >
+            <PanelLeft />
+          </Button>
         </div>
       );
     }
