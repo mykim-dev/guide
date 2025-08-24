@@ -1,4 +1,4 @@
-import { Navigation } from '@/components/layout/navigation';
+import { Navigation } from '@/components/layout/header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -14,30 +14,30 @@ import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogDescription, 
-  DialogHeader, 
-  DialogTitle, 
-  DialogTrigger 
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
 } from '@/components/ui/dialog';
-import { 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuTrigger 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
-import { 
-  Popover, 
-  PopoverContent, 
-  PopoverTrigger 
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger
 } from '@/components/ui/popover';
-import { 
-  Tooltip, 
-  TooltipContent, 
-  TooltipProvider, 
-  TooltipTrigger 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger
 } from '@/components/ui/tooltip';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
@@ -202,7 +202,7 @@ const components = [
         </CommandList>
       </Command>
     ),
-  },  
+  },
   {
     title: 'Toggle',
     description: '토글 버튼 컴포넌트',
@@ -253,7 +253,7 @@ const components = [
     component: (
       <Textarea placeholder="Enter your message here" />
     ),
-  },  
+  },
   {
     title: 'Dialog',
     description: '모달 다이얼로그 컴포넌트',
@@ -272,7 +272,7 @@ const components = [
         </DialogContent>
       </Dialog>
     ),
-  },  
+  },
   {
     title: 'Alert Dialog',
     description: '확인 다이얼로그 컴포넌트',
@@ -295,7 +295,7 @@ const components = [
         </AlertDialogContent>
       </AlertDialog>
     ),
-  },  
+  },
   {
     title: 'Sheet',
     description: '사이드 시트 컴포넌트',
@@ -314,7 +314,7 @@ const components = [
         </SheetContent>
       </Sheet>
     ),
-  },  
+  },
   {
     title: 'Drawer',
     description: '드로어 컴포넌트',
@@ -384,7 +384,7 @@ const components = [
         </HoverCardContent>
       </HoverCard>
     ),
-  },  
+  },
   {
     title: 'Tooltip',
     description: '툴팁 컴포넌트',
@@ -400,7 +400,7 @@ const components = [
         </Tooltip>
       </TooltipProvider>
     ),
-  },  
+  },
   {
     title: 'Collapsible',
     description: '접을 수 있는 컨텐츠 컴포넌트',
@@ -476,7 +476,7 @@ const components = [
         </TableBody>
       </Table>
     ),
-  },  
+  },
   {
     title: 'Pagination',
     description: '페이지네이션 컴포넌트',
@@ -498,7 +498,7 @@ const components = [
         </PaginationContent>
       </Pagination>
     ),
-  }, 
+  },
   {
     title: 'Calendar',
     description: '달력 컴포넌트',
@@ -514,7 +514,7 @@ const components = [
     title: 'Carousel',
     description: '캐러셀 컴포넌트',
     component: (
-      <Carousel className="w-full max-w-xs">
+      <Carousel className="w-full max-w-xs mx-auto">
         <CarouselContent>
           {Array.from({ length: 5 }).map((_, index) => (
             <CarouselItem key={index}>
@@ -532,12 +532,12 @@ const components = [
         <CarouselNext />
       </Carousel>
     ),
-  },  
+  },
   {
     title: 'Resizable',
     description: '크기 조절 가능한 패널 컴포넌트',
     component: (
-      <ResizablePanelGroup direction="horizontal" className="min-h-[200px] max-w-md rounded-lg border">
+      <ResizablePanelGroup direction="horizontal" className="min-h-[200px] max-w-md rounded-lg border mx-auto">
         <ResizablePanel defaultSize={50}>
           <div className="flex h-full items-center justify-center p-6">
             <span className="font-semibold">Panel 1</span>
@@ -566,7 +566,7 @@ const components = [
         </div>
       </ScrollArea>
     ),
-  },  
+  },
   {
     title: 'Context Menu',
     description: '컨텍스트 메뉴 컴포넌트',
@@ -672,7 +672,7 @@ const components = [
         </div>
       </div>
     ),
-  },  
+  },
   {
     title: 'Aspect Ratio',
     description: '종횡비 유지 컴포넌트',
@@ -688,51 +688,47 @@ const components = [
 
 export default function ComponentsPage() {
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-      
-      <main className="container mx-auto px-4 py-12">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">컴포넌트 라이브러리</h1>
-          <p className="text-muted-foreground">
-            shadcn/ui 기반의 재사용 가능한 컴포넌트들을 확인하세요.
-          </p>
-        </div>
+    <div>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold mb-2">컴포넌트 라이브러리</h1>
+        <p className="text-muted-foreground">
+          shadcn/ui 기반의 재사용 가능한 컴포넌트들을 확인하세요.
+        </p>
+      </div>
 
-        {/* 목차 */}
-        <div className="mb-8 p-[0.5rem] bg-muted/50 rounded-lg">
-          <h2 className="hidden">목차</h2>
-          <div className="flex flex-wrap gap-x-[1rem] gap-y-[0.5rem]">
-            {components.map((component) => (
-              <a
-                key={component.title}
-                href={`#${component.title.toLowerCase().replace(/\s+/g, '-')}`}
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                #{component.title}
-              </a>
-            ))}
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* 목차 */}
+      <div className="mb-8 p-[0.5rem] bg-muted/50 rounded-lg">
+        <h2 className="hidden">목차</h2>
+        <div className="flex flex-wrap gap-x-[1rem] gap-y-[0.5rem]">
           {components.map((component) => (
-            <Card 
+            <a
               key={component.title}
-              id={component.title.toLowerCase().replace(/\s+/g, '-')}
-              className="scroll-mt-20"
+              href={`#${component.title.toLowerCase().replace(/\s+/g, '-')}`}
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
-              <CardHeader>
-                <CardTitle>{component.title}</CardTitle>
-                <CardDescription>{component.description}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                {component.component}
-              </CardContent>
-            </Card>
+              #{component.title}
+            </a>
           ))}
         </div>
-      </main>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {components.map((component) => (
+          <Card
+            key={component.title}
+            id={component.title.toLowerCase().replace(/\s+/g, '-')}
+            className="scroll-mt-20"
+          >
+            <CardHeader>
+              <CardTitle>{component.title}</CardTitle>
+              <CardDescription>{component.description}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {component.component}
+            </CardContent>
+          </Card>
+        ))}
+      </div>
     </div>
   );
 }

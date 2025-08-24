@@ -1,38 +1,42 @@
 ---
-title: "Separator"
-description: "구분선 컴포넌트"
+title: "Aspect Ratio"
+description: "종횡비 컴포넌트"
 ---
 
 ## 기본 사용법
 
 ```tsx
-import { Separator } from '@/components/ui/separator';
+import { Aspect Ratio } from '@/components/ui/aspect ratio';
 
 export function MyComponent() {
   return (
-    <Separator>기본 Separator</Separator>
+    <Aspect Ratio>기본 Aspect Ratio</Aspect Ratio>
   );
 }
 ```
 
 ## 기본 사용법
 
-### Basic Separator
+### Basic Aspect Ratio
 
-:::component-example BasicSeparatorExample
+:::component-example BasicAspectRatioExample
 ```tsx
-<div className="space-y-4">
-  <div>Content above</div>
-  <Separator />
-  <div>Content below</div>
+<div className="w-[200px]">
+  <AspectRatio ratio={16 / 9} className="bg-muted">
+    <div className="flex items-center justify-center">
+      <span className="text-sm text-muted-foreground">16:9</span>
+    </div>
+  </AspectRatio>
 </div>
 ```
 
 <div>
-<div className="space-y-4">
-  <div>Content above</div>
-  <Separator />
-  <div>Content below</div>
+<div className="w-[200px]">
+  <AspectRatio ratio={16 / 9} className="bg-muted">
+    <div className="flex items-center justify-center">
+      <span className="text-sm text-muted-foreground">16:9</span>
+    </div>
+  </AspectRatio>
 </div>
 </div>
 :::
@@ -47,7 +51,7 @@ export function MyComponent() {
 
 ## 접근성
 
-Separator 컴포넌트는 다음과 같은 접근성 기능을 제공합니다:
+Aspect Ratio 컴포넌트는 다음과 같은 접근성 기능을 제공합니다:
 
 - 키보드 네비게이션 지원
 - 스크린 리더 호환성

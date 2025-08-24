@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Navigation } from '@/components/layout/navigation';
+import { Navigation } from '@/components/layout/header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -40,30 +40,30 @@ import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuSeparator,
 import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarSeparator, MenubarShortcut, MenubarTrigger } from '@/components/ui/menubar';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent } from '@/components/ui/chart';
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogDescription, 
-  DialogHeader, 
-  DialogTitle, 
-  DialogTrigger 
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
 } from '@/components/ui/dialog';
-import { 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuTrigger 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
-import { 
-  Popover, 
-  PopoverContent, 
-  PopoverTrigger 
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger
 } from '@/components/ui/popover';
-import { 
-  Tooltip, 
-  TooltipContent, 
-  TooltipProvider, 
-  TooltipTrigger 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger
 } from '@/components/ui/tooltip';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -140,13 +140,13 @@ const components = {
       variant: ['default', 'secondary', 'destructive', 'outline'],
     },
   },
-     avatar: {
-     name: 'Avatar',
-     component: Avatar,
-     props: {
-       src: ['https://github.com/shadcn.png', 'https://avatars.githubusercontent.com/u/1?v=4'],
-     },
-   },
+  avatar: {
+    name: 'Avatar',
+    component: Avatar,
+    props: {
+      src: ['https://github.com/shadcn.png', 'https://avatars.githubusercontent.com/u/1?v=4'],
+    },
+  },
   progress: {
     name: 'Progress',
     component: Progress,
@@ -176,16 +176,16 @@ const components = {
       pressed: [true, false],
     },
   },
-           toggleGroup: {
-      name: 'Toggle Group',
-      component: ToggleGroup,
-      props: {
-        type: ['single', 'multiple'],
-        variant: ['default', 'outline'],
-        size: ['default', 'sm', 'lg'],
-        disabled: [false, true],
-      },
+  toggleGroup: {
+    name: 'Toggle Group',
+    component: ToggleGroup,
+    props: {
+      type: ['single', 'multiple'],
+      variant: ['default', 'outline'],
+      size: ['default', 'sm', 'lg'],
+      disabled: [false, true],
     },
+  },
   collapsible: {
     name: 'Collapsible',
     component: Collapsible,
@@ -197,7 +197,7 @@ const components = {
     name: 'Aspect Ratio',
     component: AspectRatio,
     props: {
-      ratio: [16/9, 4/3, 1/1, 21/9],
+      ratio: [16 / 9, 4 / 3, 1 / 1, 21 / 9],
     },
   },
   inputOTP: {
@@ -468,14 +468,14 @@ export default function PlaygroundPage() {
       return <Component {...props}>Badge</Component>;
     }
 
-         if (selectedComponent === 'avatar') {
-       return (
-         <Component {...props}>
-           <AvatarImage src={props.src === 'https://avatars.githubusercontent.com/u/1?v=4' ? undefined : props.src} />
-           <AvatarFallback>CN</AvatarFallback>
-         </Component>
-       );
-     }
+    if (selectedComponent === 'avatar') {
+      return (
+        <Component {...props}>
+          <AvatarImage src={props.src === 'https://avatars.githubusercontent.com/u/1?v=4' ? undefined : props.src} />
+          <AvatarFallback>CN</AvatarFallback>
+        </Component>
+      );
+    }
 
     if (selectedComponent === 'progress') {
       return <Component {...props} />;
@@ -503,21 +503,21 @@ export default function PlaygroundPage() {
       );
     }
 
-         if (selectedComponent === 'toggleGroup') {
-       return (
-         <Component {...props} type={props.type || 'single'}>
-           <ToggleGroupItem value="bold" aria-label="Toggle bold">
-             B
-           </ToggleGroupItem>
-           <ToggleGroupItem value="italic" aria-label="Toggle italic">
-             I
-           </ToggleGroupItem>
-           <ToggleGroupItem value="underline" aria-label="Toggle underline">
-             U
-           </ToggleGroupItem>
-         </Component>
-       );
-     }
+    if (selectedComponent === 'toggleGroup') {
+      return (
+        <Component {...props} type={props.type || 'single'}>
+          <ToggleGroupItem value="bold" aria-label="Toggle bold">
+            B
+          </ToggleGroupItem>
+          <ToggleGroupItem value="italic" aria-label="Toggle italic">
+            I
+          </ToggleGroupItem>
+          <ToggleGroupItem value="underline" aria-label="Toggle underline">
+            U
+          </ToggleGroupItem>
+        </Component>
+      );
+    }
 
     if (selectedComponent === 'collapsible') {
       return (
@@ -650,7 +650,7 @@ export default function PlaygroundPage() {
     if (selectedComponent === 'resizable') {
       const direction = props.direction || 'horizontal';
       return (
-        <ResizablePanelGroup 
+        <ResizablePanelGroup
           direction={direction}
           className="min-h-[200px] max-w-md rounded-lg border"
         >
@@ -955,7 +955,7 @@ export default function PlaygroundPage() {
 
     if (selectedComponent === 'sidebar') {
       return (
-        <div className="h-[200px] w-full border rounded-lg relative overflow-hidden">          
+        <div className="h-[200px] w-full border rounded-lg relative overflow-hidden">
           <SidebarProvider open={sidebarOpen} onOpenChange={setSidebarOpen}>
             <Component className={`h-full absolute top-0 left-0 bottom-0 transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : '-translate-x-60'}`}>
               <SidebarHeader>
@@ -1004,7 +1004,7 @@ export default function PlaygroundPage() {
               </SidebarHeader>
             </Component>
           </SidebarProvider>
-          <Button 
+          <Button
             variant="outline"
             size="icon"
             className={`rounded-sm absolute top-1 transition-all duration-300 ${sidebarOpen ? 'left-65' : 'left-1'}`}
@@ -1020,140 +1020,136 @@ export default function PlaygroundPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-      
-      <main className="container mx-auto px-4 py-12">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">플레이그라운드</h1>
-          <p className="text-muted-foreground">
-            컴포넌트를 실시간으로 테스트하고 다양한 설정을 시도해보세요.
-          </p>
-        </div>
+    <div>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold mb-2">플레이그라운드</h1>
+        <p className="text-muted-foreground">
+          컴포넌트를 실시간으로 테스트하고 다양한 설정을 시도해보세요.
+        </p>
+      </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* 컴포넌트 선택 및 설정 */}
-          <Card>
-            <CardHeader>
-              <CardTitle>컴포넌트 설정</CardTitle>
-              <CardDescription>
-                컴포넌트와 속성을 선택하여 미리보기를 확인하세요.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              {/* 컴포넌트 선택 */}
-              <div className="space-y-2">
-                <Label>컴포넌트</Label>
-                <Select value={selectedComponent} onValueChange={setSelectedComponent}>
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {Object.entries(components).map(([key, comp]) => (
-                      <SelectItem key={key} value={key}>
-                        {comp.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* 속성 설정 */}
-              {currentComponent && currentComponent.props && Object.keys(currentComponent.props).length > 0 && (
-                <div className="space-y-4">
-                  {Object.entries(currentComponent.props).map(([prop, values]) => (
-                    <div key={prop} className="space-y-2">
-                      <Label className="capitalize">{prop}</Label>
-                                             {Array.isArray(values) && values.every(v => typeof v === 'boolean') ? (
-                         <Switch
-                           checked={componentProps[prop] !== undefined ? componentProps[prop] : values[0]}
-                           onCheckedChange={(checked) => updateProp(prop, checked)}
-                         />
-                       ) : Array.isArray(values) ? (
-                         <Select
-                           value={componentProps[prop] !== undefined ? componentProps[prop] : values[0]}
-                           onValueChange={(value) => updateProp(prop, value)}
-                         >
-                           <SelectTrigger>
-                             <SelectValue />
-                           </SelectTrigger>
-                           <SelectContent>
-                             {values.map((value) => (
-                               <SelectItem key={value} value={value.toString()}>
-                                 {value.toString()}
-                               </SelectItem>
-                             ))}
-                           </SelectContent>
-                         </Select>
-                       ) : typeof values === 'boolean' ? (
-                         <Switch
-                           checked={componentProps[prop] !== undefined ? componentProps[prop] : values}
-                           onCheckedChange={(checked) => updateProp(prop, checked)}
-                         />
-                       ) : (
-                         <Input
-                           value={componentProps[prop] || ''}
-                           onChange={(e) => updateProp(prop, e.target.value)}
-                           placeholder={`Enter ${prop}`}
-                         />
-                       )}
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {/* 복잡한 컴포넌트 안내 */}
-              {currentComponent && (!currentComponent.props || Object.keys(currentComponent.props).length === 0) && (
-                <div className="text-sm text-muted-foreground">
-                  이 컴포넌트는 복잡한 구조로 인해 기본 설정으로만 표시됩니다.
-                </div>
-              )}
-            </CardContent>
-          </Card>
-
-          {/* 미리보기 */}
-          <Card>
-            <CardHeader>
-              <CardTitle>미리보기</CardTitle>
-              <CardDescription>
-                선택한 설정으로 컴포넌트가 어떻게 보이는지 확인하세요.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="min-h-[200px] flex items-center justify-center border-2 border-dashed border-muted-foreground/25 rounded-lg p-8">
-                {renderComponent()}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* 코드 출력 */}
-        <Card className="mt-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* 컴포넌트 선택 및 설정 */}
+        <Card>
           <CardHeader>
-            <CardTitle>생성된 코드</CardTitle>
+            <CardTitle>컴포넌트 설정</CardTitle>
             <CardDescription>
-              현재 설정에 따른 컴포넌트 코드입니다.
+              컴포넌트와 속성을 선택하여 미리보기를 확인하세요.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {/* 컴포넌트 선택 */}
+            <div className="space-y-2">
+              <Label>컴포넌트</Label>
+              <Select value={selectedComponent} onValueChange={setSelectedComponent}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {Object.entries(components).map(([key, comp]) => (
+                    <SelectItem key={key} value={key}>
+                      {comp.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* 속성 설정 */}
+            {currentComponent && currentComponent.props && Object.keys(currentComponent.props).length > 0 && (
+              <div className="space-y-4">
+                {Object.entries(currentComponent.props).map(([prop, values]) => (
+                  <div key={prop} className="space-y-2">
+                    <Label className="capitalize">{prop}</Label>
+                    {Array.isArray(values) && values.every(v => typeof v === 'boolean') ? (
+                      <Switch
+                        checked={componentProps[prop] !== undefined ? componentProps[prop] : values[0]}
+                        onCheckedChange={(checked) => updateProp(prop, checked)}
+                      />
+                    ) : Array.isArray(values) ? (
+                      <Select
+                        value={componentProps[prop] !== undefined ? componentProps[prop] : values[0]}
+                        onValueChange={(value) => updateProp(prop, value)}
+                      >
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {values.map((value) => (
+                            <SelectItem key={value} value={value.toString()}>
+                              {value.toString()}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    ) : typeof values === 'boolean' ? (
+                      <Switch
+                        checked={componentProps[prop] !== undefined ? componentProps[prop] : values}
+                        onCheckedChange={(checked) => updateProp(prop, checked)}
+                      />
+                    ) : (
+                      <Input
+                        value={componentProps[prop] || ''}
+                        onChange={(e) => updateProp(prop, e.target.value)}
+                        placeholder={`Enter ${prop}`}
+                      />
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* 복잡한 컴포넌트 안내 */}
+            {currentComponent && (!currentComponent.props || Object.keys(currentComponent.props).length === 0) && (
+              <div className="text-sm text-muted-foreground">
+                이 컴포넌트는 복잡한 구조로 인해 기본 설정으로만 표시됩니다.
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* 미리보기 */}
+        <Card>
+          <CardHeader>
+            <CardTitle>미리보기</CardTitle>
+            <CardDescription>
+              선택한 설정으로 컴포넌트가 어떻게 보이는지 확인하세요.
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-sm">
-              <code>
-                {`import { ${currentComponent?.name} } from '@/components/ui/${selectedComponent}';
-
-<${currentComponent?.name}${Object.entries(componentProps)
-  .filter(([_, value]) => value !== undefined && value !== '')
-  .map(([key, value]) => {
-    if (typeof value === 'boolean') {
-      return value ? ` ${key}` : '';
-    }
-    return ` ${key}="${value}"`;
-  })
-  .join('')} />`}
-              </code>
-            </pre>
+            <div className="min-h-[200px] flex items-center justify-center border-2 border-dashed border-muted-foreground/25 rounded-lg p-8">
+              {renderComponent()}
+            </div>
           </CardContent>
         </Card>
-      </main>
+      </div>
+
+      {/* 코드 출력 */}
+      <Card className="mt-8">
+        <CardHeader>
+          <CardTitle>생성된 코드</CardTitle>
+          <CardDescription>
+            현재 설정에 따른 컴포넌트 코드입니다.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-sm">
+            <code>
+              {`import { ${currentComponent?.name} } from '@/components/ui/${selectedComponent}';
+
+<${currentComponent?.name}${Object.entries(componentProps)
+                  .filter(([_, value]) => value !== undefined && value !== '')
+                  .map(([key, value]) => {
+                    if (typeof value === 'boolean') {
+                      return value ? ` ${key}` : '';
+                    }
+                    return ` ${key}="${value}"`;
+                  })
+                  .join('')} />`}
+            </code>
+          </pre>
+        </CardContent>
+      </Card>
     </div>
   );
 }

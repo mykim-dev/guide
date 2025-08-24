@@ -1,11 +1,7 @@
 ---
-title: Data Table
-description: 정렬, 필터링, 페이지네이션을 지원하는 데이터 테이블 컴포넌트
+title: "Data Table"
+description: "Data Table은 Table 컴포넌트를 기반으로 한 고급 데이터 테이블입니다. 정렬, 필터링, 페이지네이션, 선택 등의 기능을 제공합니다."
 ---
-
-# Data Table
-
-Data Table은 Table 컴포넌트를 기반으로 한 고급 데이터 테이블입니다. 정렬, 필터링, 페이지네이션, 선택 등의 기능을 제공합니다.
 
 ## 기본 사용법
 

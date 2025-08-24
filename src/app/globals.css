@@ -116,7 +116,36 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
+  }
+
+  .layout-container {
+    @apply border border-red-500;
+  }
+
+  .layout-header {
+    @apply h-[4rem] flex items-center justify-between border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60;
+
+    .container {
+      @apply mx-auto flex items-center justify-between;
+
+      h1 {
+        @apply text-xl font-bold;
+      }
+
+      nav {
+        @apply flex-1 flex items-center justify-center;
+
+        a {
+          @apply px-3 py-2 text-sm font-medium rounded-md transition-colors;
+        }
+      }
+    }
+  }
+
+  .layout-main {
+    @apply container mx-auto h-[calc(100vh-4rem)];
   }
 }

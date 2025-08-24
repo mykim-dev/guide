@@ -1,122 +1,82 @@
-# RadioGroup
-
-라디오 버튼 그룹 컴포넌트입니다. 여러 옵션 중 하나를 선택할 때 사용합니다.
+---
+title: "Radio Group"
+description: "라디오 그룹 컴포넌트 사용 가이드"
+---
 
 ## 기본 사용법
 
 ```tsx
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Label } from "@/components/ui/label"
+import { Radio Group } from '@/components/ui/radio group';
 
-export function RadioGroupDemo() {
+export function MyComponent() {
   return (
-    <RadioGroup defaultValue="option-one">
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="option-one" id="option-one" />
-        <Label htmlFor="option-one">Option One</Label>
-      </div>
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="option-two" id="option-two" />
-        <Label htmlFor="option-two">Option Two</Label>
-      </div>
-    </RadioGroup>
-  )
+    <Radio Group>기본 Radio Group</Radio Group>
+  );
 }
 ```
 
-## 제어된 컴포넌트
+## 기본 사용법
 
-`value`와 `onValueChange`를 사용하여 라디오 그룹을 제어할 수 있습니다.
+### Basic Radio
 
+:::component-example BasicRadioExample
 ```tsx
-import { useState } from "react"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Label } from "@/components/ui/label"
-
-export function RadioGroupControlled() {
-  const [value, setValue] = useState("option-one")
-
-  return (
-    <div className="space-y-4">
-      <RadioGroup value={value} onValueChange={setValue}>
-        <div className="flex items-center space-x-2">
-          <RadioGroupItem value="option-one" id="option-one" />
-          <Label htmlFor="option-one">Option One</Label>
-        </div>
-        <div className="flex items-center space-x-2">
-          <RadioGroupItem value="option-two" id="option-two" />
-          <Label htmlFor="option-two">Option Two</Label>
-        </div>
-        <div className="flex items-center space-x-2">
-          <RadioGroupItem value="option-three" id="option-three" />
-          <Label htmlFor="option-three">Option Three</Label>
-        </div>
-      </RadioGroup>
-      
-      <p className="text-sm text-muted-foreground">
-        Selected: {value}
-      </p>
-    </div>
-  )
-}
+<RadioGroup defaultValue="option-one">
+  <div className="flex items-center space-x-2">
+    <RadioGroupItem value="option-one" id="option-one" />
+    <Label htmlFor="option-one">Option One</Label>
+  </div>
+  <div className="flex items-center space-x-2">
+    <RadioGroupItem value="option-two" id="option-two" />
+    <Label htmlFor="option-two">Option Two</Label>
+  </div>
+</RadioGroup>
 ```
 
-## 비활성화된 옵션
+<div>
+<RadioGroup defaultValue="option-one">
+  <div className="flex items-center space-x-2">
+    <RadioGroupItem value="option-one" id="option-one" />
+    <Label htmlFor="option-one">Option One</Label>
+  </div>
+  <div className="flex items-center space-x-2">
+    <RadioGroupItem value="option-two" id="option-two" />
+    <Label htmlFor="option-two">Option Two</Label>
+  </div>
+</RadioGroup>
+</div>
+:::
 
-특정 옵션을 비활성화할 수 있습니다.
+## API Reference
 
-```tsx
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Label } from "@/components/ui/label"
+### Props
 
-export function RadioGroupDisabled() {
-  return (
-    <RadioGroup defaultValue="option-one">
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="option-one" id="option-one" />
-        <Label htmlFor="option-one">Option One</Label>
-      </div>
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="option-two" id="option-two" disabled />
-        <Label htmlFor="option-two" className="text-muted-foreground">Option Two (Disabled)</Label>
-      </div>
-      <div className="flex items-center space-x-2">
-        <RadioGroupItem value="option-three" id="option-three" />
-        <Label htmlFor="option-three">Option Three</Label>
-      </div>
-    </RadioGroup>
-  )
-}
-```
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | `undefined` | 선택된 값 |
+| `onValueChange` | `(value: string) => void` | `undefined` | 값 변경 핸들러 |
+| `defaultValue` | `string` | `undefined` | 기본값 |
+| `disabled` | `boolean` | `false` | 라디오 그룹 비활성화 |
+
+### RadioGroupItem Props
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | `required` | 라디오 아이템 값 |
+| `disabled` | `boolean` | `false` | 라디오 아이템 비활성화 |
+| `id` | `string` | `undefined` | HTML id 속성 |
 
 ## 접근성
 
-- **키보드 네비게이션**: Tab, Arrow keys, Enter, Space 지원
-- **스크린 리더**: ARIA 속성과 역할이 적절히 설정됨
-- **포커스 관리**: 선택된 옵션에 포커스가 올바르게 유지됨
+Radio Group 컴포넌트는 다음과 같은 접근성 기능을 제공합니다:
+
+- 키보드 네비게이션 지원
+- 스크린 리더 호환성
+- 적절한 ARIA 속성
+- 포커스 표시
 
 ## 모범 사례
 
-1. **명확한 라벨링**: 각 옵션의 라벨이 명확하고 이해하기 쉽도록 하세요
-2. **적절한 사용**: 상호 배타적인 선택에만 사용하세요
-3. **일관성**: 같은 폼에서 동일한 스타일과 동작을 유지하세요
-4. **접근성**: 모든 옵션에 적절한 라벨을 제공하세요
-
-## API 참조
-
-### RadioGroup
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `value` | `string` | - | 현재 선택된 값 (제어된 컴포넌트) |
-| `defaultValue` | `string` | - | 기본 선택된 값 |
-| `onValueChange` | `(value: string) => void` | - | 값 변경 핸들러 |
-| `disabled` | `boolean` | `false` | 전체 그룹 비활성화 |
-
-### RadioGroupItem
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `value` | `string` | - | 라디오 버튼의 값 |
-| `disabled` | `boolean` | `false` | 라디오 버튼 비활성화 |
-| `asChild` | `boolean` | `false` | 자식 요소를 라디오 버튼으로 렌더링 |
+1. **명확한 라벨링**: 컴포넌트의 기능을 명확하게 설명하는 텍스트 사용
+2. **일관된 스타일**: 동일한 기능의 컴포넌트는 동일한 스타일 사용
+3. **적절한 크기**: 터치 디바이스를 고려한 충분한 크기 제공
+4. **시각적 피드백**: 호버, 포커스, 활성 상태에 대한 명확한 피드백

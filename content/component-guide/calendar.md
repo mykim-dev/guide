@@ -1,100 +1,69 @@
-# Calendar
-
-날짜 선택을 위한 캘린더 컴포넌트입니다. 단일 날짜나 날짜 범위를 선택할 수 있습니다.
+---
+title: "Calendar"
+description: "캘린더 컴포넌트"
+---
 
 ## 기본 사용법
 
 ```tsx
-import { useState } from "react"
-import { Calendar } from "@/components/ui/calendar"
+import { Calendar } from '@/components/ui/calendar';
 
-export function CalendarDemo() {
-  const [date, setDate] = useState<Date | undefined>(new Date())
-
+export function MyComponent() {
   return (
-    <Calendar
-      mode="single"
-      selected={date}
-      onSelect={setDate}
-      className="rounded-md border"
-    />
-  )
+    <Calendar>기본 Calendar</Calendar>
+  );
 }
 ```
 
-## 날짜 범위 선택
+## 기본 사용법
 
-날짜 범위를 선택할 수 있는 캘린더입니다.
+### Basic Calendar
 
+:::component-example BasicCalendarExample
 ```tsx
-import { useState } from "react"
-import { DateRange } from "react-day-picker"
-import { Calendar } from "@/components/ui/calendar"
-
-export function CalendarRange() {
-  const [date, setDate] = useState<DateRange | undefined>({
-    from: new Date(2023, 0, 20),
-    to: new Date(2023, 0, 27),
-  })
-
-  return (
-    <Calendar
-      initialFocus
-      mode="range"
-      defaultMonth={date?.from}
-      selected={date}
-      onSelect={setDate}
-      numberOfMonths={2}
-      className="rounded-md border"
-    />
-  )
-}
+<Calendar
+  mode="single"
+  selected={new Date()}
+  className="rounded-md border"
+/>
 ```
 
-## 다중 날짜 선택
+<div>
+<Calendar
+  mode="single"
+  selected={new Date()}
+  className="rounded-md border"
+/>
+</div>
+:::
 
-여러 날짜를 선택할 수 있는 캘린더입니다.
+## API Reference
 
-```tsx
-import { useState } from "react"
-import { Calendar } from "@/components/ui/calendar"
-
-export function CalendarMultiple() {
-  const [dates, setDates] = useState<Date[] | undefined>([])
-
-  return (
-    <Calendar
-      mode="multiple"
-      selected={dates}
-      onSelect={setDates}
-      className="rounded-md border"
-    />
-  )
-}
-```
-
-## 접근성
-
-- **키보드 네비게이션**: Arrow keys, Enter, Space 지원
-- **스크린 리더**: ARIA 속성과 역할이 적절히 설정됨
-- **날짜 형식**: 적절한 날짜 형식으로 읽힘
-
-## 모범 사례
-
-1. **명확한 선택**: 선택된 날짜가 명확히 표시되도록 하세요
-2. **적절한 범위**: 선택 가능한 날짜 범위를 적절히 제한하세요
-3. **일관성**: 같은 애플리케이션에서 동일한 날짜 형식을 사용하세요
-4. **사용자 경험**: 직관적인 날짜 선택 경험을 제공하세요
-
-## API 참조
-
-### Calendar
+### Props
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `mode` | `"single" \| "multiple" \| "range"` | `"single"` | 선택 모드 |
-| `selected` | `Date \| Date[] \| DateRange` | - | 선택된 날짜 |
-| `onSelect` | `(date: Date \| Date[] \| DateRange) => void` | - | 날짜 선택 핸들러 |
-| `disabled` | `boolean \| Date[] \| (date: Date) => boolean` | `false` | 비활성화된 날짜 |
-| `numberOfMonths` | `number` | `1` | 표시할 월의 수 |
-| `initialFocus` | `boolean` | `false` | 초기 포커스 설정 |
+| `mode` | `'single' | 'multiple' | 'range'` | `'single'` | 선택 모드 |
+| `selected` | `Date | Date[] | DateRange` | `undefined` | 선택된 날짜 |
+| `onSelect` | `(date: Date | Date[] | DateRange) => void` | `undefined` | 날짜 선택 핸들러 |
+| `defaultSelected` | `Date | Date[] | DateRange` | `undefined` | 기본 선택 날짜 |
+| `disabled` | `boolean | Date[] | (date: Date) => boolean` | `false` | 비활성화된 날짜 |
+| `showOutsideDays` | `boolean` | `true` | 다른 월의 날짜 표시 |
+| `captionLayout` | `'label' | 'dropdown'` | `'label'` | 캡션 레이아웃 |
+| `buttonVariant` | `ButtonVariant` | `'ghost'` | 버튼 스타일 |
+
+## 접근성
+
+Calendar 컴포넌트는 다음과 같은 접근성 기능을 제공합니다:
+
+- 키보드 네비게이션 지원
+- 스크린 리더 호환성
+- 적절한 ARIA 속성
+- 포커스 표시
+
+## 모범 사례
+
+1. **명확한 라벨링**: 컴포넌트의 기능을 명확하게 설명하는 텍스트 사용
+2. **일관된 스타일**: 동일한 기능의 컴포넌트는 동일한 스타일 사용
+3. **적절한 크기**: 터치 디바이스를 고려한 충분한 크기 제공
+4. **시각적 피드백**: 호버, 포커스, 활성 상태에 대한 명확한 피드백

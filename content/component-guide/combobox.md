@@ -1,11 +1,7 @@
 ---
-title: Combobox
-description: 검색 가능한 드롭다운 선택 컴포넌트 (Command 기반)
+title: "Combobox"
+description: "Combobox는 Command 컴포넌트를 기반으로 한 검색 가능한 드롭다운 선택 컴포넌트입니다. 사용자가 옵션을 검색하고 선택할 수 있습니다."
 ---
-
-# Combobox
-
-Combobox는 Command 컴포넌트를 기반으로 한 검색 가능한 드롭다운 선택 컴포넌트입니다. 사용자가 옵션을 검색하고 선택할 수 있습니다.
 
 ## 기본 사용법
 

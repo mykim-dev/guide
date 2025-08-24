@@ -1,11 +1,7 @@
 ---
-title: Date Picker
-description: 날짜 선택을 위한 컴포넌트 (Calendar 기반)
+title: "Date Picker"
+description: "Date Picker는 Calendar 컴포넌트를 기반으로 한 날짜 선택 컴포넌트입니다. 사용자가 쉽게 날짜를 선택할 수 있는 인터페이스를 제공합니다."
 ---
-
-# Date Picker
-
-Date Picker는 Calendar 컴포넌트를 기반으로 한 날짜 선택 컴포넌트입니다. 사용자가 쉽게 날짜를 선택할 수 있는 인터페이스를 제공합니다.
 
 ## 기본 사용법
 

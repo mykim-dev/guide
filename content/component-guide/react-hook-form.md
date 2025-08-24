@@ -1,11 +1,7 @@
 ---
-title: React Hook Form
-description: 폼 관리를 위한 React Hook Form 통합 가이드
+title: "React Hook Form"
+description: "폼 관리를 위한 React Hook Form 통합 가이드"
 ---
-
-# React Hook Form
-
-React Hook Form은 성능이 뛰어나고 유연한 폼 라이브러리입니다. shadcn/ui 컴포넌트와 함께 사용하여 강력한 폼을 만들 수 있습니다.
 
 ## 기본 사용법
 
