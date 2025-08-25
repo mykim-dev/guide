@@ -2,7 +2,7 @@ export * from './colors';
 export * from './typography';
 export * from './spacing';
 
-import { defaultColors, generateColorTokens, generateTailwindConfig } from './colors';
+import { defaultColors, generateColorTokens, generateTailwindConfig as generateTailwindColorConfig } from './colors';
 import { generateTypographyTokens, generateTailwindTypographyConfig } from './typography';
 import { generateSpacingTokens, generateTailwindSpacingConfig } from './spacing';
 
@@ -13,7 +13,7 @@ export interface DesignTokens {
 }
 
 export interface TailwindConfig {
-  colors: ReturnType<typeof generateTailwindConfig>;
+  colors: ReturnType<typeof generateTailwindColorConfig>;
   fontSize: ReturnType<typeof generateTailwindTypographyConfig>;
   spacing: ReturnType<typeof generateTailwindSpacingConfig>;
 }
@@ -28,7 +28,7 @@ export const generateDesignTokens = (colors = defaultColors): DesignTokens => {
 
 export const generateTailwindConfig = (colors = defaultColors): TailwindConfig => {
   return {
-    colors: generateTailwindConfig(colors),
+    colors: generateTailwindColorConfig(colors),
     fontSize: generateTailwindTypographyConfig(),
     spacing: generateTailwindSpacingConfig(),
   };

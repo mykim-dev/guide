@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="ko" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider defaultTheme="light">
-          <div className="layout-container min-h-screen bg-background">
+          <div className="layout-container">
             <header className="layout-header"><LayoutHeader /></header>
             <main className="layout-main">
               <ScrollArea className="h-[calc(100vh-4rem)]">
