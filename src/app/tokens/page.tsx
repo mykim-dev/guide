@@ -78,17 +78,14 @@ export default function TokensPage() {
       </div>
 
       <Tabs defaultValue="colors" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="colors" className="flex items-center gap-2">
-            <Eye className="h-4 w-4" />
+        <TabsList className="flex w-full">
+          <TabsTrigger value="colors" className="flex-auto flex items-center gap-2">
             색상
           </TabsTrigger>
           <TabsTrigger value="typography" className="flex items-center gap-2">
-            <Code className="h-4 w-4" />
             타이포그래피
           </TabsTrigger>
           <TabsTrigger value="spacing" className="flex items-center gap-2">
-            <Eye className="h-4 w-4" />
             간격
           </TabsTrigger>
         </TabsList>
@@ -100,7 +97,7 @@ export default function TokensPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
               {Object.entries(defaultColors).map(([category, scale]) => (
                 <Card key={category} className="overflow-hidden">
-                  <CardHeader className="pb-2">
+                  <CardHeader>
                     <div className="flex items-center justify-between">
                       <CardTitle className="capitalize text-sm">{category}</CardTitle>
                       <Badge variant="secondary" className="text-xs">
@@ -112,34 +109,32 @@ export default function TokensPage() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="pt-0">
-                    <div className="space-y-1">
-                      {Object.entries(scale).map(([shade, token]) => {
-                        if (!isColorToken(token)) {
-                          return null;
-                        }
-                        
-                        return (
-                          <div key={shade} className="flex items-center justify-between group hover:bg-accent/50 rounded p-1 -m-1">
-                            <div className="flex items-center space-x-2 flex-1">
-                              <div
-                                className="w-4 h-4 rounded border border-border shadow-sm transition-transform group-hover:scale-110"
-                                style={{ backgroundColor: token.value }}
-                                title={`${token.name}: ${token.value}`}
-                              />
-                              <div className="flex flex-col min-w-0">
-                                <span className="text-xs font-medium truncate">{token.name}</span>
-                                <span className="text-xs text-muted-foreground font-mono">
+                    {Object.entries(scale).map(([shade, token]) => {
+                      if (!isColorToken(token)) {
+                        return null;
+                      }
+
+                      return (
+                        <div key={shade} className="flex items-center justify-between p-1">
+                          <div className="flex items-center space-x-2 flex-1">
+                            <div
+                              className="w-4 h-4 rounded border border-border"
+                              style={{ backgroundColor: token.value }}
+                              title={`${token.name}: ${token.value}`}
+                            />
+                            <div className="flex flex-col min-w-0">
+                              <span className="text-sm truncate">{token.name}</span>
+                              {/* <span className="text-xs text-muted-foreground font-mono">
                                   {shade}
-                                </span>
-                              </div>
+                                </span> */}
                             </div>
-                            <span className="text-xs text-muted-foreground font-mono">
-                              {token.value}
-                            </span>
                           </div>
-                        );
-                      })}
-                    </div>
+                          <span className="text-sm text-muted-foreground font-mono">
+                            {token.value}
+                          </span>
+                        </div>
+                      );
+                    })}
                   </CardContent>
                 </Card>
               ))}
@@ -152,7 +147,7 @@ export default function TokensPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
               {Object.entries(tailwindColors).map(([colorName, colorScale]) => (
                 <Card key={colorName} className="overflow-hidden">
-                  <CardHeader className="pb-2">
+                  <CardHeader>
                     <div className="flex items-center justify-between">
                       <CardTitle className="capitalize text-sm">{colorName}</CardTitle>
                       <Badge variant="secondary" className="text-xs">
@@ -164,28 +159,26 @@ export default function TokensPage() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="pt-0">
-                    <div className="space-y-1">
-                      {Object.entries(colorScale).map(([shade, hexValue]) => (
-                        <div key={shade} className="flex items-center justify-between group hover:bg-accent/50 rounded p-1 -m-1">
-                          <div className="flex items-center space-x-2 flex-1">
-                            <div
-                              className="w-4 h-4 rounded border border-border shadow-sm transition-transform group-hover:scale-110"
-                              style={{ backgroundColor: hexValue }}
-                              title={`${colorName}-${shade}: ${hexValue}`}
-                            />
-                            <div className="flex flex-col min-w-0">
-                              <span className="text-xs font-medium truncate">{colorName}-{shade}</span>
-                              <span className="text-xs text-muted-foreground font-mono">
+                    {Object.entries(colorScale).map(([shade, hexValue]) => (
+                      <div key={shade} className="flex items-center justify-between p-1">
+                        <div className="flex items-center space-x-2 flex-1">
+                          <div
+                            className="w-4 h-4 rounded border border-border"
+                            style={{ backgroundColor: hexValue }}
+                            title={`${colorName}-${shade}: ${hexValue}`}
+                          />
+                          <div className="flex flex-col min-w-0">
+                            <span className="text-sm truncate">{colorName}-{shade}</span>
+                            {/* <span className="text-xs text-muted-foreground font-mono">
                                 {shade}
-                              </span>
-                            </div>
+                              </span> */}
                           </div>
-                          <span className="text-xs text-muted-foreground font-mono">
-                            {hexValue}
-                          </span>
                         </div>
-                      ))}
-                    </div>
+                        <span className="text-sm text-muted-foreground font-mono">
+                          {hexValue}
+                        </span>
+                      </div>
+                    ))}
                   </CardContent>
                 </Card>
               ))}
@@ -194,7 +187,7 @@ export default function TokensPage() {
         </TabsContent>
 
         <TabsContent value="typography" className="space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-[auto_25%_30%] gap-6">
             {/* Display Tokens */}
             <Card>
               <CardHeader>
@@ -208,7 +201,7 @@ export default function TokensPage() {
                     if (!isTypographyToken(token)) {
                       return null;
                     }
-                    
+
                     return (
                       <div key={key} className="space-y-2">
                         <div className="flex items-center justify-between">
@@ -255,7 +248,7 @@ export default function TokensPage() {
                     if (!isTypographyToken(token)) {
                       return null;
                     }
-                    
+
                     return (
                       <div key={key} className="space-y-2">
                         <div className="flex items-center justify-between">
@@ -290,55 +283,54 @@ export default function TokensPage() {
             </Card>
 
             {/* Body Tokens */}
-            <Card className="lg:col-span-2">
+            <Card>
               <CardHeader>
                 <CardTitle className="text-lg">Body</CardTitle>
                 <CardDescription>본문 텍스트용 타이포그래피</CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {Object.entries(typographyTokens)
-                    .filter(([key]) => key.startsWith('body'))
-                    .map(([key, token]) => {
-                      if (!isTypographyToken(token)) {
-                        return null;
-                      }
-                      
-                      return (
-                        <div key={key} className="space-y-3">
-                          <div className="flex items-center justify-between">
-                            <span className="text-sm font-medium text-muted-foreground">{token.name}</span>
-                            <Badge variant="outline" className="text-xs">
-                              {token.fontSize}
-                            </Badge>
-                          </div>
-                          <div
-                            className="border-l-4 border-muted pl-4"
-                            style={{
-                              fontSize: token.fontSize,
-                              lineHeight: token.lineHeight,
-                              fontWeight: token.fontWeight,
-                              letterSpacing: token.letterSpacing,
-                            }}
-                          >
-                            <p className="mb-2">
-                              The quick brown fox jumps over the lazy dog. This is a sample paragraph to demonstrate how the typography token looks in a real context.
-                            </p>
-                            <p className="text-muted-foreground">
-                              This is a second paragraph to show how multiple lines of text appear with this typography style.
-                            </p>
-                          </div>
-                          <div className="grid grid-cols-2 gap-2 text-xs text-muted-foreground">
-                            <div>Weight: {token.fontWeight}</div>
-                            <div>Height: {token.lineHeight}</div>
-                            {token.letterSpacing && (
-                              <div>Spacing: {token.letterSpacing}</div>
-                            )}
-                          </div>
+              <CardContent className="space-y-6">
+                {Object.entries(typographyTokens)
+                  .filter(([key]) => key.startsWith('body'))
+                  .map(([key, token]) => {
+                    if (!isTypographyToken(token)) {
+                      return null;
+                    }
+
+                    return (
+                      <div key={key} className="space-y-3">
+                        <div className="flex items-center justify-between">
+                          <strong className="text-sm font-medium text-muted-foreground">{token.name}</strong>
+                          <Badge variant="outline" className="text-xs">
+                            {token.fontSize}
+                          </Badge>
                         </div>
-                      );
-                    })}
-                </div>
+                        <div
+                          className="border-l-4 border-muted pl-4"
+                          style={{
+                            fontSize: token.fontSize,
+                            lineHeight: token.lineHeight,
+                            fontWeight: token.fontWeight,
+                            letterSpacing: token.letterSpacing,
+                          }}
+                        >
+                          <p className="mb-2">
+                            The quick brown fox jumps over the lazy dog. This is a sample paragraph to demonstrate how the typography token looks in a real context.
+                          </p>
+                          <p className="text-muted-foreground">
+                            This is a second paragraph to show how multiple lines of text appear with this typography style.
+                          </p>
+                        </div>
+                        <div className="grid grid-cols-2 gap-2 text-xs text-muted-foreground">
+                          <div>Weight: {token.fontWeight}</div>
+                          <div>Height: {token.lineHeight}</div>
+                          {token.letterSpacing && (
+                            <div>Spacing: {token.letterSpacing}</div>
+                          )}
+                        </div>
+                        <Separator />
+                      </div>
+                    );
+                  })}
               </CardContent>
             </Card>
           </div>
@@ -350,7 +342,7 @@ export default function TokensPage() {
               if (!isSpacingToken(token)) {
                 return null;
               }
-              
+
               return (
                 <Card key={key} className="overflow-hidden">
                   <CardHeader className="pb-3">
@@ -387,7 +379,7 @@ export default function TokensPage() {
                           </span>
                         </div>
                       </div>
-                      
+
                       {/* Usage examples */}
                       <div className="space-y-2">
                         <div className="text-xs font-medium text-muted-foreground">사용 예시:</div>
