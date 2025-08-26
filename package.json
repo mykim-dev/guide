@@ -7,7 +7,8 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-    "generate-guides": "node scripts/generate-component-guides.js"
+    "generate-guides": "node scripts/generate-component-guides.js",
+    "generate-css": "npx tsx scripts/generate-css-variables.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",

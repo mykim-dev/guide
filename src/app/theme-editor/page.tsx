@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -14,15 +14,14 @@ import { Slider } from '@/components/ui/slider';
 import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
 import { useTheme } from '@/lib/themes/theme-provider';
-import { defaultColors, ColorPalette, themeColors } from '@/lib/tokens/colors';
-import { Download, Copy, RotateCcw, Palette } from 'lucide-react';
+import { defaultColors, ColorPalette, themeColors, ColorToken } from '@/lib/tokens/colors';
+import { Download, Copy, RotateCcw } from 'lucide-react';
 import { DateRange } from 'react-day-picker';
-import { ColorPicker } from '@/components/ui/color-picker';
-import { generateColorScale, saveUserTheme, getUserThemes, deleteUserTheme, UserTheme } from '@/lib/utils/color-utils';
+import { generateColorScale } from '@/lib/utils/color-utils';
 
 export default function ThemeEditorPage() {
-  const { colors, updateColor, setColors } = useTheme();
-  const [progressValue, setProgressValue] = useState(33);
+  const { colors, setColors, applyLocalTheme, resetLocalTheme } = useTheme();
+  const [progressValue] = useState(33);
   const [sliderValue, setSliderValue] = useState([50]);
   const [checkboxStates, setCheckboxStates] = useState({
     terms: true,
@@ -34,99 +33,63 @@ export default function ThemeEditorPage() {
   });
   const [selectedTheme, setSelectedTheme] = useState('default');
   const [customColor, setCustomColor] = useState('#3b82f6');
-  const [userThemes, setUserThemes] = useState<Record<string, UserTheme>>({});
-  const [showColorPicker, setShowColorPicker] = useState(false);
 
-  // 초기 테마 설정
-  React.useEffect(() => {
-    document.documentElement.classList.add(`theme-${selectedTheme}`);
-  }, []);
-
-  // 사용자 테마 로드
+  // 페이지 언마운트 시 로컬 테마 초기화
   useEffect(() => {
-    const savedUserThemes = getUserThemes();
-    setUserThemes(savedUserThemes);
-  }, []);
+    return () => {
+      if (resetLocalTheme) {
+        resetLocalTheme();
+      }
+    };
+  }, [resetLocalTheme]);
 
-  const handleThemeChange = (themeName: string) => {
+  const handleThemeChange = useCallback((themeName: string) => {
+    // 기본 테마 선택 시: Primary 색상만 변경하고 Customer 색상은 건드리지 않음
     const newTheme = themeColors[themeName];
-    if (newTheme) {
-      // Primary 색상만 변경
+    if (newTheme && applyLocalTheme) {
+      // Primary 색상만 업데이트
       const updatedColors = { ...colors, primary: newTheme.primary };
       setColors(updatedColors);
       setSelectedTheme(themeName);
       
-      // CSS 클래스로 테마 적용
-      document.documentElement.className = document.documentElement.className
-        .replace(/theme-\w+/g, '')
-        .trim();
-      document.documentElement.classList.add(`theme-${themeName}`);
+      // Primary 색상만 적용 (Customer 색상은 전혀 건드리지 않음)
+      applyLocalTheme(updatedColors, 'primary');
     }
-  };
+  }, [colors, setColors, applyLocalTheme]);
 
-  const resetToDefault = () => {
+  const resetToDefault = useCallback(() => {
+    if (resetLocalTheme) {
+      resetLocalTheme();
+    }
     setColors(defaultColors);
     setSelectedTheme('default');
     
-    // CSS 클래스로 테마 초기화
-    document.documentElement.className = document.documentElement.className
-      .replace(/theme-\w+/g, '')
-      .trim();
-    document.documentElement.classList.add('theme-default');
-  };
+    // Primary 색상만 기본값으로 적용 (Customer 색상은 건드리지 않음)
+    if (applyLocalTheme) {
+      applyLocalTheme(defaultColors, 'primary');
+    }
+  }, [setColors, resetLocalTheme, applyLocalTheme]);
 
-  const handleCustomColorChange = (color: string) => {
+  const handleCustomColorChange = useCallback((color: string) => {
     setCustomColor(color);
     const colorScale = generateColorScale(color);
-    const customTheme = { ...colors, primary: colorScale };
     
-    // CSS 변수 적용 (사용자 색상만)
-    const primaryColors = colorScale;
-    Object.entries(primaryColors).forEach(([shade, token]) => {
-      const colorToken = token as { value: string };
-      document.documentElement.style.setProperty(`--primary-${shade}`, colorToken.value);
-    });
-    document.documentElement.style.setProperty('--primary', primaryColors['500'].value);
-    document.documentElement.style.setProperty('--primary-foreground', primaryColors['50'].value);
+    // Customer 색상만 독립적으로 관리 (전역 colors 상태 변경하지 않음)
+    const customerTheme = { 
+      primary: colorScale,
+      secondary: colors.secondary,
+      success: colors.success,
+      warning: colors.warning,
+      error: colors.error
+    };
     
-    setColors(customTheme);
-    setSelectedTheme('custom');
-  };
-
-  const handleSaveCustomTheme = (name: string) => {
-    const colorScale = generateColorScale(customColor);
-    const customTheme = { ...colors, primary: colorScale };
-    saveUserTheme(name, customTheme);
-    
-    // 사용자 테마 목록 업데이트
-    const updatedUserThemes = getUserThemes();
-    setUserThemes(updatedUserThemes);
-  };
-
-  const handleUserThemeChange = (themeName: string) => {
-    const userTheme = userThemes[themeName];
-    if (userTheme) {
-      setColors(userTheme.colors);
-      setSelectedTheme(`user-${themeName}`);
-      
-      // CSS 변수 적용 (사용자 테마만)
-      const primaryColors = userTheme.colors.primary;
-      Object.entries(primaryColors).forEach(([shade, token]) => {
-        const colorToken = token as { value: string };
-        document.documentElement.style.setProperty(`--primary-${shade}`, colorToken.value);
-      });
-      document.documentElement.style.setProperty('--primary', primaryColors['500'].value);
-      document.documentElement.style.setProperty('--primary-foreground', primaryColors['50'].value);
+    if (applyLocalTheme) {
+      // 로컬 테마 적용 (Customer 색상 사용)
+      applyLocalTheme(customerTheme, 'customer');
     }
-  };
+  }, [colors, applyLocalTheme]);
 
-  const handleDeleteUserTheme = (themeName: string) => {
-    deleteUserTheme(themeName);
-    const updatedUserThemes = getUserThemes();
-    setUserThemes(updatedUserThemes);
-  };
-
-  const exportTheme = () => {
+  const exportTheme = useCallback(() => {
     const themeConfig = {
       colors: colors,
       timestamp: new Date().toISOString(),
@@ -142,9 +105,9 @@ export default function ThemeEditorPage() {
     a.download = 'theme-config.json';
     a.click();
     URL.revokeObjectURL(url);
-  };
+  }, [colors]);
 
-  const copyThemeCode = () => {
+  const copyThemeCode = useCallback(() => {
     const tailwindConfig = `module.exports = {
   theme: {
     extend: {
@@ -154,19 +117,21 @@ export default function ThemeEditorPage() {
 }`;
 
     navigator.clipboard.writeText(tailwindConfig);
-  };
+  }, [colors]);
 
   const [date, setDate] = React.useState<DateRange | undefined>({
     from: new Date(),
     to: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 오늘부터 1주일 후
-  })
+  });
 
   return (
     <div>
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">테마 에디터</h1>
         <p className="text-muted-foreground">
-          색상 팔레트를 커스터마이징하고 Tailwind CSS 설정을 생성하세요.
+          색상 팔레트를 커스터마이징하고 Tailwind CSS 설정을 생성하세요. 
+          <br />
+          <strong>변경사항은 이 페이지에서만 미리보기됩니다.</strong>
         </p>
       </div>
 
@@ -179,86 +144,30 @@ export default function ThemeEditorPage() {
               <CardDescription>
                 Primary 색상을 빠르게 변경할 수 있는 미리 정의된 테마를 선택하세요.                
               </CardDescription>
-              <div className="flex space-x-2 absolute -top-4 right-2">
-                <Button onClick={exportTheme} variant="secondary">
-                  <Download className="h-4 w-4" />
-                  테마 내보내기
-                </Button>
-                <Button onClick={copyThemeCode} variant="secondary">
-                  <Copy className="h-4 w-4" />
-                  Tailwind 설정 복사
-                </Button>
-                <Button onClick={resetToDefault} variant="secondary">
-                  <RotateCcw className="h-4 w-4" />
-                  기본값으로 되돌리기
-                </Button>
-                <Button 
-                  onClick={() => setShowColorPicker(!showColorPicker)} 
-                  variant="secondary"
-                >
-                  <Palette className="h-4 w-4" />
-                  사용자 색상
-                </Button>
-              </div>
+                             <div className="flex space-x-2 absolute -top-4 right-2">
+                 <Button onClick={exportTheme} variant="secondary">
+                   <Download className="h-4 w-4" />
+                   테마 내보내기
+                 </Button>
+                 <Button onClick={copyThemeCode} variant="secondary">
+                   <Copy className="h-4 w-4" />
+                   Tailwind 설정 복사
+                 </Button>
+                 <Button onClick={resetToDefault} variant="secondary">
+                   <RotateCcw className="h-4 w-4" />
+                   기본값으로 되돌리기
+                 </Button>
+               </div>
             </CardHeader>
             <CardContent>
-              {/* 사용자 색상 선택기 */}
-              {showColorPicker && (
-                <div className="mb-6">
-                  <ColorPicker
-                    color={customColor}
-                    onChange={handleCustomColorChange}
-                    onSave={handleSaveCustomTheme}
-                    title="사용자 색상 선택"
-                    showSaveButton={true}
-                  />
-                </div>
-              )}
-
-              {/* 사용자 테마 목록 */}
-              {Object.keys(userThemes).length > 0 && (
-                <div className="mb-4">
-                  <Label className="text-sm font-medium mb-2 block">사용자 테마</Label>
-                  <div className="flex flex-wrap gap-2 max-h-20 overflow-y-auto">
-                    {Object.entries(userThemes).map(([themeName, userTheme]) => {
-                      const primary500 = userTheme.colors.primary['500'] as { value: string };
-                      const isSelected = selectedTheme === `user-${themeName}`;
-                      return (
-                        <div key={themeName} className="relative group">
-                          <button
-                            onClick={() => handleUserThemeChange(themeName)}
-                            className={`flex gap-x-1 p-1 pr-2 rounded border transition-colors ${
-                              isSelected 
-                                ? 'border-2 bg-primary/10' 
-                                : 'border hover:bg-accent'
-                            }`}
-                            style={isSelected ? { borderColor: 'var(--primary)' } : {}}
-                          >
-                            <div
-                              className="w-2 h-2 rounded-full border"
-                              style={{ backgroundColor: primary500.value }}
-                            />
-                            <span className="text-sm font-medium">{themeName}</span>
-                          </button>
-                          <button
-                            onClick={() => handleDeleteUserTheme(themeName)}
-                            className="absolute -top-1 -right-1 w-4 h-4 bg-destructive text-destructive-foreground rounded-full text-xs opacity-0 group-hover:opacity-100 transition-opacity"
-                          >
-                            ×
-                          </button>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
-
-              {/* 기본 테마 목록 */}
-              <div>
+              {/* 기본 테마 목록 (customer 제외) */}
+              <div className="mb-8">
                 <Label className="text-sm font-medium mb-2 block">기본 테마</Label>
                 <div className="flex flex-wrap gap-2 max-h-32 overflow-y-auto">
-                  {Object.entries(themeColors).map(([themeName, themeColor]) => {
-                    const primary500 = themeColor.primary['500'] as { value: string };
+                  {Object.entries(themeColors)
+                    .filter(([themeName]) => themeName !== 'customer') // customer 제외
+                    .map(([themeName, themeColor]) => {
+                    const primary500 = themeColor.primary['500'] as ColorToken;
                     const isSelected = selectedTheme === themeName;
                     return (
                       <button
@@ -281,6 +190,21 @@ export default function ThemeEditorPage() {
                    })}
                 </div>
               </div>
+
+              {/* Customer 색상 */}
+              <div className="mb-8">
+                <Label className="text-sm font-medium mb-2 block">Customer 색상</Label>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="color"
+                    value={customColor}
+                    onChange={(e) => setCustomColor(e.target.value)}
+                    className="w-12 h-9 rounded border cursor-pointer border-none"
+                    title="Customer 색상 변경"
+                  />
+                  <Button size="sm" onClick={() => handleCustomColorChange(customColor)}>색상 변경</Button>
+                </div>
+              </div>
             </CardContent>
           </Card>
         </div>
@@ -293,78 +217,104 @@ export default function ThemeEditorPage() {
                 현재 테마가 컴포넌트에 어떻게 적용되는지 확인하세요.
               </CardDescription>
             </CardHeader>
-            <CardContent className="grid grid-cols-2 gap-6">
+            <CardContent className="space-y-8">
+              {/* 첫 번째 행: 기본 컴포넌트들 */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Buttons */}
-                <div className="space-y-2">
+                <div className="space-y-3">
                   <Label className="text-sm font-medium">Buttons</Label>
-                  <div className="flex flex-wrap gap-2">
-                    <Button variant="default">Primary</Button>
-                    <Button variant="secondary">Secondary</Button>
-                    <Button variant="outline">Outline</Button>
-                    <Button variant="ghost">Ghost</Button>
-                    <Button variant="destructive">Destructive</Button>
+                  <div className="space-y-2">
+                    <div className="flex flex-wrap gap-2">
+                      <Button variant="default">Primary</Button>
+                      <Button variant="secondary">Secondary</Button>
+                      <Button variant="customer">Customer</Button>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      <Button variant="outline">Outline</Button>
+                      <Button variant="ghost">Ghost</Button>
+                      <Button variant="destructive">Destructive</Button>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      <Button size="sm">Small</Button>
+                      <Button size="default">Default</Button>
+                      <Button size="lg">Large</Button>
+                    </div>
                   </div>
                 </div>
 
                 {/* Badges */}
-                <div className="space-y-2">
+                <div className="space-y-3">
                   <Label className="text-sm font-medium">Badges</Label>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge variant="default">Primary Badge</Badge>
-                    <Badge variant="secondary">Secondary Badge</Badge>
-                    <Badge variant="destructive">Destructive</Badge>
-                  </div>
-                </div>
-
-              <div className="space-y-6">
-                {/* Checkbox */}
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium">Checkbox</Label>
                   <div className="space-y-2">
-                    <div className="flex items-center space-x-2">
-                      <Checkbox 
-                        id="terms" 
-                        checked={checkboxStates.terms}
-                        onCheckedChange={(checked) => 
-                          setCheckboxStates(prev => ({ ...prev, terms: checked as boolean }))
-                        }
-                      />
-                      <Label htmlFor="terms" className="text-sm">Accept terms and conditions</Label>
+                    <div className="flex flex-wrap gap-2">
+                      <Badge variant="default">Primary</Badge>
+                      <Badge variant="secondary">Secondary</Badge>
+                      <Badge variant="customer">Customer</Badge>
                     </div>
-                    <div className="flex items-center space-x-2">
-                      <Checkbox 
-                        id="marketing" 
-                        checked={checkboxStates.marketing}
-                        onCheckedChange={(checked) => 
-                          setCheckboxStates(prev => ({ ...prev, marketing: checked as boolean }))
-                        }
+                    <div className="flex flex-wrap gap-2">
+                      <Badge variant="destructive">Destructive</Badge>
+                      <Badge variant="outline">Outline</Badge>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 두 번째 행: 폼 컴포넌트들 */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Input & Textarea */}
+                <div className="space-y-3">
+                  <Label className="text-sm font-medium">Form Inputs</Label>
+                  <div className="space-y-3">
+                    <div className="space-y-2">
+                      <Label htmlFor="email" className="text-xs">Email</Label>
+                      <Input id="email" type="email" placeholder="Enter your email" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="message" className="text-xs">Message</Label>
+                      <Textarea
+                        id="message"
+                        placeholder="Type your message here."
+                        rows={3}
                       />
-                      <Label htmlFor="marketing" className="text-sm">Send me marketing emails</Label>
                     </div>
                   </div>
                 </div>
 
-                {/* Radio Group */}
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium">Radio Group</Label>
-                  <RadioGroup value={radioValue} onValueChange={setRadioValue}>
+                {/* Interactive Components */}
+                <div className="space-y-3">
+                  <Label className="text-sm font-medium">Interactive Elements</Label>
+                  <div className="space-y-3">
+                    {/* Checkbox */}
                     <div className="space-y-2">
                       <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="option-one" id="option-one" />
-                        <Label htmlFor="option-one" className="text-sm">Option One</Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="option-two" id="option-two" />
-                        <Label htmlFor="option-two" className="text-sm">Option Two</Label>
+                        <Checkbox 
+                          id="terms" 
+                          checked={checkboxStates.terms}
+                          onCheckedChange={(checked) => 
+                            setCheckboxStates(prev => ({ ...prev, terms: checked as boolean }))
+                          }
+                        />
+                        <Label htmlFor="terms" className="text-sm">Accept terms</Label>
                       </div>
                     </div>
-                  </RadioGroup>
-                </div>
 
-                {/* Switch */}
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium">Switch</Label>
-                  <div className="space-y-2">
+                    {/* Radio Group */}
+                    <div className="space-y-2">
+                      <RadioGroup value={radioValue} onValueChange={setRadioValue}>
+                        <div className="space-y-2">
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="option-one" id="option-one" />
+                            <Label htmlFor="option-one" className="text-sm">Option One</Label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="option-two" id="option-two" />
+                            <Label htmlFor="option-two" className="text-sm">Option Two</Label>
+                          </div>
+                        </div>
+                      </RadioGroup>
+                    </div>
+
+                    {/* Switch */}
                     <div className="flex items-center space-x-2">
                       <Switch 
                         id="airplane-mode" 
@@ -377,51 +327,39 @@ export default function ThemeEditorPage() {
                     </div>
                   </div>
                 </div>
-
-                {/* Progress */}
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium">Progress</Label>
-                  <div className="space-y-2">
-                    <Progress 
-                      value={progressValue} 
-                      className="w-full"
-                    />                 
-                  </div>
-                </div>
-
-                {/* Slider */}
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium">Slider</Label>
-                  <div className="space-y-2">
-                    <Slider
-                      value={sliderValue}
-                      onValueChange={setSliderValue}
-                      max={100}
-                      step={1}
-                      className="w-full"
-                    />
-                    <div className="text-xs text-muted-foreground">
-                      Value: {sliderValue[0]}
-                    </div>
-                  </div>
-                </div>    
               </div>
 
-              <div className="space-y-6">
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" placeholder="Enter your email" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="message">Message</Label>
-                  <Textarea
-                    id="message"
-                    placeholder="Type your message here."
-                  />
+              {/* 세 번째 행: 진행률 및 날짜 컴포넌트들 */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Progress & Slider */}
+                <div className="space-y-3">
+                  <Label className="text-sm font-medium">Progress Indicators</Label>
+                  <div className="space-y-3">
+                    <div className="space-y-2">
+                      <Label className="text-xs">Progress Bar</Label>
+                      <Progress 
+                        value={progressValue} 
+                        className="w-full"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label className="text-xs">Slider</Label>
+                      <Slider
+                        value={sliderValue}
+                        onValueChange={setSliderValue}
+                        max={100}
+                        step={1}
+                        className="w-full"
+                      />
+                      <div className="text-xs text-muted-foreground">
+                        Value: {sliderValue[0]}
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Calendar */}
-                <div className="space-y-2">
+                <div className="space-y-3">
                   <Label className="text-sm font-medium">Calendar</Label>
                   <Calendar
                     mode="range"
@@ -430,6 +368,56 @@ export default function ThemeEditorPage() {
                     className="rounded-md border shadow-sm"
                     captionLayout="dropdown"
                   />
+                </div>
+              </div>
+
+              {/* 네 번째 행: 카드 및 알림 컴포넌트들 */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Sample Cards */}
+                <div className="space-y-3">
+                  <Label className="text-sm font-medium">Sample Cards</Label>
+                  <div className="space-y-3">
+                    <Card className="p-4">
+                      <CardHeader className="p-0 pb-2">
+                        <CardTitle className="text-sm">Sample Card</CardTitle>
+                        <CardDescription className="text-xs">
+                          This is a sample card component
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent className="p-0">
+                        <p className="text-xs text-muted-foreground">
+                          Card content with some sample text to show how the theme affects the appearance.
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+
+                {/* Color Samples */}
+                <div className="space-y-3">
+                  <Label className="text-sm font-medium">Color Samples</Label>
+                  <div className="space-y-2">
+                    <div className="grid grid-cols-5 gap-2">
+                      <div className="h-8 bg-primary rounded flex items-center justify-center">
+                        <span className="text-primary-foreground text-xs">P</span>
+                      </div>
+                      <div className="h-8 bg-secondary rounded flex items-center justify-center">
+                        <span className="text-secondary-foreground text-xs">S</span>
+                      </div>
+                                             <div className="h-8 bg-customer rounded flex items-center justify-center">
+                         <span className="text-customer-foreground text-xs">C</span>
+                       </div>
+                      <div className="h-8 bg-success rounded flex items-center justify-center">
+                        <span className="text-success-foreground text-xs">✓</span>
+                      </div>
+                      <div className="h-8 bg-destructive rounded flex items-center justify-center">
+                        <span className="text-destructive-foreground text-xs">✕</span>
+                      </div>
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      P: Primary, S: Secondary, C: Customer, ✓: Success, ✕: Destructive
+                    </div>
+                  </div>
                 </div>
               </div>
             </CardContent>
@@ -450,7 +438,7 @@ export default function ThemeEditorPage() {
                 <Label className="text-sm font-medium">Primary</Label>
                 <div className="grid grid-cols-11 gap-x-1">
                   {Object.entries(colors.primary).map(([shade, token]) => {
-                    const colorToken = token as { value: string; name: string };
+                    const colorToken = token as ColorToken;
                     return (
                       <div
                         key={shade}
@@ -473,30 +461,7 @@ export default function ThemeEditorPage() {
                 <Label className="text-sm font-medium">Secondary</Label>
                 <div className="grid grid-cols-11 gap-x-1">
                   {Object.entries(colors.secondary).map(([shade, token]) => {
-                    const colorToken = token as { value: string; name: string };
-                    return (
-                      <div
-                        key={shade}
-                        className="flex flex-col items-center w-full"
-                      >
-                        <div
-                          className="w-full h-4 rounded border"
-                          style={{ backgroundColor: colorToken.value }}
-                          title={colorToken.name}
-                        />
-                        <span className="w-full text-xs text-center">{shade}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Neutral */}
-              <div className="space-y-2">
-                <Label className="text-sm font-medium">Neutral</Label>
-                <div className="grid grid-cols-11 gap-x-1">
-                  {Object.entries(colors.neutral).map(([shade, token]) => {
-                    const colorToken = token as { value: string; name: string };
+                    const colorToken = token as ColorToken;
                     return (
                       <div
                         key={shade}
@@ -519,7 +484,7 @@ export default function ThemeEditorPage() {
                 <Label className="text-sm font-medium">Success</Label>
                 <div className="grid grid-cols-11 gap-x-1">
                   {Object.entries(colors.success).map(([shade, token]) => {
-                    const colorToken = token as { value: string; name: string };
+                    const colorToken = token as ColorToken;
                     return (
                       <div
                         key={shade}
@@ -542,7 +507,7 @@ export default function ThemeEditorPage() {
                 <Label className="text-sm font-medium">Warning</Label>
                 <div className="grid grid-cols-11 gap-x-1">
                   {Object.entries(colors.warning).map(([shade, token]) => {
-                    const colorToken = token as { value: string; name: string };
+                    const colorToken = token as ColorToken;
                     return (
                       <div
                         key={shade}
@@ -565,30 +530,7 @@ export default function ThemeEditorPage() {
                 <Label className="text-sm font-medium">Error</Label>
                 <div className="grid grid-cols-11 gap-x-1">
                   {Object.entries(colors.error).map(([shade, token]) => {
-                    const colorToken = token as { value: string; name: string };
-                    return (
-                      <div
-                        key={shade}
-                        className="flex flex-col items-center w-full"
-                      >
-                        <div
-                          className="w-full h-4 rounded border"
-                          style={{ backgroundColor: colorToken.value }}
-                          title={colorToken.name}
-                        />
-                        <span className="w-full text-xs text-center">{shade}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Info */}
-              <div className="space-y-2">
-                <Label className="text-sm font-medium">Info</Label>
-                <div className="grid grid-cols-11 gap-x-1">
-                  {Object.entries(colors.info).map(([shade, token]) => {
-                    const colorToken = token as { value: string; name: string };
+                    const colorToken = token as ColorToken;
                     return (
                       <div
                         key={shade}
