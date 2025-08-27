@@ -4,8 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { Moon, Sun } from 'lucide-react';
-import { useTheme } from '@/lib/themes/theme-provider';
+import { ModeToggle } from '@/components/ui/mode-toggle';
 
 const navigation = [
     { name: '디자인 토큰', href: '/tokens' },
@@ -18,7 +17,6 @@ const navigation = [
 
 export function LayoutHeader() {
     const pathname = usePathname();
-    const { theme, setTheme } = useTheme();
 
     return (
         <div className="container">
@@ -42,15 +40,7 @@ export function LayoutHeader() {
                 ))}
             </nav>
             <div className="header-options">
-                <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-                >
-                    <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                    <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                    <span className="sr-only">Toggle theme</span>
-                </Button>
+                <ModeToggle />
             </div>
         </div>
     );

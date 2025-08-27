@@ -84,4 +84,21 @@
       @apply mx-auto py-8;
     }
   }
+
+  /* form */
+  .form-wrap {
+    @apply grid gap-6 leading-[1];
+
+    .form-item {
+      @apply flex flex-col;
+
+      .form-item-title {
+        @apply h-[1.75rem] items-center text-sm font-medium border border-red-500;
+      }
+
+      .form-item-content {
+        @apply min-h-[1.5rem] flex items-center gap-1 border border-red-500;
+      }
+    }
+  }
 }

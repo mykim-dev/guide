@@ -1,120 +1,84 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState } from 'react';
-import { defaultColors, ColorPalette } from '../tokens/colors';
+
+type Theme = 'light' | 'dark' | 'system';
 
 interface ThemeContextType {
-  theme: 'light' | 'dark';
-  setTheme: (theme: 'light' | 'dark') => void;
-  colors: ColorPalette;
-  setColors: (colors: ColorPalette) => void;
-  updateColor: (category: keyof ColorPalette, shade: string, value: string) => void;
-  applyLocalTheme?: (colors: ColorPalette, themeType?: 'customer' | 'primary') => void;
-  resetLocalTheme?: () => void;
+  theme: Theme;
+  setTheme: (theme: Theme) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({
   children,
-  defaultTheme = 'light',
+  defaultTheme = 'system',
+  storageKey = 'design-system-theme',
 }: {
   children: React.ReactNode;
-  defaultTheme?: 'light' | 'dark';
+  defaultTheme?: Theme;
+  storageKey?: string;
 }) {
-  const [theme, setTheme] = useState<'light' | 'dark'>(defaultTheme);
-  const [colors, setColors] = useState<ColorPalette>(defaultColors);
+  const [theme, setTheme] = useState<Theme>(defaultTheme);
+  const [mounted, setMounted] = useState(false);
+
+  // 클라이언트 사이드에서만 localStorage 접근
+  useEffect(() => {
+    setMounted(true);
+    const savedTheme = localStorage.getItem(storageKey) as Theme;
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
+  }, [storageKey]);
 
   useEffect(() => {
+    if (!mounted) return;
+
     const root = window.document.documentElement;
     root.classList.remove('light', 'dark');
-    root.classList.add(theme);
-  }, [theme]);
 
-  // 전역 CSS 변수 설정 제거 - 테마 에디터에서만 로컬로 적용
-
-  const updateColor = (category: keyof ColorPalette, shade: string, value: string) => {
-    setColors(prev => ({
-      ...prev,
-      [category]: {
-        ...prev[category],
-        [shade]: {
-          ...prev[category][shade],
-          value,
-        },
-      },
-    }));
-  };
-
-  // 로컬 테마 적용 함수 (테마 에디터에서만 사용)
-  const applyLocalTheme = (localColors: ColorPalette, themeType: 'customer' | 'primary' = 'primary') => {
-    const root = window.document.documentElement;
-    
-    if (themeType === 'customer') {
-      // Customer 테마: --customer- 변수 설정
-      Object.entries(localColors.primary).forEach(([shade, token]) => {
-        if (token && typeof token === 'object' && 'value' in token && 'name' in token) {
-          const colorToken = token as { value: string; name: string };
-          root.style.setProperty(`--customer-${shade}`, colorToken.value);
-        }
-      });
-      
-      // Customer 기본 변수들도 설정
-      const primary500 = localColors.primary['500'] as { value: string };
-      const primary50 = localColors.primary['50'] as { value: string };
-      if (primary500 && primary50) {
-        root.style.setProperty('--customer', primary500.value);
-        root.style.setProperty('--customer-foreground', primary50.value);
-      }
-    } else {
-      // 일반 테마: --primary- 변수 설정
-      Object.entries(localColors.primary).forEach(([shade, token]) => {
-        if (token && typeof token === 'object' && 'value' in token && 'name' in token) {
-          const colorToken = token as { value: string; name: string };
-          root.style.setProperty(`--primary-${shade}`, colorToken.value);
-        }
-      });
-      
-      // 기본 primary 변수들도 설정
-      const primary500 = localColors.primary['500'] as { value: string };
-      const primary50 = localColors.primary['50'] as { value: string };
-      if (primary500 && primary50) {
-        root.style.setProperty('--primary', primary500.value);
-        root.style.setProperty('--primary-foreground', primary50.value);
-      }
+    if (theme === 'system') {
+      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light';
+      root.classList.add(systemTheme);
+      return;
     }
-  };
 
-  // 로컬 테마 초기화 함수
-  const resetLocalTheme = () => {
-    const root = window.document.documentElement;
+    root.classList.add(theme);
+  }, [theme, mounted]);
+
+  // 시스템 테마 변경 감지
+  useEffect(() => {
+    if (!mounted) return;
+
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     
-    // Primary 관련 CSS 변수들 제거
-    const primaryShades = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'];
-    primaryShades.forEach(shade => {
-      root.style.removeProperty(`--primary-${shade}`);
-    });
-    root.style.removeProperty('--primary');
-    root.style.removeProperty('--primary-foreground');
+    const handleChange = () => {
+      if (theme === 'system') {
+        const root = window.document.documentElement;
+        root.classList.remove('light', 'dark');
+        root.classList.add(mediaQuery.matches ? 'dark' : 'light');
+      }
+    };
     
-    // Customer 관련 CSS 변수들도 제거
-    primaryShades.forEach(shade => {
-      root.style.removeProperty(`--customer-${shade}`);
-    });
-    root.style.removeProperty('--customer');
-    root.style.removeProperty('--customer-foreground');
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, [theme, mounted]);
+
+  const value = {
+    theme,
+    setTheme: (theme: Theme) => {
+      if (mounted) {
+        localStorage.setItem(storageKey, theme);
+      }
+      setTheme(theme);
+    },
   };
 
   return (
-    <ThemeContext.Provider value={{ 
-      theme, 
-      setTheme, 
-      colors, 
-      setColors, 
-      updateColor, 
-      applyLocalTheme, 
-      resetLocalTheme 
-    }}>
+    <ThemeContext.Provider value={value}>
       {children}
     </ThemeContext.Provider>
   );

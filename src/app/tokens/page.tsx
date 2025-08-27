@@ -6,7 +6,8 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { defaultColors, ColorToken, typographyTokens, spacingTokens, SpacingToken, TypographyToken, tailwindColors } from '@/lib/tokens';
-import { Download, Copy, Eye, Code } from 'lucide-react';
+import { designTokens, tokenCategories } from '@/lib/tokens/design-tokens';
+import { Download, Copy, Eye, Code, Info } from 'lucide-react';
 
 // 타입 가드 함수들
 const isColorToken = (token: unknown): token is ColorToken => {
@@ -77,10 +78,13 @@ export default function TokensPage() {
         </div>
       </div>
 
-      <Tabs defaultValue="colors" className="space-y-6">
+      <Tabs defaultValue="palette" className="space-y-6">
         <TabsList className="flex w-full">
-          <TabsTrigger value="colors" className="flex-auto flex items-center gap-2">
-            색상
+          <TabsTrigger value="palette" className="flex-auto flex items-center gap-2">
+            색상 팔레트
+          </TabsTrigger>
+          <TabsTrigger value="design-tokens" className="flex-auto flex items-center gap-2">
+            디자인 토큰
           </TabsTrigger>
           <TabsTrigger value="typography" className="flex items-center gap-2">
             타이포그래피
@@ -90,7 +94,7 @@ export default function TokensPage() {
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="colors" className="space-y-6">
+        <TabsContent value="palette" className="space-y-6">
           {/* 기본 색상 팔레트 */}
           <div>
             <h3 className="text-lg font-semibold mb-4">기본 색상 팔레트</h3>
@@ -186,6 +190,95 @@ export default function TokensPage() {
           </div>
         </TabsContent>
 
+        <TabsContent value="design-tokens" className="space-y-6">
+          <div className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Info className="h-5 w-5" />
+                  디자인 토큰 가이드
+                </CardTitle>
+                <CardDescription>
+                  각 디자인 토큰의 용도와 사용법을 확인하세요.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            {Object.entries(tokenCategories).map(([categoryKey, category]) => (
+              <Card key={categoryKey}>
+                <CardHeader>
+                  <CardTitle>{category.name}</CardTitle>
+                  <CardDescription>{category.description}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 border border-red-500">
+                    {category.tokens.map(([tokenKey, token]) => (
+                      <div key={tokenKey} className="border rounded-lg p-4 space-y-3">
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1">
+                            <div className="flex flex-wrap items-center gap-2 mb-1">
+                              <h4 className="font-medium text-sm">{token.name}</h4>
+                              <code className="text-xs text-muted-foreground bg-muted px-1 py-0.5 rounded">
+                                {tokenKey}
+                              </code>
+                            </div>
+                            <p className="text-sm text-muted-foreground">{token.description}</p>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            {token.category === 'color' && (
+                              <div className="flex items-center gap-1">
+                                <div 
+                                  className="w-6 h-6 rounded border shadow-sm"
+                                  style={{ 
+                                    backgroundColor: `var(${tokenKey})`,
+                                    borderColor: 'var(--border)'
+                                  }}
+                                />
+                              </div>
+                            )}
+                            {token.size && (
+                              <Badge variant="outline" className="text-xs">
+                                {token.size}
+                              </Badge>
+                            )}
+                          </div>
+                        </div>
+                        
+                        <div className="space-y-2">
+                          <div>
+                            <span className="text-xs font-medium text-muted-foreground">사용처:</span>
+                            <div className="flex flex-wrap gap-1 mt-1">
+                              {token.usage.map((usage, index) => (
+                                <Badge key={index} variant="secondary" className="text-xs">
+                                  {usage}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+                          
+                          {token.examples && (
+                            <div>
+                              <span className="text-xs font-medium text-muted-foreground">예시:</span>
+                              <ul className="text-xs text-muted-foreground mt-1 space-y-1">
+                                {token.examples.map((example, index) => (
+                                  <li key={index} className="flex items-center gap-1">
+                                    <span className="w-1 h-1 bg-muted-foreground rounded-full"></span>
+                                    {example}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </TabsContent>
+        
         <TabsContent value="typography" className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-[auto_25%_30%] gap-6">
             {/* Display Tokens */}
