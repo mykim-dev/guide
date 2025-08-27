@@ -34,15 +34,15 @@ export default function ThemeEditorPage() {
 // 테마 에디터 콘텐츠 컴포넌트
 function ThemeEditorContent() {
   const { theme } = useTheme(); // 기본 테마 (라이트/다크/시스템)
-  const { 
-    colors, 
-    setColors, 
-    applyLocalTheme, 
-    resetLocalTheme, 
-    tokens, 
-    updateToken, 
+  const {
+    colors,
+    setColors,
+    applyLocalTheme,
+    resetLocalTheme,
+    tokens,
+    updateToken,
     updateTokenGroup,
-    generateColorScale 
+    generateColorScale
   } = useThemeEditor(); // 테마 에디터 기능
 
   const [progressValue] = useState(33);
@@ -218,7 +218,7 @@ function ThemeEditorContent() {
                     type="color"
                     value={mounted ? oklchToHex(customColor) : '#000'}
                     onChange={(e) => setCustomColor(hexToOklch(e.target.value))}
-                    className="w-12 h-9 rounded border cursor-pointer border-none"
+                    className="w-12 h-8 rounded border cursor-pointer border-none"
                     title="Customer 색상 변경"
                   />
                   <Button variant="outline" size="sm" onClick={() => handleCustomColorChange(customColor)}>
@@ -262,7 +262,7 @@ function ThemeEditorContent() {
                       type="color"
                       value={mounted ? oklchToHex(token.value) : '#000'}
                       onChange={(e) => updateToken(tokenName, hexToOklch(e.target.value))}
-                      className="w-12 h-9 rounded border cursor-pointer"
+                      className="w-12 h-8 rounded border cursor-pointer"
                     />
                     <Input
                       value={token.value}
@@ -349,7 +349,7 @@ function ThemeEditorContent() {
                         type="color"
                         value={mounted ? oklchToHex(token.value) : '#000'}
                         onChange={(e) => updateToken(tokenName, hexToOklch(e.target.value))}
-                        className="w-12 h-9 rounded border cursor-pointer"
+                        className="w-12 h-8 rounded border cursor-pointer"
                       />
                       <Input
                         value={token.value}
@@ -374,9 +374,9 @@ function ThemeEditorContent() {
         {/* 실시간 미리보기 */}
         <div className="lg:col-span-3">
           {/* 컴포넌트 미리보기 */}
-          <div className="border border-input rounded-xl p-8 shadow-sm">           
-            <div className="grid gap-6">
-               {/* typography display */}
+          <div className="border border-input rounded-xl p-6 shadow-sm">
+            <div className="flex flex-col gap-4">
+              {/* typography display */}
               <div>
                 <div className="text-xs">display-2xl (fontSize: 4.5rem / fontWeight: 700 / height: 1.1 / letterSpacing: -0.025em)</div>
                 <div><h1 className="display-2xl">The quick brown fox jumps over the lazy dog</h1></div>
@@ -398,7 +398,7 @@ function ThemeEditorContent() {
                 <div><h5 className="display-sm">The quick brown fox jumps over the lazy dog</h5></div>
               </div>
             </div>
-            <div className="grid gap-6">
+            <div className="flex flex-col gap-4">
               {/* typography Heading */}
               <div>
                 <div className="text-xs">heading-xl (fontSize: 2rem / fontWeight: 600 / height: 1.3 / letterSpacing: -0.025em)</div>
@@ -417,39 +417,39 @@ function ThemeEditorContent() {
                 <div><h4 className="heading-sm">The quick brown fox jumps over the lazy dog</h4></div>
               </div>
             </div>
-            <div className="grid gap-6">
+            <div className="flex flex-col gap-4">
               {/* typography body */}
               <div>
-                <div className="text-xs">body-xl (fontSize: 1.25rem / fontWeight: 400 / height: 1.6 / letterSpacing: -0.025em)</div>
+                <div className="text-xs">body-xl (fontSize: 1.25rem / fontWeight: 400 / height: 1.6)</div>
                 <div><p className="body-xl">The quick brown fox jumps over the lazy dog</p></div>
               </div>
               <div>
-                <div className="text-xs">body-lg (fontSize: 1.125rem / fontWeight: 400 / height: 1.6 / letterSpacing: -0.025em)</div>
+                <div className="text-xs">body-lg (fontSize: 1.125rem / fontWeight: 400 / height: 1.6)</div>
                 <div><p className="body-lg">The quick brown fox jumps over the lazy dog</p></div>
               </div>
               <div>
-                <div className="text-xs">body-md (fontSize: 1rem / fontWeight: 400 / height: 1.6 / letterSpacing: -0.025em)</div>
+                <div className="text-xs">body-md (fontSize: 1rem / fontWeight: 400 / height: 1.6)</div>
                 <div><p className="body-md">The quick brown fox jumps over the lazy dog</p></div>
               </div>
               <div>
-                <div className="text-xs">body-sm (fontSize: 0.875rem / fontWeight: 400 / height: 1.6 / letterSpacing: -0.025em)</div>
+                <div className="text-xs">body-sm (fontSize: 0.875rem / fontWeight: 400 / height: 1.6)</div>
                 <div><p className="body-sm">The quick brown fox jumps over the lazy dog</p></div>
               </div>
             </div>
 
-            <div className="grid gap-6">
+            <div className="mt-4">
               <form>
                 <div className="form-wrap">
                   <div className="form-item">
                     {/* Buttons */}
                     <div className="form-item-title">Buttons</div>
                     <div className="form-item-content">
-                      <Button variant="default">Primary</Button>
-                      <Button variant="secondary">Secondary</Button>
-                      <Button variant="customer">Customer</Button>
-                      <Button variant="destructive">Destructive</Button>
-                      <Button variant="outline">Outline</Button>
-                      <Button variant="ghost">Ghost</Button>
+                      <Button variant="default" size="sm">Primary</Button>
+                      <Button variant="secondary" size="sm">Secondary</Button>
+                      <Button variant="customer" size="sm">Customer</Button>
+                      <Button variant="destructive" size="sm">Destructive</Button>
+                      <Button variant="outline" size="sm">Outline</Button>
+                      <Button variant="ghost" size="sm">Ghost</Button>
                     </div>
                   </div>
 
@@ -462,24 +462,6 @@ function ThemeEditorContent() {
                       <Badge variant="customer">Customer</Badge>
                       <Badge variant="destructive">Destructive</Badge>
                       <Badge variant="outline">Outline</Badge>
-                    </div>
-                  </div>
-                  
-                  <div className="form-item">
-                    <div className="form-item-title">Email</div>
-                    <div className="form-item-content">
-                      <Input id="email" type="email" placeholder="Enter your email" />
-                    </div>
-                  </div>
-
-                  <div className="form-item">
-                    <div className="form-item-title">Message</div>
-                    <div className="form-item-content">
-                      <Textarea
-                        id="message"
-                        placeholder="Type your message here."
-                        rows={3}
-                      />
                     </div>
                   </div>
 
@@ -500,31 +482,59 @@ function ThemeEditorContent() {
                       </RadioGroup>
                     </div>
                   </div>
-                  
+
                   <div className="form-item">
                     <div className="form-item-title">Switch</div>
                     <div className="form-item-content">
                       <Switch id="switch" checked={true} />
-                      <Switch id="switch2" checked={true} disabled={true}/>
+                      <Switch id="switch2" checked={true} disabled={true} />
                     </div>
                   </div>
 
                   <div className="form-item">
-                    <div className="form-item-title">Progress</div>
+                    <div className="form-item-title">Select</div>
                     <div className="form-item-content">
-                      <Progress value={50} />
+                      <Select defaultValue="apple">
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select an option" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="apple">Apple</SelectItem>
+                          <SelectItem value="pear">Pear</SelectItem>
+                          <SelectItem value="banana">Banana</SelectItem>
+                        </SelectContent>
+                      </Select>
                     </div>
                   </div>
 
                   <div className="form-item">
-                    <div className="form-item-title">Slider</div>
+                    <div className="form-item-title">Email</div>
                     <div className="form-item-content">
-                      <Slider defaultValue={[50]} max={100} step={1} />
+                      <Input type="email" id="email" placeholder="Enter your email" />
                     </div>
                   </div>
 
+                  <div className="form-item">
+                    <div className="form-item-title">Message</div>
+                    <div className="form-item-content">
+                      <Textarea
+                        id="message"
+                        placeholder="Type your message here."
+                        rows={3}
+                      />
+                    </div>
+                  </div>
                 </div>
               </form>
+            </div>
+
+            <div className="mt-4">
+              <div className="h-8 flex items-center text-sm font-medium">Progress</div>
+              <Progress value={50} />
+            </div>
+            <div className="mt-4">
+              <div className="h-8 flex items-center text-sm font-medium">Slider</div>
+              <Slider defaultValue={[50]} max={100} step={1} />
             </div>
           </div>
         </div>
