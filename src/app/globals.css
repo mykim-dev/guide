@@ -101,4 +101,25 @@
       }
     }
   }
+
+  /* option */
+  .option-wrap {
+    @apply flex flex-col gap-4;
+
+    .option-item {
+      @apply flex flex-col gap-1;
+
+      .option-item-title {
+        @apply flex items-center font-medium;
+      }
+
+      .option-item-content {
+        @apply flex items-center gap-2;
+      }
+
+      .option-item-description {
+        @apply text-sm text-muted-foreground leading-[1.1];
+      }
+    }
+  }
 }
