@@ -217,7 +217,7 @@ export default function TokensPage() {
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
                             <div className="flex flex-wrap items-center gap-2 mb-1">
-                              <h4 className="font-medium text-sm">{token.name}</h4>
+                              <h4 className="font-bold text-sm">{token.name}</h4>
                               <code className="text-xs text-muted-foreground bg-muted px-1 py-0.5 rounded">
                                 {tokenKey}
                               </code>

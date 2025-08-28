@@ -62,6 +62,7 @@ import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuSeparator,
 import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarSeparator, MenubarShortcut, MenubarTrigger } from '@/components/ui/menubar';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent } from '@/components/ui/chart';
+import { BadgeCheckIcon, GitBranch, Loader2Icon } from 'lucide-react';
 
 const components = [
   {
@@ -71,10 +72,18 @@ const components = [
       <div className="flex flex-wrap gap-2">
         <Button>Default</Button>
         <Button variant="secondary">Secondary</Button>
+        <Button variant="customer">Customer</Button>
         <Button variant="destructive">Destructive</Button>
         <Button variant="outline">Outline</Button>
         <Button variant="ghost">Ghost</Button>
         <Button variant="link">Link</Button>
+        <Button variant="outline" size="icon">
+          <GitBranch />
+        </Button>
+        <Button disabled>
+          <Loader2Icon className="animate-spin" />
+          Please wait
+        </Button>
       </div>
     ),
   },
@@ -85,8 +94,31 @@ const components = [
       <div className="flex flex-wrap gap-2">
         <Badge>Default</Badge>
         <Badge variant="secondary">Secondary</Badge>
+        <Badge variant="customer">Customer</Badge>
         <Badge variant="destructive">Destructive</Badge>
         <Badge variant="outline">Outline</Badge>
+        <Badge
+          variant="secondary"
+          className="bg-blue-500 text-white dark:bg-blue-600"
+        >
+          <BadgeCheckIcon />
+          Verified
+        </Badge>
+        <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">
+          8
+        </Badge>
+        <Badge
+          className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums"
+          variant="destructive"
+        >
+          99
+        </Badge>
+        <Badge
+          className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums"
+          variant="outline"
+        >
+          20+
+        </Badge>
       </div>
     ),
   },
@@ -710,7 +742,7 @@ export default function ComponentsPage() {
           ))}
         </div>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {components.map((component) => (
           <Card
             key={component.title}

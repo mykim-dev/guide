@@ -18,7 +18,7 @@ import { useTheme } from '@/lib/themes/theme-provider';
 import { ThemeEditorProvider, useThemeEditor } from '@/lib/themes/theme-editor-provider';
 import { defaultColors, themeColors } from '@/lib/tokens/colors';
 import { oklchToHex, hexToOklch } from '@/lib/utils/color-utils';
-import { Download, Copy, RotateCcw, Palette, Type, Ruler } from 'lucide-react';
+import { Download, Copy, RotateCcw, Palette, Type, Ruler, GitBranch, Loader2Icon, BadgeCheckIcon } from 'lucide-react';
 import { DateRange } from 'react-day-picker';
 import { Separator } from '@radix-ui/react-separator';
 
@@ -450,6 +450,14 @@ function ThemeEditorContent() {
                       <Button variant="destructive" size="sm">Destructive</Button>
                       <Button variant="outline" size="sm">Outline</Button>
                       <Button variant="ghost" size="sm">Ghost</Button>
+                      <Button variant="link" size="sm">Link</Button>
+                      <Button variant="outline" size="icon">
+                        <GitBranch />
+                      </Button>
+                      <Button disabled size="sm">
+                        <Loader2Icon className="animate-spin" />
+                        Please wait
+                      </Button>
                     </div>
                   </div>
 
@@ -462,6 +470,28 @@ function ThemeEditorContent() {
                       <Badge variant="customer">Customer</Badge>
                       <Badge variant="destructive">Destructive</Badge>
                       <Badge variant="outline">Outline</Badge>
+                      <Badge
+                        variant="secondary"
+                        className="bg-blue-500 text-white dark:bg-blue-600"
+                      >
+                      <BadgeCheckIcon />
+                        Verified
+                      </Badge>
+                      <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">
+                        8
+                      </Badge>
+                      <Badge
+                        className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums"
+                        variant="destructive"
+                      >
+                        99
+                      </Badge>
+                      <Badge
+                        className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums"
+                        variant="outline"
+                      >
+                        20+
+                      </Badge>
                     </div>
                   </div>
 
