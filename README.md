@@ -1,77 +1,97 @@
-# Design System Guide
+# 🎨 Design System Guide
 
-체계적인 디자인 시스템을 구축하고 관리할 수 있는 종합적인 가이드입니다. 디자인 토큰부터 컴포넌트 라이브러리, 그리고 실시간 테마 에디터까지 모든 것을 제공합니다.
+> 체계적인 디자인 시스템을 구축하고 관리할 수 있는 종합적인 가이드입니다. 디자인 토큰부터 컴포넌트 라이브러리, 그리고 테마 에디터까지 모든 것을 제공합니다.
 
-## 🚀 주요 기능
+[![Next.js](https://img.shields.io/badge/Next.js-15.5.0-black)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19.1.0-blue)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-v4-38B2AC)](https://tailwindcss.com/)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-### 1. 디자인 토큰 시스템
+## ✨ 주요 기능
+
+### 🎯 디자인 토큰 시스템
 - **색상 토큰**: 브랜드 색상과 기능적 색상 체계 (OKLCH 색상 공간 지원)
 - **타이포그래피 토큰**: 폰트 크기, 줄 높이, 글자 간격
 - **간격 토큰**: 여백과 패딩 값 체계
 - **Tailwind CSS v4 통합**: 자동 설정 생성 및 CSS 변수 지원
 
-### 2. 컴포넌트 라이브러리 (50+ 컴포넌트)
+### 🧩 컴포넌트 라이브러리 (50+ 컴포넌트)
 - **shadcn/ui 기반**: 현대적이고 접근성 높은 컴포넌트
 - **다양한 컴포넌트**: 버튼, 입력 필드, 카드, 모달, 차트, 캐러셀 등
 - **일관된 디자인**: 통일된 디자인 언어와 스타일 시스템
 - **접근성 우선**: ARIA 속성과 키보드 네비게이션 지원
 
-### 3. Markdown 기반 문서화
+### 📚 Markdown 기반 문서화
 - **디자인 가이드**: 디자인 원칙과 가이드라인
 - **컴포넌트 가이드**: 각 컴포넌트의 사용법과 예제
 - **실시간 렌더링**: Markdown을 실시간으로 렌더링
 - **자동 가이드 생성**: 컴포넌트 템플릿 기반 자동 문서 생성
 
-### 4. 플레이그라운드
+### 🎮 플레이그라운드
 - **실시간 테스트**: 컴포넌트를 실시간으로 테스트
 - **속성 조정**: 다양한 속성을 실시간으로 변경
 - **코드 생성**: 설정에 따른 코드 자동 생성
 - **50+ 컴포넌트 지원**: 모든 UI 컴포넌트 실시간 테스트
 
-### 5. 테마 에디터
+### 🎨 테마 에디터
 - **색상 커스터마이징**: OKLCH 색상 공간 기반 실시간 편집
 - **미리보기**: 변경사항 실시간 미리보기
 - **설정 내보내기**: Tailwind CSS 설정 자동 생성
 - **로컬 테마**: 페이지별 임시 테마 적용
 
-### 6. 자동화 도구
+### ⚡ 자동화 도구
 - **컴포넌트 가이드 생성**: `npm run generate-guides`
 - **CSS 변수 생성**: `npm run generate-css`
 - **빌드 최적화**: Turbopack을 통한 빠른 개발 환경
 
 ## 🛠️ 기술 스택
 
-- **Framework**: Next.js 15.5.0 (App Router)
-- **Language**: TypeScript 5
-- **Styling**: Tailwind CSS v4
-- **Components**: shadcn/ui (50+ 컴포넌트)
-- **Markdown**: react-markdown + rehype/remark 플러그인
-- **Icons**: Lucide React
-- **State Management**: React Context + React 19.1.0
-- **Build Tool**: Turbopack
-- **Color System**: OKLCH 색상 공간
+| 기술 | 버전 | 설명 |
+|------|------|------|
+| **Framework** | Next.js 15.5.0 | App Router 기반 React 프레임워크 |
+| **Language** | TypeScript 5 | 타입 안전성과 개발자 경험 향상 |
+| **Styling** | Tailwind CSS v4 | 유틸리티 우선 CSS 프레임워크 |
+| **Components** | shadcn/ui | 50+ 현대적 UI 컴포넌트 |
+| **Markdown** | react-markdown | 실시간 Markdown 렌더링 |
+| **Icons** | Lucide React | 아름다운 아이콘 라이브러리 |
+| **State** | React Context | 전역 상태 관리 |
+| **Build Tool** | Turbopack | 빠른 개발 환경 |
+| **Color System** | OKLCH | 현대적 색상 공간 |
 
-## 📦 설치 및 실행
+## 🚀 빠른 시작
 
-### 1. 의존성 설치
+### 1. 프로젝트 클론
+```bash
+git clone <repository-url>
+cd design-system-guide
+```
+
+### 2. 의존성 설치
 ```bash
 npm install
 # 또는
 pnpm install
+# 또는
+yarn install
 ```
 
-### 2. 개발 서버 실행 (Turbopack 사용)
+### 3. 개발 서버 실행
 ```bash
 npm run dev
 ```
 
-### 3. 브라우저에서 확인
+### 4. 브라우저에서 확인
 ```
 http://localhost:3000
 ```
 
-### 4. 추가 명령어
+## 📦 사용 가능한 명령어
+
 ```bash
+# 개발 서버 실행 (Turbopack 사용)
+npm run dev
+
 # 컴포넌트 가이드 자동 생성
 npm run generate-guides
 
@@ -83,6 +103,12 @@ npm run build
 
 # 프로덕션 서버 실행
 npm run start
+
+# 타입 체크
+npm run type-check
+
+# 린트 검사
+npm run lint
 ```
 
 ## 📁 프로젝트 구조
@@ -119,7 +145,7 @@ scripts/
 └── generate-css-variables.ts    # CSS 변수 자동 생성
 ```
 
-## �� 디자인 토큰
+## 🎨 디자인 토큰
 
 ### 색상 시스템 (OKLCH 기반)
 - **Primary**: 브랜드 메인 색상
@@ -144,26 +170,26 @@ scripts/
 
 ## 🧩 사용 가능한 컴포넌트 (50+)
 
-### 기본 컴포넌트
+### 📝 기본 컴포넌트
 - Button, Input, Textarea, Label, Select
 - Checkbox, Radio Group, Switch, Slider
 - Badge, Avatar, Progress, Separator
 
-### 레이아웃 컴포넌트
+### 📐 레이아웃 컴포넌트
 - Card, Accordion, Collapsible
 - Tabs, Sidebar, Drawer, Sheet
 - Navigation Menu, Breadcrumb
 
-### 인터랙션 컴포넌트
+### 🎯 인터랙션 컴포넌트
 - Dialog, Alert Dialog, Popover, Tooltip
 - Hover Card, Context Menu, Dropdown Menu
 - Command, Menubar
 
-### 데이터 컴포넌트
+### 📊 데이터 컴포넌트
 - Table, Calendar, Pagination
 - Carousel, Chart, Data Table
 
-### 기타 컴포넌트
+### 🔧 기타 컴포넌트
 - Color Picker, Input OTP, Toggle, Toggle Group
 - Resizable, Scroll Area, Skeleton
 - Aspect Ratio, Calendar
@@ -266,9 +292,40 @@ npm run generate-guides
 npm run generate-css
 ```
 
-## 📄 라이선스
+## ❓ 문제 해결
 
-이 프로젝트는 MIT 라이선스 하에 배포됩니다.
+### 일반적인 문제
+
+#### 1. 의존성 설치 오류
+```bash
+# node_modules 삭제 후 재설치
+rm -rf node_modules package-lock.json
+npm install
+```
+
+#### 2. TypeScript 오류
+```bash
+# 타입 체크 실행
+npm run type-check
+```
+
+#### 3. 빌드 오류
+```bash
+# 캐시 삭제 후 재빌드
+npm run build -- --no-cache
+```
+
+#### 4. 개발 서버 문제
+```bash
+# 포트 변경
+npm run dev -- -p 3001
+```
+
+### 브라우저 호환성
+- Chrome 90+
+- Firefox 88+
+- Safari 14+
+- Edge 90+
 
 ## 🙏 감사의 말
 
@@ -278,34 +335,32 @@ npm run generate-css
 - [Radix UI](https://www.radix-ui.com/) - 접근성 높은 UI 프리미티브
 - [Lucide](https://lucide.dev/) - 아름다운 아이콘 라이브러리
 
-## 추가 개발 아이디어
+## 🚀 추가 개발 아이디어
 
-### 단기 목표
+### 🎯 단기 목표
 - [ ] 더 많은 컴포넌트 추가: shadcn/ui의 모든 컴포넌트
 - [ ] 다크 모드 개선: 더 세밀한 다크 모드 지원
 - [ ] 애니메이션 시스템: Framer Motion 통합
 - [ ] 접근성 도구: 접근성 검사 도구 추가
 
-### 중기 목표
+### 📈 중기 목표
 - [ ] 성능 모니터링: 컴포넌트 성능 측정
 - [ ] 국제화: 다국어 지원
 - [ ] 테마 저장: 로컬 스토리지에 테마 저장
 - [ ] 컴포넌트 코드 복사: 클립보드 복사 기능
 
-### 장기 목표
+### 🌟 장기 목표
 - [ ] 디자인 시스템 API: RESTful API 제공
 - [ ] 플러그인 시스템: 확장 가능한 아키텍처
 - [ ] 협업 기능: 팀 기반 테마 관리
 - [ ] 버전 관리: 디자인 토큰 버전 관리 시스템
-```
 
-주요 업데이트 내용:
+---
 
-1. **기술 스택 업데이트**: Next.js 15.5.0, React 19.1.0, Tailwind CSS v4, Turbopack
-2. **컴포넌트 수량 명시**: 50+ 컴포넌트로 확장
-3. **OKLCH 색상 공간**: 새로운 색상 시스템 설명
-4. **자동화 도구**: 가이드 생성 및 CSS 변수 생성 스크립트
-5. **성능 최적화**: Turbopack과 Tailwind CSS v4의 장점
-6. **실제 컴포넌트 목록**: 사용 가능한 모든 컴포넌트 나열
-7. **개발 가이드 개선**: 자동화 스크립트 사용법 추가
-8. **추가 개발 아이디어**: 단기/중기/장기 목표로 구분
+<div align="center">
+
+**Design System Guide** - 체계적인 디자인 시스템 구축을 위한 종합 가이드
+
+[시작하기](#-빠른-시작) • [문서 보기](/design-guide) • [컴포넌트 보기](/components) • [플레이그라운드](/playground)
+
+</div>

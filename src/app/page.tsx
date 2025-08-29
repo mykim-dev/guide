@@ -53,7 +53,7 @@ export default function HomePage() {
         </h1>
         <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
           체계적인 디자인 시스템을 구축하고 관리할 수 있는 종합적인 가이드입니다.
-          디자인 토큰부터 컴포넌트 라이브러리, 그리고 실시간 테마 에디터까지 모든 것을 제공합니다.
+          디자인 토큰부터 컴포넌트 라이브러리, 그리고 테마 에디터까지 모든 것을 제공합니다.
         </p>
         <div className="flex gap-4 justify-center">
           <Button asChild size="lg">
