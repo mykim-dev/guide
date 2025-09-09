@@ -87,7 +87,7 @@
 
   /* form */
   .form-wrap {
-    @apply grid grid-cols-1 gap-4 leading-[1];
+    @apply grid grid-cols-2 gap-4 leading-[1];
 
     .form-item {
       @apply flex flex-col;
@@ -102,24 +102,33 @@
     }
   }
 
-  /* option */
-  .option-wrap {
-    @apply flex flex-col gap-4;
+  /* screen */
+  .screen-wrap {
+    @apply grid grid-cols-2 gap-5;
 
-    .option-item {
-      @apply flex flex-col gap-1;
+    .screen-item {
+      @apply space-y-5;
+    }
+  }
 
-      .option-item-title {
-        @apply flex items-center font-medium;
+  /* component */
+  .component-wrap {
+    @apply border rounded-md;
+
+    .component-header {
+      @apply flex items-center justify-between py-1;
+
+      .component-title {
+        @apply flex-1 text-base font-medium px-4;
       }
 
-      .option-item-content {
-        @apply flex items-center gap-2;
+      .component-actions {
+        @apply flex-1 flex items-center justify-end gap-2;
       }
+    }
 
-      .option-item-description {
-        @apply text-sm text-muted-foreground leading-[1.1];
-      }
+    .component-content {
+      @apply border-t border-border p-4;
     }
   }
 }

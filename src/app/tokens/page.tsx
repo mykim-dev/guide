@@ -5,9 +5,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { semanticColors, ColorToken, spacingTokens, SpacingToken, tailwindColors } from '@/lib/tokens';
+import { semanticColors, ColorToken, spacingTokens, SpacingToken, tailwindColors, defaultDesignTokens } from '@/lib/tokens';
+import { useThemeEditor } from '@/lib/themes/theme-editor-provider';
 import { designTokens, tokenCategories, getTextSizeTokens } from '@/lib/tokens/design-tokens';
-import { Download, Copy, Eye, Code, Info } from 'lucide-react';
+import { Download, Copy, Eye, Code, Info, RotateCcw, CheckCircle, AlertCircle, Clipboard } from 'lucide-react';
+import { useState } from 'react';
+import { toast } from 'sonner';
 
 // rem을 px로 변환하는 함수 (기본 16px = 1rem)
 const remToPx = (remValue: string): string => {
@@ -56,36 +59,208 @@ const isTypographyToken = (token: unknown): token is TypographyToken => {
 };
 
 export default function TokensPage() {
-  const handleExportTokens = () => {
-    const tokensData = {
-      colors: semanticColors,
-      tailwindColors: tailwindColors,
-      typography: getTextSizeTokens(),
-      spacing: spacingTokens,
-      timestamp: new Date().toISOString(),
-    };
+  const [isExporting, setIsExporting] = useState(false);
+  const [isCopying, setIsCopying] = useState(false);
+  const [isApplying, setIsApplying] = useState(false);
+  const [isResetting, setIsResetting] = useState(false);
+  const [copiedTokens, setCopiedTokens] = useState<Set<string>>(new Set());
 
-    const blob = new Blob([JSON.stringify(tokensData, null, 2)], {
-      type: 'application/json',
-    });
+  // 테마 에디터 훅 사용
+  const { resetLocalTheme, updateTokenGroup } = useThemeEditor();
 
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'design-tokens.json';
-    a.click();
-    URL.revokeObjectURL(url);
+  const handleExportTokens = async () => {
+    try {
+      setIsExporting(true);
+      const tokensData = {
+        colors: semanticColors,
+        tailwindColors: tailwindColors,
+        typography: getTextSizeTokens(),
+        spacing: spacingTokens,
+        timestamp: new Date().toISOString(),
+        version: '1.0.0',
+        description: 'Design System Tokens'
+      };
+
+      const blob = new Blob([JSON.stringify(tokensData, null, 2)], {
+        type: 'application/json',
+      });
+
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `design-tokens-${new Date().toISOString().split('T')[0]}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      toast.success('토큰이 성공적으로 내보내졌습니다!', {
+        description: 'design-tokens.json 파일이 다운로드되었습니다.'
+      });
+    } catch (error) {
+      console.error('Export failed:', error);
+      toast.error('토큰 내보내기에 실패했습니다.', {
+        description: '다시 시도해주세요.'
+      });
+    } finally {
+      setIsExporting(false);
+    }
   };
 
-  const handleCopyTokens = () => {
-    const tokensData = {
-      colors: semanticColors,
-      tailwindColors: tailwindColors,
-      typography: getTextSizeTokens(),
-      spacing: spacingTokens,
-    };
+  const handleCopyTokens = async () => {
+    try {
+      setIsCopying(true);
+      const tokensData = {
+        colors: semanticColors,
+        tailwindColors: tailwindColors,
+        typography: getTextSizeTokens(),
+        spacing: spacingTokens,
+        timestamp: new Date().toISOString(),
+        version: '1.0.0',
+        description: 'Design System Tokens'
+      };
 
-    navigator.clipboard.writeText(JSON.stringify(tokensData, null, 2));
+      await navigator.clipboard.writeText(JSON.stringify(tokensData, null, 2));
+      toast.success('토큰이 클립보드에 복사되었습니다!', {
+        description: 'JSON 형태로 복사되었습니다.'
+      });
+    } catch (error) {
+      console.error('Copy failed:', error);
+      toast.error('클립보드 복사에 실패했습니다.', {
+        description: '브라우저에서 클립보드 접근을 허용해주세요.'
+      });
+    } finally {
+      setIsCopying(false);
+    }
+  };
+
+  const handleApplyTokens = async () => {
+    try {
+      setIsApplying(true);
+      // 토큰을 CSS 변수로 적용하는 로직
+      const root = document.documentElement;
+
+      // 색상 토큰 적용
+      Object.entries(semanticColors).forEach(([category, scale]) => {
+        Object.entries(scale).forEach(([shade, token]) => {
+          if (isColorToken(token)) {
+            const cssVarName = `--${category}-${shade}`;
+            root.style.setProperty(cssVarName, token.value);
+          }
+        });
+      });
+
+      // 스페이싱 토큰 적용
+      Object.entries(spacingTokens).forEach(([key, token]) => {
+        if (isSpacingToken(token)) {
+          root.style.setProperty(key, token.value);
+        }
+      });
+
+      toast.success('토큰이 적용되었습니다!', {
+        description: '페이지가 새로운 토큰으로 업데이트되었습니다.'
+      });
+    } catch (error) {
+      console.error('Apply failed:', error);
+      toast.error('토큰 적용에 실패했습니다.', {
+        description: '다시 시도해주세요.'
+      });
+    } finally {
+      setIsApplying(false);
+    }
+  };
+
+  const handleResetTokens = async () => {
+    try {
+      setIsResetting(true);
+      const root = document.documentElement;
+
+      // 1. 테마 에디터의 로컬 테마 리셋 (사용자 커스텀 색상 제거)
+      resetLocalTheme();
+
+      // 2. 모든 커스텀 CSS 변수 제거
+      const style = getComputedStyle(root);
+      const cssVars = Array.from(style).filter(prop => prop.startsWith('--'));
+
+      cssVars.forEach(cssVar => {
+        root.style.removeProperty(cssVar);
+      });
+
+      // 3. 잠시 대기 후 defaultDesignTokens로 초기화
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      // 4. defaultDesignTokens의 색상 토큰 적용
+      Object.entries(defaultDesignTokens.colors).forEach(([tokenName, tokenValue]) => {
+        const cssVarName = `--${tokenName}`;
+        root.style.setProperty(cssVarName, tokenValue);
+      });
+
+      // 5. defaultDesignTokens의 스페이싱 토큰 적용
+      Object.entries(defaultDesignTokens.spacing).forEach(([tokenName, tokenValue]) => {
+        const cssVarName = `--spacing-${tokenName}`;
+        root.style.setProperty(cssVarName, tokenValue);
+      });
+
+      // 6. defaultDesignTokens의 타이포그래피 토큰 적용
+      Object.entries(defaultDesignTokens.typography).forEach(([tokenName, tokenValue]) => {
+        if (typeof tokenValue === 'object' && tokenValue.fontSize) {
+          const cssVarName = `--text-${tokenName}`;
+          root.style.setProperty(cssVarName, tokenValue.fontSize);
+        }
+      });
+
+      // 7. 테마 에디터의 토큰 그룹도 초기화
+      const defaultTokenGroup = {
+        ...defaultDesignTokens.colors,
+        ...Object.fromEntries(
+          Object.entries(defaultDesignTokens.spacing).map(([key, value]) => [`--spacing-${key}`, value])
+        ),
+        ...Object.fromEntries(
+          Object.entries(defaultDesignTokens.typography).map(([key, value]) => [
+            `--text-${key}`,
+            typeof value === 'object' && value.fontSize ? value.fontSize : value
+          ])
+        )
+      };
+
+      updateTokenGroup('all', defaultTokenGroup);
+
+      toast.success('토큰이 defaultTokens로 완전 초기화되었습니다!', {
+        description: '기본 디자인 토큰과 사용자 설정이 모두 초기화되었습니다.'
+      });
+    } catch (error) {
+      console.error('Reset failed:', error);
+      toast.error('토큰 초기화에 실패했습니다.', {
+        description: '다시 시도해주세요.'
+      });
+    } finally {
+      setIsResetting(false);
+    }
+  };
+
+  const handleCopyToken = async (tokenKey: string, tokenValue: string) => {
+    try {
+      await navigator.clipboard.writeText(tokenValue);
+      setCopiedTokens(prev => new Set(prev).add(tokenKey));
+
+      toast.success('토큰이 복사되었습니다!', {
+        description: `${tokenKey}: ${tokenValue}`
+      });
+
+      // 2초 후 복사 상태 해제
+      setTimeout(() => {
+        setCopiedTokens(prev => {
+          const newSet = new Set(prev);
+          newSet.delete(tokenKey);
+          return newSet;
+        });
+      }, 2000);
+    } catch (error) {
+      console.error('Token copy failed:', error);
+      toast.error('토큰 복사에 실패했습니다.', {
+        description: '다시 시도해주세요.'
+      });
+    }
   };
 
   return (
@@ -98,14 +273,58 @@ export default function TokensPage() {
               디자인 시스템의 기본 구성 요소인 색상, 타이포그래피, 간격 토큰들을 확인하세요.
             </p>
           </div>
-          <div className="flex gap-2">
-            <Button onClick={handleExportTokens} variant="outline" size="sm">
-              <Download className="h-4 w-4 mr-2" />
-              토큰 내보내기
+          <div className="flex gap-2 flex-wrap">
+            <Button
+              onClick={handleExportTokens}
+              variant="outline"
+              size="sm"
+              disabled={isExporting}
+            >
+              {isExporting ? (
+                <div className="h-4 w-4 mr-2 animate-spin rounded-full border-2 border-current border-t-transparent" />
+              ) : (
+                <Download className="h-4 w-4 mr-2" />
+              )}
+              {isExporting ? '내보내는 중...' : '토큰 내보내기'}
             </Button>
-            <Button onClick={handleCopyTokens} variant="outline" size="sm">
-              <Copy className="h-4 w-4 mr-2" />
-              JSON 복사
+            <Button
+              onClick={handleCopyTokens}
+              variant="outline"
+              size="sm"
+              disabled={isCopying}
+            >
+              {isCopying ? (
+                <div className="h-4 w-4 mr-2 animate-spin rounded-full border-2 border-current border-t-transparent" />
+              ) : (
+                <Copy className="h-4 w-4 mr-2" />
+              )}
+              {isCopying ? '복사 중...' : 'JSON 복사'}
+            </Button>
+            <Button
+              onClick={handleApplyTokens}
+              variant="default"
+              size="sm"
+              disabled={isApplying}
+            >
+              {isApplying ? (
+                <div className="h-4 w-4 mr-2 animate-spin rounded-full border-2 border-current border-t-transparent" />
+              ) : (
+                <CheckCircle className="h-4 w-4 mr-2" />
+              )}
+              {isApplying ? '적용 중...' : '토큰 적용'}
+            </Button>
+            <Button
+              onClick={handleResetTokens}
+              variant="destructive"
+              size="sm"
+              disabled={isResetting}
+            >
+              {isResetting ? (
+                <div className="h-4 w-4 mr-2 animate-spin rounded-full border-2 border-current border-t-transparent" />
+              ) : (
+                <RotateCcw className="h-4 w-4 mr-2" />
+              )}
+              {isResetting ? '초기화 중...' : 'Default Reset'}
             </Button>
           </div>
         </div>
@@ -113,12 +332,12 @@ export default function TokensPage() {
 
       <Tabs defaultValue="palette" className="space-y-6">
         <TabsList className="flex w-full">
-        <TabsTrigger value="design-tokens" className="flex-auto flex items-center gap-2">
+          <TabsTrigger value="design-tokens" className="flex-auto flex items-center gap-2">
             디자인 토큰
           </TabsTrigger>
           <TabsTrigger value="palette" className="flex-auto flex items-center gap-2">
             색상 팔레트
-          </TabsTrigger>          
+          </TabsTrigger>
           <TabsTrigger value="typography" className="flex items-center gap-2">
             타이포그래피
           </TabsTrigger>
@@ -148,7 +367,7 @@ export default function TokensPage() {
                   <CardDescription>{category.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 border border-red-500">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     {category.tokens.map(([tokenKey, token]) => (
                       <div key={tokenKey} className="border rounded-lg p-4 space-y-3">
                         <div className="flex items-start justify-between">
@@ -164,9 +383,9 @@ export default function TokensPage() {
                           <div className="flex items-center gap-2">
                             {token.category === 'color' && (
                               <div className="flex items-center gap-1">
-                                <div 
+                                <div
                                   className="w-6 h-6 rounded border shadow-sm"
-                                  style={{ 
+                                  style={{
                                     backgroundColor: `var(${tokenKey})`,
                                     borderColor: 'var(--border)'
                                   }}
@@ -178,9 +397,21 @@ export default function TokensPage() {
                                 {formatValue(token.size)}
                               </Badge>
                             )}
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="h-6 w-6 p-0"
+                              onClick={() => handleCopyToken(tokenKey, token.size || '')}
+                            >
+                              {copiedTokens.has(tokenKey) ? (
+                                <CheckCircle className="h-3 w-3 text-green-600" />
+                              ) : (
+                                <Clipboard className="h-3 w-3" />
+                              )}
+                            </Button>
                           </div>
                         </div>
-                        
+
                         <div className="space-y-2">
                           <div>
                             <span className="text-xs font-medium text-muted-foreground">사용처:</span>
@@ -192,7 +423,7 @@ export default function TokensPage() {
                               ))}
                             </div>
                           </div>
-                          
+
                           {token.examples && (
                             <div>
                               <span className="text-xs font-medium text-muted-foreground">예시:</span>
@@ -255,9 +486,23 @@ export default function TokensPage() {
                                 </span> */}
                             </div>
                           </div>
-                          <span className="text-sm text-muted-foreground font-mono">
-                            {token.value}
-                          </span>
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm text-muted-foreground font-mono">
+                              {token.value}
+                            </span>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="h-6 w-6 p-0"
+                              onClick={() => handleCopyToken(`${category}-${shade}`, token.value)}
+                            >
+                              {copiedTokens.has(`${category}-${shade}`) ? (
+                                <CheckCircle className="h-3 w-3 text-green-600" />
+                              ) : (
+                                <Clipboard className="h-3 w-3" />
+                              )}
+                            </Button>
+                          </div>
                         </div>
                       );
                     })}
@@ -300,9 +545,23 @@ export default function TokensPage() {
                               </span> */}
                           </div>
                         </div>
-                        <span className="text-sm text-muted-foreground font-mono">
-                          {hexValue}
-                        </span>
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm text-muted-foreground font-mono">
+                            {hexValue}
+                          </span>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="h-6 w-6 p-0"
+                            onClick={() => handleCopyToken(`${colorName}-${shade}`, hexValue)}
+                          >
+                            {copiedTokens.has(`${colorName}-${shade}`) ? (
+                              <CheckCircle className="h-3 w-3 text-green-600" />
+                            ) : (
+                              <Clipboard className="h-3 w-3" />
+                            )}
+                          </Button>
+                        </div>
                       </div>
                     ))}
                   </CardContent>
@@ -310,8 +569,8 @@ export default function TokensPage() {
               ))}
             </div>
           </div>
-        </TabsContent>        
-        
+        </TabsContent>
+
         <TabsContent value="typography" className="space-y-6">
           <div className="space-y-6">
             {/* Tailwind CSS v4 표준 Typography 클래스들 */}
@@ -346,16 +605,28 @@ export default function TokensPage() {
                               line-height: {formatValue(token.lineHeight)}
                             </Badge>
                           )}
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="h-6 w-6 p-0"
+                            onClick={() => handleCopyToken(key, `${token.fontSize} / ${token.lineHeight}`)}
+                          >
+                            {copiedTokens.has(key) ? (
+                              <CheckCircle className="h-3 w-3 text-green-600" />
+                            ) : (
+                              <Clipboard className="h-3 w-3" />
+                            )}
+                          </Button>
                         </div>
-                      </div>                      
-                      
+                      </div>
+
                       <div className="space-y-2">
                         <div className="text-xs font-medium text-muted-foreground">미리보기:</div>
                         <div className={`border-l-4 border-primary pl-4 ${key}`} style={{ fontSize: token.fontSize, lineHeight: token.lineHeight }}>
                           The quick brown fox jumps over the lazy dog
                         </div>
                       </div>
-                      
+
                       <Separator />
                     </div>
                   );
@@ -377,9 +648,23 @@ export default function TokensPage() {
                   <CardHeader className="pb-3">
                     <div className="flex items-center justify-between">
                       <CardTitle className="text-sm font-mono">{token.name}</CardTitle>
-                      <Badge variant="secondary" className="text-xs">
-                        {formatValue(token.value)}
-                      </Badge>
+                      <div className="flex items-center gap-2">
+                        <Badge variant="secondary" className="text-xs">
+                          {formatValue(token.value)}
+                        </Badge>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-6 w-6 p-0"
+                          onClick={() => handleCopyToken(key, token.value)}
+                        >
+                          {copiedTokens.has(key) ? (
+                            <CheckCircle className="h-3 w-3 text-green-600" />
+                          ) : (
+                            <Clipboard className="h-3 w-3" />
+                          )}
+                        </Button>
+                      </div>
                     </div>
                     <CardDescription className="text-xs">
                       {token.description}
