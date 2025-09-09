@@ -16,10 +16,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useTheme } from '@/lib/themes/theme-provider';
 import { ThemeEditorProvider, useThemeEditor } from '@/lib/themes/theme-editor-provider';
-import { defaultColors, themeColors } from '@/lib/tokens/colors';
+import { semanticColors, tailwindColors } from '@/lib/tokens/colors';
 import { oklchToHex, hexToOklch } from '@/lib/utils/color-utils';
-import { Download, Copy, RotateCcw, Palette, Type, Ruler, GitBranch, Loader2Icon, BadgeCheckIcon, Home, PanelLeft } from 'lucide-react';
-import { DateRange } from 'react-day-picker';
+import { Download, Copy, RotateCcw, Palette, GitBranch, Loader2Icon, BadgeCheckIcon, Home, PanelLeft } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { SidebarProvider, SidebarHeader, SidebarMenu, SidebarMenuItem, SidebarMenuButton, Sidebar } from '@/components/ui/sidebar';
 
@@ -40,28 +39,76 @@ function ThemeEditorContent() {
     setColors,
     applyLocalTheme,
     resetLocalTheme,
-    tokens,
-    updateToken,
-    updateTokenGroup,
-    generateColorScale
+    tokens
   } = useThemeEditor(); // 테마 에디터 기능
 
-  const [progressValue] = useState(33);
-  const [sliderValue, setSliderValue] = useState([50]);
-  const [checkboxStates, setCheckboxStates] = useState({
-    terms: true,
-    marketing: false,
-  });
-  const [radioValue, setRadioValue] = useState('option-one');
-  const [switchStates, setSwitchStates] = useState({
-    airplaneMode: true
-  });
-  const [selectedTheme, setSelectedTheme] = useState('default');
-  const [customColor, setCustomColor] = useState('oklch(0.5 0.2 250)');
   const [mounted, setMounted] = useState(false);
+  const [inputValues, setInputValues] = useState<Record<string, string>>({});
+  
+  // 기본 토큰 값들 (generated-theme-variables.css에서 가져온 값)
+  const defaultTokens = {
+    '--radius': '0.625rem',
+    '--background': 'oklch(1 0 0)',
+    '--foreground': 'oklch(0.145 0 0)',
+    '--card': 'oklch(1 0 0)',
+    '--card-foreground': 'oklch(0.145 0 0)',
+    '--popover': 'oklch(1 0 0)',
+    '--popover-foreground': 'oklch(0.145 0 0)',
+    '--primary': 'oklch(0.205 0 0)',
+    '--primary-foreground': 'oklch(0.985 0 0)',
+    '--secondary': 'oklch(0.97 0 0)',
+    '--secondary-foreground': 'oklch(0.205 0 0)',
+    '--customer': 'oklch(0.205 0 0)',
+    '--customer-foreground': 'oklch(0.985 0 0)',
+    '--muted': 'oklch(0.97 0 0)',
+    '--muted-foreground': 'oklch(0.556 0 0)',
+    '--accent': 'oklch(0.97 0 0)',
+    '--accent-foreground': 'oklch(0.205 0 0)',
+    '--destructive': 'oklch(0.577 0.245 27.325)',
+    '--border': 'oklch(0.922 0 0)',
+    '--input': 'oklch(0.922 0 0)',
+    '--ring': 'oklch(0.708 0 0)',
+    '--chart-1': 'oklch(0.646 0.222 41.116)',
+    '--chart-2': 'oklch(0.6 0.118 184.704)',
+    '--chart-3': 'oklch(0.398 0.07 227.392)',
+    '--chart-4': 'oklch(0.828 0.189 84.429)',
+    '--chart-5': 'oklch(0.769 0.188 70.08)',
+    '--sidebar': 'oklch(0.985 0 0)',
+    '--sidebar-foreground': 'oklch(0.145 0 0)',
+    '--sidebar-primary': 'oklch(0.205 0 0)',
+    '--sidebar-primary-foreground': 'oklch(0.985 0 0)',
+    '--sidebar-accent': 'oklch(0.97 0 0)',
+    '--sidebar-accent-foreground': 'oklch(0.205 0 0)',
+    '--sidebar-border': 'oklch(0.922 0 0)',
+    '--sidebar-ring': 'oklch(0.708 0 0)'
+  };
+
+  const [userTokens, setUserTokens] = useState(defaultTokens);
 
   useEffect(() => {
     setMounted(true);
+    // input 값들을 현재 토큰 값으로 초기화
+    const initialInputValues: Record<string, string> = {};
+    Object.entries(userTokens).forEach(([tokenKey, tokenValue]) => {
+      if (tokenKey.includes('background') || 
+          tokenKey.includes('foreground') || 
+          tokenKey.includes('card') || 
+          tokenKey.includes('popover') || 
+          tokenKey.includes('primary') || 
+          tokenKey.includes('secondary') || 
+          tokenKey.includes('customer') || 
+          tokenKey.includes('muted') || 
+          tokenKey.includes('accent') || 
+          tokenKey.includes('destructive') || 
+          tokenKey.includes('border') ||
+          tokenKey.includes('input') ||
+          tokenKey.includes('ring') ||
+          tokenKey.includes('chart') ||
+          tokenKey.includes('sidebar')) {
+        initialInputValues[tokenKey] = oklchToHex(tokenValue);
+      }
+    });
+    setInputValues(initialInputValues);
   }, []);
 
   // 페이지 언마운트 시 로컬 테마 초기화
@@ -71,33 +118,155 @@ function ThemeEditorContent() {
     };
   }, [resetLocalTheme]);
 
-  const handleThemeChange = useCallback((themeName: string) => {
-    // 기본 테마 선택 시: Primary 색상만 변경하고 Customer 색상은 건드리지 않음
-    const newTheme = themeColors[themeName];
-    if (newTheme && applyLocalTheme) {
-      // Primary 색상만 업데이트
-      const updatedColors = { ...colors, primary: newTheme.primary };
-      setColors(updatedColors);
-      setSelectedTheme(themeName);
-
-      // Primary 색상만 적용 (Customer 색상은 전혀 건드리지 않음)
-      applyLocalTheme(updatedColors, 'primary');
-    }
-  }, [colors, setColors, applyLocalTheme]);
-
   const resetToDefault = useCallback(() => {
     resetLocalTheme();
-    setColors(defaultColors);
-    setSelectedTheme('default');
+    setColors(semanticColors);
+    setUserTokens(defaultTokens);
+  }, [setColors, resetLocalTheme]);
 
-    // Primary 색상만 기본값으로 적용 (Customer 색상은 건드리지 않음)
-    applyLocalTheme(defaultColors, 'primary');
-  }, [setColors, resetLocalTheme, applyLocalTheme]);
+  // OKLCH 값을 소수점 3째자리까지만 표기하는 함수
+  const formatOklchValues = (obj: unknown): unknown => {
+    if (typeof obj === 'string' && obj.includes('oklch(')) {
+      // oklch(0.123456 0.789012 123.456) -> oklch(0.123 0.789 123.456)
+      return obj.replace(/oklch\(([^)]+)\)/g, (match, values) => {
+        const formattedValues = values.split(/\s+/).map((val: string) => {
+          const num = parseFloat(val);
+          return isNaN(num) ? val : num.toFixed(3);
+        }).join(' ');
+        return `oklch(${formattedValues})`;
+      });
+    }
+    
+    if (Array.isArray(obj)) {
+      return obj.map(formatOklchValues);
+    }
+    
+    if (obj && typeof obj === 'object') {
+      const formatted: Record<string, unknown> = {};
+      for (const [key, value] of Object.entries(obj)) {
+        formatted[key] = formatOklchValues(value);
+      }
+      return formatted;
+    }
+    
+    return obj;
+  };
 
-  const handleCustomColorChange = useCallback((color: string) => {
-    setCustomColor(color);
-    generateColorScale(color);
-  }, [generateColorScale]);
+  // 토큰 내보내기 기능
+  const handleExportTokens = () => {
+    const tokensData = {
+      colors: colors,
+      tokens: tokens,
+      userTokens: userTokens,
+      timestamp: new Date().toISOString(),
+    };
+
+    // OKLCH 값을 소수점 3째자리까지만 표기
+    const formattedTokensData = formatOklchValues(tokensData);
+
+    const blob = new Blob([JSON.stringify(formattedTokensData, null, 2)], {
+      type: 'application/json',
+    });
+
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'theme-tokens.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  // JSON 복사 기능
+  const handleCopyTokens = () => {
+    const tokensData = {
+      colors: colors,
+      tokens: tokens,
+      userTokens: userTokens,
+    };
+
+    // OKLCH 값을 소수점 3째자리까지만 표기
+    const formattedTokensData = formatOklchValues(tokensData);
+
+    navigator.clipboard.writeText(JSON.stringify(formattedTokensData, null, 2));
+  };
+
+  // 사용자 토큰 수정 기능
+  const handleUserTokenChange = (tokenKey: string, value: string) => {
+    setUserTokens(prev => ({
+      ...prev,
+      [tokenKey]: value
+    }));
+  };
+
+  // input 값 변경 (실시간 업데이트 없음)
+  const handleInputChange = (tokenKey: string, value: string) => {
+    setInputValues(prev => ({
+      ...prev,
+      [tokenKey]: value
+    }));
+  };
+
+  // Enter 키 또는 blur 이벤트로 토큰 적용
+  const handleTokenApply = (tokenKey: string, value: string) => {
+    handleUserTokenChange(tokenKey, hexToOklch(value));
+  };
+
+  // Enter 키 핸들러
+  const handleKeyDown = (e: React.KeyboardEvent, tokenKey: string, value: string) => {
+    if (e.key === 'Enter') {
+      handleTokenApply(tokenKey, value);
+    }
+  };
+
+  // Blur 핸들러
+  const handleBlur = (tokenKey: string, value: string) => {
+    handleTokenApply(tokenKey, value);
+  };
+
+  // 색상 토큰들을 hex 값으로 변환하는 함수
+  const getColorTokensAsHex = () => {
+    const colorTokens = Object.entries(userTokens)
+      .filter(([tokenKey]) => 
+        tokenKey.includes('background') || 
+        tokenKey.includes('foreground') || 
+        tokenKey.includes('card') || 
+        tokenKey.includes('popover') || 
+        tokenKey.includes('primary') || 
+        tokenKey.includes('secondary') || 
+        tokenKey.includes('customer') || 
+        tokenKey.includes('muted') || 
+        tokenKey.includes('accent') || 
+        tokenKey.includes('destructive') || 
+        tokenKey.includes('border') ||
+        tokenKey.includes('input') ||
+        tokenKey.includes('ring') ||
+        tokenKey.includes('chart') ||
+        tokenKey.includes('sidebar')
+      )
+      .reduce((acc, [tokenKey, tokenValue]) => {
+        acc[tokenKey] = mounted ? oklchToHex(tokenValue) : '#000000';
+        return acc;
+      }, {} as Record<string, string>);
+    
+    return colorTokens;
+  };
+
+  // 사용자 토큰 저장 기능
+  const handleSaveUserTokens = () => {
+    // CSS 변수로 적용
+    const root = document.documentElement;
+    Object.entries(userTokens).forEach(([key, value]) => {
+      root.style.setProperty(key, value);
+    });
+    
+    // 로컬 스토리지에 저장
+    localStorage.setItem('userTokens', JSON.stringify(userTokens));
+  };
+
+  // 사용자 토큰 초기화 기능
+  const handleResetUserTokens = () => {
+    setUserTokens(defaultTokens);
+  };
 
   const exportTheme = useCallback(() => {
     const themeConfig = {
@@ -131,20 +300,59 @@ function ThemeEditorContent() {
     navigator.clipboard.writeText(tailwindConfig);
   }, [colors, tokens]);
 
-  const [date, setDate] = React.useState<DateRange | undefined>({
-    from: new Date(),
-    to: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 오늘부터 1주일 후
-  });
 
-  // 토큰 카테고리별 그룹화
-  const tokenCategories = {
-    color: Object.entries(tokens).filter(([_, token]) => token.category === 'color'),
-    spacing: Object.entries(tokens).filter(([_, token]) => token.category === 'spacing'),
-    typography: Object.entries(tokens).filter(([_, token]) => token.category === 'typography'),
-    border: Object.entries(tokens).filter(([_, token]) => token.category === 'border'),
-  };
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // tailwindColors에서 500 색상을 가져와서 색상 옵션들 정의
+  const colorOptions = [
+    { name: 'default', label: 'Default', value: defaultTokens['--primary'] },
+    ...Object.entries(tailwindColors).map(([colorName, colorScale]) => ({
+      name: colorName,
+      label: colorName.charAt(0).toUpperCase() + colorName.slice(1),
+      value: hexToOklch(colorScale['500'])
+    }))
+  ];
+
+  // customer 색상 옵션들 정의
+  const customerColorOptions = [
+    { name: 'default', label: 'Default', value: defaultTokens['--customer'] },
+    ...Object.entries(tailwindColors).map(([colorName, colorScale]) => ({
+      name: colorName,
+      label: colorName.charAt(0).toUpperCase() + colorName.slice(1),
+      value: hexToOklch(colorScale['500'])
+    }))
+  ];
+
+  // 현재 primary 색상에 해당하는 옵션 찾기
+  const getCurrentPrimaryOption = () => {
+    const currentPrimary = userTokens['--primary'];
+    const found = colorOptions.find(option => option.value === currentPrimary);
+    return found ? found.name : 'default';
+  };
+
+  // 현재 customer 색상에 해당하는 옵션 찾기
+  const getCurrentCustomerOption = () => {
+    const currentCustomer = userTokens['--customer'];
+    const found = customerColorOptions.find(option => option.value === currentCustomer);
+    return found ? found.name : 'default';
+  };
+
+  // primary 색상 변경 핸들러
+  const handlePrimaryColorSelect = (colorName: string) => {
+    const selectedColor = colorOptions.find(option => option.name === colorName);
+    if (selectedColor) {
+      handleUserTokenChange('--primary', selectedColor.value);
+    }
+  };
+
+  // customer 색상 변경 핸들러
+  const handleCustomerColorSelect = (colorName: string) => {
+    const selectedColor = customerColorOptions.find(option => option.name === colorName);
+    if (selectedColor) {
+      handleUserTokenChange('--customer', selectedColor.value);
+    }
+  };
 
   return (
     <div>
@@ -158,20 +366,32 @@ function ThemeEditorContent() {
               <strong>변경사항은 이 페이지에서만 미리보기됩니다.</strong>
             </p>
           </div>
+          <div className="flex gap-2">
+            <Button onClick={handleExportTokens} variant="outline" size="sm">
+              <Download className="h-4 w-4 mr-2" />
+              토큰 내보내기
+            </Button>
+            <Button onClick={handleCopyTokens} variant="outline" size="sm">
+              <Copy className="h-4 w-4 mr-2" />
+              JSON 복사
+            </Button>
+          </div>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
         {/* 토큰 편집 패널 */}
         <div className="space-y-4">
-          {/* 테마 설정 */}
+          {/* 사용자 색상 토큰 편집 */}
           <Card>
-            <CardHeader className='relative'>
-              <CardTitle>테마 설정</CardTitle>
-              <CardDescription className="break-words">
-                기본 테마와 Customer 색상을 설정하세요.
-              </CardDescription>
-              <div className="flex space-x-2 absolute -top-4 right-2">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Palette className="h-4 w-4" />
+                사용자 색상 토큰 편집
+              </CardTitle>
+              <CardDescription>
+                색상 관련 CSS 변수 토큰을 직접 편집하고 저장하세요.
+                <div className="flex space-x-2 absolute -top-4 right-2">
                 <Button onClick={exportTheme} size="icon" variant="ghost" title="테마 내보내기">
                   <Download className="h-4 w-4" />
                 </Button>
@@ -182,138 +402,100 @@ function ThemeEditorContent() {
                   <RotateCcw className="h-4 w-4" />
                 </Button>
               </div>
-            </CardHeader>
-            <CardContent>
-              <div className="option-wrap">
-                {/* 기본 테마 선택 */}
-                <div className="option-item">
-                  <div className="option-item-title">기본 테마</div>
-                  <div className="option-item-content">
-                    <Select value={selectedTheme} onValueChange={handleThemeChange}>
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="테마를 선택하세요" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {Object.entries(themeColors)
-                          .filter(([themeName]) => themeName !== 'customer') // customer 제외
-                          .map(([themeName, themeColor]) => {
-                            const primary500 = themeColor.primary['500'] as any;
-                            return (
-                              <SelectItem key={themeName} value={themeName}>
-                                <div className="flex items-center gap-2">
-                                  <div
-                                    className="w-3 h-3 rounded-full border"
-                                    style={{ backgroundColor: primary500?.value || '#000' }}
-                                  />
-                                  <span className="capitalize">{themeName}</span>
-                                </div>
-                              </SelectItem>
-                            );
-                          })}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-
-                {/* Customer 색상 */}
-                <div className="option-item">
-                  <div className="option-item-title">Customer 색상</div>
-                  <div className="option-item-content">
-                    <Input
-                      type="color"
-                      value={mounted ? oklchToHex(customColor) : '#000'}
-                      onChange={(e) => setCustomColor(hexToOklch(e.target.value))}
-                      className="w-8 h-8 p-0 rounded-md border cursor-pointer border-none"
-                      title="Customer 색상 변경"
-                    />
-                    <Button variant="outline" size="sm" onClick={() => handleCustomColorChange(customColor)}>
-                      색상 변경
-                    </Button>
-                  </div>
-                  <p className="option-item-description">Button, Badge 의 variant="customer" 에 적용됩니다.</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* 색상 토큰 */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Palette className="h-4 w-4" />
-                색상 토큰
-              </CardTitle>
-              <CardDescription>
-                브랜드 색상과 UI 색상을 편집하세요.
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="option-wrap">
-                {tokenCategories.color.map(([tokenName, token]) => (
-                  <div key={tokenName} className="option-item">
-                    <div className="option-item-title">{token.name}</div>
-                    <div className="option-item-content">
-                      <Input
-                        type="color"
-                        value={mounted ? oklchToHex(token.value) : '#000'}
-                        onChange={(e) => updateToken(tokenName, hexToOklch(e.target.value))}
-                        className="w-8 h-8 p-0 rounded-md border cursor-pointer border-none"
-                      />
-                      <Input
-                        value={token.value}
-                        onChange={(e) => updateToken(tokenName, e.target.value)}
-                        className="h-8 flex-1"
-                      />
-                    </div>
-                    <p className="option-item-description">{token.description}</p>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* 테두리 토큰 */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Ruler className="h-4 w-4" />
-                테두리
-              </CardTitle>
-              <CardDescription>
-                테두리 반지름과 색상을 설정하세요.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="option-wrap">
-                {tokenCategories.border.map(([tokenName, token]) => (
-                  <div key={tokenName} className="option-item">
-                    <div className="option-item-title">{token.name}</div>
-                    <div className="option-item-content">
-                      {tokenName === '--border' ? (
-                        <div className="flex gap-2">
-                          <Input
-                            type="color"
-                            value={mounted ? oklchToHex(token.value) : '#000'}
-                            onChange={(e) => updateToken(tokenName, hexToOklch(e.target.value))}
-                            className="w-8 h-8 p-0 rounded-md border cursor-pointer border-none"
-                          />
-                          <Input
-                            value={token.value}
-                            onChange={(e) => updateToken(tokenName, e.target.value)}
-                            className="flex-1"
-                          />
+              <div className="space-y-4">
+                <div className="grid grid-cols-1 gap-3">
+                  {Object.entries(getColorTokensAsHex())
+                    .map(([tokenKey, hexValue]) => (
+                      tokenKey === '--primary' ? (
+                        <div key={tokenKey} className="flex items-center gap-2">
+                          <Label htmlFor={tokenKey} className="w-40 text-xs font-mono shrink-0">
+                            {tokenKey}
+                          </Label>
+                          <Select value={getCurrentPrimaryOption()} onValueChange={handlePrimaryColorSelect}>
+                            <SelectTrigger className="w-full">
+                              <SelectValue placeholder="Primary 색상을 선택하세요" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {colorOptions.map((color) => (
+                                <SelectItem key={color.name} value={color.name}>
+                                  <div className="flex items-center gap-2">
+                                    <div
+                                      className="w-3 h-3 rounded-full border"
+                                      style={{ backgroundColor: oklchToHex(color.value) }}
+                                    />
+                                    <span className="capitalize">{color.label}</span>
+                                  </div>
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      ) : tokenKey === '--customer' ? (
+                        <div key={tokenKey} className="flex items-center gap-2">
+                          <Label htmlFor={tokenKey} className="w-40 text-xs font-mono shrink-0">
+                            {tokenKey}
+                          </Label>
+                          <Select value={getCurrentCustomerOption()} onValueChange={handleCustomerColorSelect}>
+                            <SelectTrigger className="w-full">
+                              <SelectValue placeholder="Customer 색상을 선택하세요" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {customerColorOptions.map((color) => (
+                                <SelectItem key={color.name} value={color.name}>
+                                  <div className="flex items-center gap-2">
+                                    <div
+                                      className="w-3 h-3 rounded-full border"
+                                      style={{ backgroundColor: oklchToHex(color.value) }}
+                                    />
+                                    <span className="capitalize">{color.label}</span>
+                                  </div>
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
                         </div>
                       ) : (
-                        <Input
-                          value={token.value}
-                          onChange={(e) => updateToken(tokenName, e.target.value)}
-                          className="text-sm"
-                        />
-                      )}
-                    </div>
-                    <p className="option-item-description">{token.description}</p>
-                  </div>
-                ))}
+                        <div key={tokenKey} className="flex items-center gap-2">
+                          <Label htmlFor={tokenKey} className="w-40 text-xs font-mono shrink-0">
+                            {tokenKey}
+                          </Label>
+                          <div className="flex gap-2 flex-1">
+                            <Input
+                              type="color"
+                              value={inputValues[tokenKey] || hexValue}
+                              onChange={(e) => {
+                                handleInputChange(tokenKey, e.target.value);
+                                handleTokenApply(tokenKey, e.target.value);
+                              }}
+                              className="w-8 h-8 p-0 rounded-md border cursor-pointer border-none shrink-0"
+                            />
+                            <Input
+                              id={tokenKey}
+                              value={inputValues[tokenKey] || hexValue}
+                              onChange={(e) => handleInputChange(tokenKey, e.target.value)}
+                              onKeyDown={(e) => handleKeyDown(e, tokenKey, inputValues[tokenKey] || hexValue)}
+                              onBlur={() => handleBlur(tokenKey, inputValues[tokenKey] || hexValue)}
+                              className="text-xs font-mono flex-1"
+                              placeholder="hex 값"
+                            />
+                          </div>
+                        </div>
+                      )
+                    ))}
+                </div>
+                <div className="flex gap-2 pt-2 border-t">
+                  <Button onClick={handleSaveUserTokens} size="sm" className="flex-1">
+                    <BadgeCheckIcon className="h-4 w-4 mr-2" />
+                    색상 토큰 저장
+                  </Button>
+                  <Button onClick={handleResetUserTokens} variant="outline" size="sm">
+                    <RotateCcw className="h-4 w-4 mr-2" />
+                    초기화
+                  </Button>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -350,62 +532,36 @@ function ThemeEditorContent() {
                 <div className="flex flex-col gap-4">
                   {/* typography display */}
                   <div>
-                    <div className="text-xs">display-2xl (fontSize: 4.5rem / fontWeight: 700 / height: 1.1 / letterSpacing: -0.025em)</div>
-                    <div><h1 className="display-2xl">The quick brown fox jumps over the lazy dog</h1></div>
+                    <div className="text-xs">text-4xl (fontSize: 2.25rem / fontWeight: 700 / height: calc(2.5 / 2.25) / letterSpacing: -0.025em)</div>
+                    <div><h4 className="text-4xl font-bold tracking-tight">The quick brown fox jumps over the lazy dog</h4></div>
                   </div>
                   <div>
-                    <div className="text-xs">display-xl (fontSize: 4rem / fontWeight: 700 / height: 1.1 / letterSpacing: -0.025em)</div>
-                    <div><h2 className="display-xl">The quick brown fox jumps over the lazy dog</h2></div>
+                    <div className="text-xs">text-3xl (fontSize: 1.875rem / fontWeight: 700 / height: calc(2.25 / 1.875) / letterSpacing: -0.025em)</div>
+                    <div><h5 className="text-3xl font-bold tracking-tight">The quick brown fox jumps over the lazy dog</h5></div>
                   </div>
                   <div>
-                    <div className="text-xs">display-lg (fontSize: 3.5rem / fontWeight: 700 / height: 1.2 / letterSpacing: -0.025em)</div>
-                    <div><h3 className="display-lg">The quick brown fox jumps over the lazy dog</h3></div>
+                    <div className="text-xs">text-2xl (fontSize: 1.5rem / fontWeight: 600 / height: calc(2 / 1.5))</div>
+                    <div><h1 className="text-2xl font-semibold">The quick brown fox jumps over the lazy dog</h1></div>
                   </div>
                   <div>
-                    <div className="text-xs">display-md (fontSize: 3rem / fontWeight: 700 / height: 1.2 / letterSpacing: -0.025em)</div>
-                    <div><h4 className="display-md">The quick brown fox jumps over the lazy dog</h4></div>
+                    <div className="text-xs">text-xl (fontSize: 1.25rem / fontWeight: 600 / height: calc(1.75 / 1.25))</div>
+                    <div><h2 className="text-xl font-semibold">The quick brown fox jumps over the lazy dog</h2></div>
                   </div>
                   <div>
-                    <div className="text-xs">display-sm (fontSize: 2.5rem / fontWeight: 700 / height: 1.3 / letterSpacing: -0.025em)</div>
-                    <div><h5 className="display-sm">The quick brown fox jumps over the lazy dog</h5></div>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-4">
-                  {/* typography Heading */}
-                  <div>
-                    <div className="text-xs">heading-xl (fontSize: 2rem / fontWeight: 600 / height: 1.3 / letterSpacing: -0.025em)</div>
-                    <div><h1 className="heading-xl">The quick brown fox jumps over the lazy dog</h1></div>
+                    <div className="text-xs">text-lg (fontSize: 1.125rem / fontWeight: 600 / height: calc(1.75 / 1.125))</div>
+                    <div><h3 className="text-lg font-semibold">The quick brown fox jumps over the lazy dog</h3></div>
                   </div>
                   <div>
-                    <div className="text-xs">heading-lg (fontSize: 1.75rem / fontWeight: 600 / height: 1.4 / letterSpacing: -0.025em)</div>
-                    <div><h2 className="heading-lg">The quick brown fox jumps over the lazy dog</h2></div>
+                    <div className="text-xs">text-base (fontSize: 1rem / fontWeight: 400 / height: calc(1.5 / 1) / letterSpacing: 0)</div>
+                    <div><p className="text-base">The quick brown fox jumps over the lazy dog</p></div>
                   </div>
                   <div>
-                    <div className="text-xs">heading-md (fontSize: 1.5rem / fontWeight: 600 / height: 1.4 / letterSpacing: -0.025em)</div>
-                    <div><h3 className="heading-md">The quick brown fox jumps over the lazy dog</h3></div>
+                    <div className="text-xs">text-sm (fontSize: 0.875rem / fontWeight: 400 / height: calc(1.25 / 0.875))</div>
+                    <div><p className="text-sm">The quick brown fox jumps over the lazy dog</p></div>
                   </div>
                   <div>
-                    <div className="text-xs">heading-sm (fontSize: 1.25rem / fontWeight: 600 / height: 1.5 / letterSpacing: -0.025em)</div>
-                    <div><h4 className="heading-sm">The quick brown fox jumps over the lazy dog</h4></div>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-4">
-                  {/* typography body */}
-                  <div>
-                    <div className="text-xs">body-xl (fontSize: 1.25rem / fontWeight: 400 / height: 1.6)</div>
-                    <div><p className="body-xl">The quick brown fox jumps over the lazy dog</p></div>
-                  </div>
-                  <div>
-                    <div className="text-xs">body-lg (fontSize: 1.125rem / fontWeight: 400 / height: 1.6)</div>
-                    <div><p className="body-lg">The quick brown fox jumps over the lazy dog</p></div>
-                  </div>
-                  <div>
-                    <div className="text-xs">body-md (fontSize: 1rem / fontWeight: 400 / height: 1.6)</div>
-                    <div><p className="body-md">The quick brown fox jumps over the lazy dog</p></div>
-                  </div>
-                  <div>
-                    <div className="text-xs">body-sm (fontSize: 0.875rem / fontWeight: 400 / height: 1.6)</div>
-                    <div><p className="body-sm">The quick brown fox jumps over the lazy dog</p></div>
+                    <div className="text-xs">text-xs (fontSize: 0.75rem / fontWeight: 400 / height: calc(1 / 0.75))</div>
+                    <div><p className="text-xs">The quick brown fox jumps over the lazy dog</p></div>
                   </div>
                 </div>
 

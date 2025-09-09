@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, useState, useCallback, useEffect } from 'react';
-import { defaultColors, ColorPalette } from '../tokens/colors';
+import { semanticColors, ColorPalette } from '../tokens/colors';
 import { generateColorScale } from '../utils/color-utils';
 
 // 디자인 토큰 타입 정의
@@ -230,7 +230,7 @@ const ThemeEditorContext = createContext<ThemeEditorContextType | undefined>(und
 
 export function ThemeEditorProvider({
   children,
-  initialColors = defaultColors,
+  initialColors = semanticColors,
 }: {
   children: React.ReactNode;
   initialColors?: ColorPalette;
