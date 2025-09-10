@@ -55,11 +55,12 @@
     @apply bg-background text-foreground;
   }
 
-  .layout-container {
+  /* guide */
+  .guide-container {
     @apply min-w-[1024px] min-h-screen bg-background overflow-hidden;
   }
 
-  .layout-header {
+  .guide-header {
     @apply h-[4rem] flex items-center justify-between border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60;
 
     .container {
@@ -79,27 +80,27 @@
     }
   }
 
-  .layout-main {
+  .guide-main {
     .container {
       @apply mx-auto py-8;
     }
   }
 
-  /* form */
-  .form-wrap {
-    @apply grid grid-cols-2 gap-4 leading-[1];
+  /*  */
+  .layout-container {
+    @apply bg-background;
+  }
 
-    .form-item {
-      @apply flex flex-col;
+  .layout-header {
+    @apply h-16;
+  }
 
-      .form-item-title {
-        @apply h-8 flex items-center font-medium;
-      }
+  .layout-aside {
+    @apply w-16;
+  }
 
-      .form-item-content {
-        @apply min-h-8 flex items-center gap-4;
-      }
-    }
+  .layout-main {
+    /* @apply border border-red-500; */
   }
 
   /* screen */
@@ -116,19 +117,49 @@
     @apply border rounded-md;
 
     .component-header {
-      @apply flex items-center justify-between py-1;
+      @apply flex items-center justify-between h-10 px-2;
 
       .component-title {
-        @apply flex-1 text-base font-medium px-4;
+        @apply flex-1 text-base font-medium px-2;
       }
 
       .component-actions {
-        @apply flex-1 flex items-center justify-end gap-2;
+        @apply flex-1 flex items-center justify-end gap-2 px-2;
       }
     }
 
     .component-content {
       @apply border-t border-border p-4;
+    }
+  }
+
+  /* form */
+  .form-wrap {
+    @apply grid grid-cols-2 gap-4 leading-[1];
+
+    .form-item {
+      @apply flex flex-col;
+
+      .form-item-title {
+        @apply min-h-8 flex;
+      }
+
+      .form-item-content {
+        @apply min-h-8 flex;
+      }
+    }
+  }
+
+  /* control */
+  .control-group {
+    @apply min-h-8 flex items-center gap-4;
+
+    .control-item {
+      @apply flex gap-2;
+
+      [data-slot="label"] {
+        @apply whitespace-nowrap;
+      }
     }
   }
 }

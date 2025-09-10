@@ -611,8 +611,10 @@ export default function PlaygroundPage() {
               <CarouselItem key={index}>
                 <div className="p-1">
                   <Card>
-                    <CardContent className="flex aspect-square items-center justify-center p-6">
-                      <span className="text-4xl font-semibold">{index + 1}</span>
+                    <CardContent>
+                      <div  className="flex aspect-square items-center justify-center p-6">
+                        <span className="text-4xl font-semibold">{index + 1}</span>
+                      </div>
                     </CardContent>
                   </Card>
                 </div>
@@ -1020,7 +1022,7 @@ export default function PlaygroundPage() {
   };
 
   return (
-    <div>
+    <>
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">플레이그라운드</h1>
         <p className="text-muted-foreground">
@@ -1136,8 +1138,7 @@ export default function PlaygroundPage() {
           <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-sm">
             <code>
               {`import { ${currentComponent?.name} } from '@/components/ui/${selectedComponent}';
-
-<${currentComponent?.name}${Object.entries(componentProps)
+                <${currentComponent?.name}${Object.entries(componentProps)
                   .filter(([_, value]) => value !== undefined && value !== '')
                   .map(([key, value]) => {
                     if (typeof value === 'boolean') {
@@ -1145,11 +1146,11 @@ export default function PlaygroundPage() {
                     }
                     return ` ${key}="${value}"`;
                   })
-                  .join('')} />`}
+                .join('')} />`}
             </code>
           </pre>
         </CardContent>
       </Card>
-    </div>
+    </>
   );
 }

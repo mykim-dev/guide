@@ -935,17 +935,17 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
             </h4>
           ),
           p: ({ children, ...props }) => (
-            <p className="border border-blue-500" {...props}>
+            <p className="" {...props}>
               {children}
             </p>
           ),
           ul: ({ children, ...props }) => (
-            <ul className="list-disc list-inside mb-8 space-y-1 border border-red-500" {...props}>
+            <ul className="list-disc list-inside mb-8 space-y-1" {...props}>
               {children}
             </ul>
           ),
           ol: ({ children, ...props }) => (
-            <ol className="list-decimal list-inside mb-8 space-y-1  border border-red-500" {...props}>
+            <ol className="list-decimal list-inside mb-8 space-y-1" {...props}>
               {children}
             </ol>
           ),

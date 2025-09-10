@@ -3,19 +3,17 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/ui/mode-toggle';
 
 const navigation = [
-    { name: '디자인 토큰', href: '/tokens' },
     { name: '디자인 가이드', href: '/design-guide' },
-    { name: '컴포넌트', href: '/components' },
+    { name: '디자인 토큰', href: '/tokens' },        
+    { name: '테마 에디터', href: '/theme-editor' },
     { name: '컴포넌트 가이드', href: '/component-guide' },
     { name: '플레이그라운드', href: '/playground' },
-    { name: '테마 에디터', href: '/theme-editor' },
 ];
 
-export function LayoutHeader() {
+export function GuideHeader() {
     const pathname = usePathname();
 
     return (

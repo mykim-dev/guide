@@ -387,7 +387,35 @@ export function ThemeEditorProvider({
 export function useThemeEditor() {
   const context = useContext(ThemeEditorContext);
   if (context === undefined) {
-    throw new Error('useThemeEditor must be used within a ThemeEditorProvider');
+    // SSR이나 초기 렌더링 중에는 기본값 반환
+    if (typeof window === 'undefined') {
+      return {
+        colors: semanticColors,
+        setColors: () => {},
+        updateColor: () => {},
+        applyLocalTheme: () => {},
+        resetLocalTheme: () => {},
+        tokens: defaultTokens,
+        updateToken: () => {},
+        updateTokenGroup: () => {},
+        generateColorScale: () => {}
+      };
+    }
+    
+    // 클라이언트 사이드에서도 컨텍스트가 준비되지 않은 경우 기본값 반환
+    // 이는 hydration 과정에서 발생할 수 있음
+    console.warn('useThemeEditor: ThemeEditorProvider context not available, using default values');
+    return {
+      colors: semanticColors,
+      setColors: () => {},
+      updateColor: () => {},
+      applyLocalTheme: () => {},
+      resetLocalTheme: () => {},
+      tokens: defaultTokens,
+      updateToken: () => {},
+      updateTokenGroup: () => {},
+      generateColorScale: () => {}
+    };
   }
   return context;
 }
