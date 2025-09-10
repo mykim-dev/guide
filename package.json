@@ -2,13 +2,16 @@
   "name": "guide",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
+  "homepage": "https://mykim-dev.github.io/guide/",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
     "generate-guides": "node scripts/generate-component-guides.js",
-    "generate-css": "npx tsx scripts/generate-css-variables.ts"
+    "generate-css": "npx tsx scripts/generate-css-variables.ts",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
