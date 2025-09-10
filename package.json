@@ -11,7 +11,8 @@
     "lint": "eslint",
     "generate-guides": "node scripts/generate-component-guides.js",
     "generate-css": "npx tsx scripts/generate-css-variables.ts",
-    "deploy": "gh-pages -d dist"
+    "export": "next build",
+    "deploy": "gh-pages -d out"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
