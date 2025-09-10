@@ -71,7 +71,7 @@ const components = [
     title: 'Button',
     description: '다양한 스타일과 크기의 버튼 컴포넌트',
     component: (
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-4">
         <Button>Default</Button>
         <Button variant="secondary">Secondary</Button>
         <Button variant="customer">Customer</Button>
@@ -94,30 +94,21 @@ const components = [
     title: 'Badge',
     description: '상태나 카테고리를 표시하는 배지',
     component: (
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-4">
         <Badge>Default</Badge>
         <Badge variant="secondary">Secondary</Badge>
         <Badge variant="customer">Customer</Badge>
         <Badge variant="destructive">Destructive</Badge>
         <Badge variant="outline">Outline</Badge>
-        <Badge
-          variant="secondary"
-          className="bg-blue-500 text-white dark:bg-blue-600"
-        >
+        <Badge variant="secondary">
           <BadgeCheckIcon />
           Verified
         </Badge>
-        <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">
+        <Badge className="rounded-full">
           8
         </Badge>
         <Badge
-          className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums"
-          variant="destructive"
-        >
-          99
-        </Badge>
-        <Badge
-          className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums"
+          className="rounded-full"
           variant="outline"
         >
           20+
@@ -132,8 +123,6 @@ const components = [
     component: (
       <div className="space-y-2">
         <Input placeholder="Enter your text here" />
-        <Input type="email" placeholder="Enter your email" />
-        <Input type="password" placeholder="Enter your password" />
       </div>
     ),
     link: '/component-guide/input',
@@ -170,7 +159,7 @@ const components = [
     title: 'Radio Group',
     description: '라디오 버튼 그룹 컴포넌트',
     component: (
-      <RadioGroup defaultValue="option-one">
+      <RadioGroup defaultValue="option-one" className="flex gap-6">
         <div className="flex items-center space-x-2">
           <RadioGroupItem value="option-one" id="option-one" />
           <Label htmlFor="option-one">Option One</Label>
@@ -229,22 +218,12 @@ const components = [
     link: '/component-guide/dropdown-menu',
   },
   {
-    title: 'Command',
-    description: '명령어 팔레트 컴포넌트',
+    title: 'Textarea',
+    description: '여러 줄 텍스트 입력 필드',
     component: (
-      <Command className="rounded-lg border shadow-md">
-        <CommandInput placeholder="Type a command or search..." />
-        <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup heading="Suggestions">
-            <CommandItem>Calendar</CommandItem>
-            <CommandItem>Search</CommandItem>
-            <CommandItem>Settings</CommandItem>
-          </CommandGroup>
-        </CommandList>
-      </Command>
+      <Textarea placeholder="Enter your message here" />
     ),
-    link: '/component-guide/command',
+    link: '/component-guide/textarea',
   },
   {
     title: 'Toggle',
@@ -275,6 +254,24 @@ const components = [
     link: '/component-guide/toggle-group',
   },
   {
+    title: 'Command',
+    description: '명령어 팔레트 컴포넌트',
+    component: (
+      <Command className="rounded-lg border shadow-md">
+        <CommandInput placeholder="Type a command or search..." />
+        <CommandList>
+          <CommandEmpty>No results found.</CommandEmpty>
+          <CommandGroup heading="Suggestions">
+            <CommandItem>Calendar</CommandItem>
+            <CommandItem>Search</CommandItem>
+            <CommandItem>Settings</CommandItem>
+          </CommandGroup>
+        </CommandList>
+      </Command>
+    ),
+    link: '/component-guide/command',
+  },
+  {
     title: 'Slider',
     description: '슬라이더 컴포넌트',
     component: (
@@ -293,14 +290,6 @@ const components = [
       </div>
     ),
     link: '/component-guide/progress',
-  },
-  {
-    title: 'Textarea',
-    description: '여러 줄 텍스트 입력 필드',
-    component: (
-      <Textarea placeholder="Enter your message here" />
-    ),
-    link: '/component-guide/textarea',
   },
   {
     title: 'Dialog',
@@ -765,25 +754,44 @@ export default function ComponentsPage() {
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">컴포넌트 가이드</h1>
         <p className="text-muted-foreground">
-          shadcn/ui 기반의 재사용 가능한 컴포넌트들을 확인하세요.
+          shadcn/ui 기반의 재사용 가능한 <strong>{components.length}개</strong>의 컴포넌트들을 확인하세요.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* <div className="grid grid-cols-[1fr_7fr]"> */}
+      {/* 목차 */}
+      {/* <nav className="bg-background border border-border rounded-xl">
+          <h3 className="text-sm font-semibold p-4 text-muted-foreground">컴포넌트({components.length})</h3>
+          <ScrollArea className="h-[calc(100svh-20rem)]">
+            <ul className="space-y-2 p-4 pt-0">
+              {components.map((component, index) => (
+                <li key={component.title}>
+                  <a
+                    href={`#${component.title.toLowerCase().replace(/\s+/g, '-')}`}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {index + 1}. {component.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </ScrollArea>
+        </nav> */}
+
+      {/* <ScrollArea className="h-[calc(100svh-16rem)]"> */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-2">
         {components.map((component) => (
           <Card
             key={component.title}
             id={component.title.toLowerCase().replace(/\s+/g, '-')}
-            className="scroll-mt-20"
+            className="flex flex-col justify-between"
           >
             <CardHeader>
               <CardTitle>{component.title}</CardTitle>
               <CardDescription>{component.description}</CardDescription>
             </CardHeader>
-            <CardContent>
-              <div className="flex-1">
-                {component.component}
-              </div>
+            <CardContent className="flex-1">
+              {component.component}
             </CardContent>
             <CardFooter className="flex justify-end">
               <Link href={component.link}>
@@ -793,24 +801,8 @@ export default function ComponentsPage() {
           </Card>
         ))}
       </div>
-
-      {/* 목차 */}
-      <nav className="fixed top-28 right-12 bg-background border border-border rounded-lg p-4 shadow-lg">
-        <h3 className="text-sm font-semibold mb-3 text-muted-foreground">목차</h3>
-        <ul className="space-y-2">
-        {components.map((component) => (
-          <li>
-            <a
-              key={component.title}
-              href={`#${component.title.toLowerCase().replace(/\s+/g, '-')}`}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              #{component.title}
-            </a>
-          </li>
-          ))}
-        </ul>
-      </nav>
+      {/* </ScrollArea> */}
+      {/* </div> */}
     </>
   );
 }

@@ -21,20 +21,20 @@ export interface ColorPalette {
 
 export const generateColorTokens = (colors: ColorPalette) => {
   const tokens: Record<string, string> = {};
-  
+
   Object.entries(colors).forEach(([, scale]) => {
     Object.entries(scale).forEach(([, token]) => {
       const colorToken = token as ColorToken;
       tokens[colorToken.name] = colorToken.value;
     });
   });
-  
+
   return tokens;
 };
 
 export const generateTailwindConfig = (colors: ColorPalette) => {
   const tailwindColors: Record<string, Record<string, string>> = {};
-  
+
   Object.entries(colors).forEach(([category, scale]) => {
     tailwindColors[category] = {};
     Object.entries(scale).forEach(([shade, token]) => {
@@ -42,7 +42,7 @@ export const generateTailwindConfig = (colors: ColorPalette) => {
       tailwindColors[category][shade] = colorToken.value;
     });
   });
-  
+
   return tailwindColors;
 };
 
@@ -140,18 +140,6 @@ export const tailwindColors = {
 
 // tailwindColors를 참조하는 간략한 semanticColors
 export const semanticColors: ColorPalette = {
-  primary: Object.fromEntries(
-    Object.entries(tailwindColors.blue).map(([shade, value]) => [
-      shade,
-      { name: `primary-${shade}`, value, description: `Primary color ${shade}` }
-    ])
-  ),
-  secondary: Object.fromEntries(
-    Object.entries(tailwindColors.neutral).map(([shade, value]) => [
-      shade,
-      { name: `secondary-${shade}`, value, description: `Secondary color ${shade}` }
-    ])
-  ),
   success: Object.fromEntries(
     Object.entries(tailwindColors.green).map(([shade, value]) => [
       shade,
@@ -179,13 +167,13 @@ export const themeColors: Record<string, ColorPalette> = {
     Object.entries(tailwindColors).map(([colorName, colorScale]) => [
       colorName,
       {
-        primary: Object.fromEntries(
-          Object.entries(colorScale).map(([shade, value]) => [
-            shade,
-            { name: `primary-${shade}`, value, description: `${colorName.charAt(0).toUpperCase() + colorName.slice(1)} primary ${shade}` }
-          ])
-        ),
-        secondary: semanticColors.secondary,
+        // primary: Object.fromEntries(
+        //   Object.entries(colorScale).map(([shade, value]) => [
+        //     shade,
+        //     { name: `primary-${shade}`, value, description: `${colorName.charAt(0).toUpperCase() + colorName.slice(1)} primary ${shade}` }
+        //   ])
+        // ),
+        // secondary: semanticColors.secondary,
         success: semanticColors.success,
         warning: semanticColors.warning,
         error: semanticColors.error,

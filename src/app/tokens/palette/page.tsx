@@ -52,9 +52,9 @@ export default function PalettePage() {
       </div>
 
       <div className="space-y-6">
-        {/* 기본 색상 팔레트 */}
+        {/* Semantic UI 색상 팔레트 */}
         <div>
-          <h3 className="text-lg font-semibold mb-4">기본 색상 팔레트</h3>
+          <h3 className="text-lg font-semibold mb-4">Semantic UI 색상 팔레트</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
             {Object.entries(semanticColors).map(([category, scale]) => (
               <Card key={category} className="overflow-hidden">

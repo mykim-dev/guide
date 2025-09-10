@@ -26,9 +26,16 @@ export default async function DesignGuidePage({ params }: DesignGuidePageProps) 
   }
 
   return (
-    <>      
+    <>
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">{guide.title}</h1>
+        <h1 className="text-3xl font-bold mb-2">디자인 가이드</h1>
+        <p className="text-muted-foreground">
+          디자인 시스템의 원칙과 가이드라인을 확인하세요.
+        </p>
+      </div>
+
+      <div className="mb-8">
+        <h2 className="text-2xl font-bold mb-2">{guide.title}</h2>
         {guide.description && (
           <p className="text-muted-foreground">{guide.description}</p>
         )}
@@ -43,11 +50,10 @@ export default async function DesignGuidePage({ params }: DesignGuidePageProps) 
         <ul className="space-y-2">
           {allGuides.map((guideItem) => (
             <li key={guideItem.slug}>
-              <Link 
+              <Link
                 href={`/design-guide/${guideItem.slug}`}
-                className={`text-sm block px-2 py-1 rounded hover:bg-accent transition-colors ${
-                  slug === guideItem.slug ? 'bg-accent text-accent-foreground' : 'text-foreground'
-                }`}
+                className={`text-sm block px-2 py-1 rounded hover:bg-accent transition-colors ${slug === guideItem.slug ? 'bg-accent text-accent-foreground' : 'text-foreground'
+                  }`}
               >
                 {guideItem.title}
               </Link>

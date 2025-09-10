@@ -3,7 +3,7 @@ title: "캐릭터"
 description: "제품 캐릭터의 가이드라인을 제공합니다."
 ---
 
-## Cals Analytics AI
+### Cals Analytics AI
 
 디자인 토큰은 디자인 시스템의 기본 구성 요소입니다:
 
@@ -13,4 +13,4 @@ description: "제품 캐릭터의 가이드라인을 제공합니다."
 - **그림자**: 깊이와 계층 구조 표현
 
 <!-- - [플레이그라운드](/playground)에서 실시간으로 테스트해보세요. -->
-## Cals AI
+### Cals AI

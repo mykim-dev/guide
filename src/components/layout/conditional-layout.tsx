@@ -19,11 +19,9 @@ const DefaultLayout = React.memo(({ children }: ConditionalLayoutProps) => (
       <GuideHeader />
     </header>
     <main className="guide-main">
-      <ScrollArea className="h-[calc(100vh-4rem)]">
-        <div className="container mx-auto">
-          {children}
-        </div>
-      </ScrollArea>
+      <div className="container mx-auto">
+        {children}
+      </div>
     </main>
   </div>
 ));
@@ -45,7 +43,7 @@ export function ConditionalLayout({ children }: ConditionalLayoutProps) {
   // 경로 기반 레이아웃 결정 (메모이제이션으로 최적화)
   const layoutConfig = useMemo(() => {
     const isThemeEditor = pathname === '/theme-editor';
-    
+
     return {
       isThemeEditor,
       theme: (isThemeEditor ? 'dark' : 'light') as 'light' | 'dark',
