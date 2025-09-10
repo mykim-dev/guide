@@ -9,8 +9,8 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-    "generate-guides": "node scripts/generate-component-guides.js",
-    "generate-css": "npx tsx scripts/generate-css-variables.ts",
+    // "generate-guides": "node scripts/generate-component-guides.js",
+    // "generate-css": "npx tsx scripts/generate-css-variables.ts",
     "export": "next build",
     "deploy": "gh-pages -d out"
   },
