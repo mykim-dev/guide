@@ -93,6 +93,11 @@ npm run dev
 http://localhost:3000
 ```
 
+### 5. 배포 gh-pages 패키지 설치
+```
+pnpm add -D gh-pages
+```
+
 ## 🌐 라이브 데모
 
 **Design System Guide**는 GitHub Pages에서 라이브로 확인할 수 있습니다:

@@ -18,7 +18,6 @@ export async function generateStaticParams() {
 export default async function DesignGuidePage({ params }: DesignGuidePageProps) {
   const { slug } = await params;
   const guide = getMarkdownFile('content/design-guide', slug);
-  const allGuides = getMarkdownFiles('content/design-guide');
 
   if (!guide) {
     notFound();

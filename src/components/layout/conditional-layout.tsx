@@ -91,9 +91,9 @@ const navigation: NavigationItem[] = [
       '3-30': { id: '3-30', name: 'Calendar', href: '/component-guide/calendar/' },
       '3-31': { id: '3-31', name: 'Pagination', href: '/component-guide/pagination/' },
       '3-32': { id: '3-32', name: 'Carousel', href: '/component-guide/carousel/' },
-      '3-33': { id: '3-33', name: 'Chart', href: '/component-guide/chart/' },
+      // '3-33': { id: '3-33', name: 'Chart', href: '/component-guide/chart/' },
       '3-34': { id: '3-34', name: 'Data Table', href: '/component-guide/data-table/' },
-      '3-35': { id: '3-35', name: 'Color Picker', href: '/component-guide/color-picker/' },
+      // '3-35': { id: '3-35', name: 'Color Picker', href: '/component-guide/color-picker/' },
       '3-36': { id: '3-36', name: 'Input OTP', href: '/component-guide/input-otp/' },
       '3-37': { id: '3-37', name: 'Toggle', href: '/component-guide/toggle/' },
       '3-38': { id: '3-38', name: 'Toggle Group', href: '/component-guide/toggle-group/' },
@@ -252,7 +252,7 @@ Sidebar.displayName = 'Sidebar';
 // 활성화된 메뉴 제목 컴포넌트
 const ActiveMenuTitle = React.memo(() => {
   const pathname = usePathname();
-  const { parent, child } = getActiveMenuInfo(pathname);
+  const { parent } = getActiveMenuInfo(pathname);
 
   if (!parent) return null;
 

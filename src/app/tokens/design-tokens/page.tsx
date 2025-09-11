@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { tokenCategories } from '@/lib/tokens/design-tokens';
-import { CheckCircle, Clipboard, Info } from 'lucide-react';
+import { CheckCircle, Clipboard } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
