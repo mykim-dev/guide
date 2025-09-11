@@ -752,51 +752,30 @@ export default function ComponentsPage() {
         </p>
       </div>
 
-      {/* <div className="grid grid-cols-[1fr_7fr]"> */}
-      {/* 목차 */}
-      {/* <nav className="bg-background border border-border rounded-xl">
-          <h3 className="text-sm font-semibold p-4 text-muted-foreground">컴포넌트({components.length})</h3>
-          <ScrollArea className="h-[calc(100svh-20rem)]">
-            <ul className="space-y-2 p-4 pt-0">
-              {components.map((component, index) => (
-                <li key={component.title}>
-                  <a
-                    href={`#${component.title.toLowerCase().replace(/\s+/g, '-')}`}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {index + 1}. {component.title}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </ScrollArea>
-        </nav> */}
-
-      {/* <ScrollArea className="h-[calc(100svh-16rem)]"> */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-2">
-        {components.map((component) => (
-          <Card
-            key={component.title}
-            id={component.title.toLowerCase().replace(/\s+/g, '-')}
-            className="flex flex-col justify-between"
-          >
-            <CardHeader>
-              <CardTitle>{component.title}</CardTitle>
-              <CardDescription>{component.description}</CardDescription>
-            </CardHeader>
-            <CardContent className="flex-1">
-              {component.component}
-            </CardContent>
-            <CardFooter className="flex justify-end">
-              <Link href={component.link}>
-                자세히 보기 →
-              </Link>
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
-      {/* </ScrollArea> */}
-      {/* </div> */}
+      <ScrollArea className="h-[calc(100vh-15rem)]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-2">
+          {components.map((component) => (
+            <Card
+              key={component.title}
+              id={component.title.toLowerCase().replace(/\s+/g, '-')}
+              className="flex flex-col justify-between"
+            >
+              <CardHeader>
+                <CardTitle>{component.title}</CardTitle>
+                <CardDescription>{component.description}</CardDescription>
+              </CardHeader>
+              <CardContent className="flex-1">
+                {component.component}
+              </CardContent>
+              <CardFooter className="flex justify-end">
+                <Link href={component.link}>
+                  자세히 보기 →
+                </Link>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+      </ScrollArea>
     </>
   );
 }

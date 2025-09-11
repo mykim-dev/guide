@@ -456,7 +456,7 @@ export const designTokens: Record<string, DesignToken> = {
     description: '2XL 텍스트의 줄 높이',
     usage: ['2XL 텍스트 줄 간격'],
     category: 'typography',
-    size: 'calc(2 / 1.5)',
+    size: '1.375',
     examples: ['2XL 텍스트 줄 간격']
   },
   '--text-3xl': {
@@ -472,7 +472,7 @@ export const designTokens: Record<string, DesignToken> = {
     description: '3XL 텍스트의 줄 높이',
     usage: ['3XL 텍스트 줄 간격'],
     category: 'typography',
-    size: 'calc(2.25 / 1.875)',
+    size: '1.375',
     examples: ['3XL 텍스트 줄 간격']
   },
   '--text-4xl': {
@@ -488,7 +488,7 @@ export const designTokens: Record<string, DesignToken> = {
     description: '4XL 텍스트의 줄 높이',
     usage: ['4XL 텍스트 줄 간격'],
     category: 'typography',
-    size: 'calc(2.5 / 2.25)',
+    size: '1.375',
     examples: ['4XL 텍스트 줄 간격']
   },
   '--text-5xl': {
@@ -504,7 +504,7 @@ export const designTokens: Record<string, DesignToken> = {
     description: '5XL 텍스트의 줄 높이',
     usage: ['5XL 텍스트 줄 간격'],
     category: 'typography',
-    size: '1.25',
+    size: '1.375',
     examples: ['5XL 텍스트 줄 간격']
   },
   '--text-6xl': {
@@ -520,7 +520,7 @@ export const designTokens: Record<string, DesignToken> = {
     description: '6XL 텍스트의 줄 높이',
     usage: ['6XL 텍스트 줄 간격'],
     category: 'typography',
-    size: '1.25',
+    size: '1.375',
     examples: ['6XL 텍스트 줄 간격']
   },
   '--text-7xl': {
@@ -536,7 +536,7 @@ export const designTokens: Record<string, DesignToken> = {
     description: '7XL 텍스트의 줄 높이',
     usage: ['7XL 텍스트 줄 간격'],
     category: 'typography',
-    size: '1.25',
+    size: '1.375',
     examples: ['7XL 텍스트 줄 간격']
   },
   '--text-8xl': {
@@ -552,7 +552,7 @@ export const designTokens: Record<string, DesignToken> = {
     description: '8XL 텍스트의 줄 높이',
     usage: ['8XL 텍스트 줄 간격'],
     category: 'typography',
-    size: '1.25',
+    size: '1.375',
     examples: ['8XL 텍스트 줄 간격']
   },
   '--text-9xl': {
@@ -568,7 +568,7 @@ export const designTokens: Record<string, DesignToken> = {
     description: '9XL 텍스트의 줄 높이',
     usage: ['9XL 텍스트 줄 간격'],
     category: 'typography',
-    size: '1.25',
+    size: '1.375',
     examples: ['9XL 텍스트 줄 간격']
   },
 

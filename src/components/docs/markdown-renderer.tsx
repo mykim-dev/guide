@@ -973,7 +973,7 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
           code: ({ children, className, ...props }) => {
             const isInline = !className;
             return isInline ? (
-              <code className="bg-muted px-1 py-0.5 rounded text-sm font-mono" {...props}>
+              <code className="bg-muted px-1 py-0.5 rounded text-sm" {...props}>
                 {children}
               </code>
             ) : (
@@ -1070,7 +1070,7 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
               const ComponentExample = createComponentExample(componentName);
 
               return (
-                <Tabs defaultValue="preview" className="p-0 mb-8 gap-0 border rounded-md bg-muted overflow-hidden border-red-500">
+                <Tabs defaultValue="preview" className="p-0 mb-8 gap-0 border rounded-md bg-muted overflow-hidden">
                   <TabsList className="">
                     <TabsTrigger value="preview">Preview</TabsTrigger>
                     <TabsTrigger value="code">Code</TabsTrigger>

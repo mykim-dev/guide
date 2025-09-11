@@ -680,35 +680,35 @@ export function ThemeEditorPreview() {
                             </div>
                             <Separator />
                             <div>
-                              <div className="text-xs text-muted-foreground">text-4xl (fontSize: 2.25rem / fontWeight: 700 / height: calc(2.5 / 2.25))</div>
-                              <div><h4 className="text-4xl font-bold">The quick brown fox jumps over the lazy dog</h4></div>
+                              <div className="text-xs text-muted-foreground">text-4xl (fontSize: 2.25rem / fontWeight: 700 / lineHeight: 1.375)</div>
+                              <div><h4 className="text-4xl font-bold leading-snug">The quick brown fox jumps over the lazy dog</h4></div>
                             </div>
                             <div>
-                              <div className="text-xs text-muted-foreground">text-3xl (fontSize: 1.875rem / fontWeight: 700 / height: calc(2.25 / 1.875))</div>
-                              <div><h5 className="text-3xl font-bold">The quick brown fox jumps over the lazy dog</h5></div>
+                              <div className="text-xs text-muted-foreground">text-3xl (fontSize: 1.875rem / fontWeight: 700 / lineHeight: 1.375)</div>
+                              <div><h5 className="text-3xl font-bold leading-snug">The quick brown fox jumps over the lazy dog</h5></div>
                             </div>
                             <div>
-                              <div className="text-xs text-muted-foreground">text-2xl (fontSize: 1.5rem / fontWeight: 600 / height: calc(2 / 1.5))</div>
-                              <div><h1 className="text-2xl font-semibold">The quick brown fox jumps over the lazy dog</h1></div>
+                              <div className="text-xs text-muted-foreground">text-2xl (fontSize: 1.5rem / fontWeight: 600 / lineHeight: 1.375)</div>
+                              <div><h1 className="text-2xl font-semibold leading-snug">The quick brown fox jumps over the lazy dog</h1></div>
                             </div>
                             <div>
-                              <div className="text-xs text-muted-foreground">text-xl (fontSize: 1.25rem / fontWeight: 600 / height: calc(1.75 / 1.25))</div>
+                              <div className="text-xs text-muted-foreground">text-xl (fontSize: 1.25rem / fontWeight: 600 / lineHeight: calc(1.75 / 1.25))</div>
                               <div><h2 className="text-xl font-semibold">The quick brown fox jumps over the lazy dog</h2></div>
                             </div>
                             <div>
-                              <div className="text-xs text-muted-foreground">text-lg (fontSize: 1.125rem / fontWeight: 600 / height: calc(1.75 / 1.125))</div>
+                              <div className="text-xs text-muted-foreground">text-lg (fontSize: 1.125rem / fontWeight: 600 / lineHeight: calc(1.75 / 1.125))</div>
                               <div><h3 className="text-lg font-semibold">The quick brown fox jumps over the lazy dog</h3></div>
                             </div>
                             <div>
-                              <div className="text-xs text-muted-foreground">text-base (fontSize: 1rem / fontWeight: 400 / height: calc(1.5 / 1) / letterSpacing: 0)</div>
+                              <div className="text-xs text-muted-foreground">text-base (fontSize: 1rem / fontWeight: 400 / lineHeight: calc(1.5 / 1) / letterSpacing: 0)</div>
                               <div><p className="text-base">The quick brown fox jumps over the lazy dog</p></div>
                             </div>
                             <div>
-                              <div className="text-xs text-muted-foreground">text-sm (fontSize: 0.875rem / fontWeight: 400 / height: calc(1.25 / 0.875))</div>
+                              <div className="text-xs text-muted-foreground">text-sm (fontSize: 0.875rem / fontWeight: 400 / lineHeight: calc(1.25 / 0.875))</div>
                               <div><p className="text-sm">The quick brown fox jumps over the lazy dog</p></div>
                             </div>
                             <div>
-                              <div className="text-xs text-muted-foreground">text-xs (fontSize: 0.75rem / fontWeight: 400 / height: calc(1 / 0.75))</div>
+                              <div className="text-xs text-muted-foreground">text-xs (fontSize: 0.75rem / fontWeight: 400 / lineHeight: calc(1 / 0.75))</div>
                               <div><p className="text-xs">The quick brown fox jumps over the lazy dog</p></div>
                             </div>
                           </div>
@@ -794,17 +794,17 @@ export function ThemeEditorPreview() {
                               <BadgeCheckIcon />
                               Verified
                             </Badge>
-                            <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">
+                            <Badge className="h-5 min-w-5 rounded-full px-1 tabular-nums">
                               8
                             </Badge>
                             <Badge
-                              className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums"
+                              className="h-5 min-w-5 rounded-full px-1 tabular-nums"
                               variant="destructive"
                             >
                               99
                             </Badge>
                             <Badge
-                              className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums"
+                              className="h-5 min-w-5 rounded-full px-1 tabular-nums"
                               variant="outline"
                             >
                               20+

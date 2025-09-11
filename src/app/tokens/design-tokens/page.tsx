@@ -3,11 +3,11 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { TokenNavigation } from '@/components/layout/token-navigation';
 import { tokenCategories } from '@/lib/tokens/design-tokens';
 import { CheckCircle, Clipboard, Info } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
 
 export default function DesignTokensPage() {
   const [copiedTokens, setCopiedTokens] = useState<Set<string>>(new Set());
@@ -39,26 +39,17 @@ export default function DesignTokensPage() {
 
   return (
     <>
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">디자인 토큰</h1>
-        <p className="text-muted-foreground">
-          디자인 시스템의 기본 구성 요소인 토큰들의 용도와 사용법을 확인하세요.
-        </p>
-      </div>
+      <Breadcrumb className="flex items-center justify-end mb-2 list-none text-sm">
+        <BreadcrumbItem>
+          <BreadcrumbLink href="/tokens">디자인 토큰</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <BreadcrumbLink href={`/tokens/design-tokens`}>디자인 토큰</BreadcrumbLink>
+        </BreadcrumbItem>
+      </Breadcrumb>
 
-      <div className="space-y-6">
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Info className="h-5 w-5" />
-              디자인 토큰 가이드
-            </CardTitle>
-            <CardDescription>
-              각 디자인 토큰의 용도와 사용법을 확인하세요.
-            </CardDescription>
-          </CardHeader>
-        </Card>
-
+      <div className="py-6">
         {Object.entries(tokenCategories).map(([categoryKey, category]) => (
           <Card key={categoryKey}>
             <CardHeader>
@@ -144,8 +135,6 @@ export default function DesignTokensPage() {
           </Card>
         ))}
       </div>
-
-      <TokenNavigation currentPage="design-tokens" />
     </>
   );
 }
