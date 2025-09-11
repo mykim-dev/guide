@@ -1,15 +1,12 @@
 import Link from 'next/link';
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { getMarkdownFiles } from '@/lib/markdown';
-import { GuideAside } from '@/components/layout/guide-aside';
 
 export default function DesignGuidePage() {
   const guides = getMarkdownFiles('content/design-guide');
 
   return (
     <>
-      <GuideAside />
-      
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">디자인 가이드</h1>
         <p className="text-muted-foreground">
