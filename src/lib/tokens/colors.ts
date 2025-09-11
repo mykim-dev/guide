@@ -1,9 +1,3 @@
-// culori는 현재 사용하지 않음
-
-
-
-
-
 // Tailwind CSS 공식 색상 팔레트
 export const tailwindColors = {
   slate: {
