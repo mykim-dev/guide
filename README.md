@@ -63,21 +63,28 @@
 
 ### 1. 프로젝트 클론
 ```bash
-git clone <repository-url>
-cd design-system-guide
+git clone https://github.com/mykim-dev/guide.git
+cd guide
 ```
 
 ### 2. 의존성 설치
 ```bash
-npm install
-# 또는
+# pnpm 사용 권장 (더 빠른 설치)
 pnpm install
-# 또는
+
+# 또는 npm 사용
+npm install
+
+# 또는 yarn 사용
 yarn install
 ```
 
 ### 3. 개발 서버 실행
 ```bash
+# pnpm 사용
+pnpm run dev
+
+# 또는 npm 사용
 npm run dev
 ```
 
@@ -86,29 +93,36 @@ npm run dev
 http://localhost:3000
 ```
 
+## 🌐 라이브 데모
+
+**Design System Guide**는 GitHub Pages에서 라이브로 확인할 수 있습니다:
+
+🔗 **[https://mykim-dev.github.io/guide/](https://mykim-dev.github.io/guide/)**
+
+### 주요 페이지
+- **홈페이지**: 디자인 시스템 개요
+- **디자인 토큰**: 색상, 타이포그래피, 간격 시스템
+- **컴포넌트 가이드**: 50+ UI 컴포넌트 사용법
+- **플레이그라운드**: 실시간 컴포넌트 테스트
+- **테마 에디터**: OKLCH 기반 색상 커스터마이징
+
 ## 📦 사용 가능한 명령어
 
 ```bash
 # 개발 서버 실행 (Turbopack 사용)
-npm run dev
-
-# 컴포넌트 가이드 자동 생성
-npm run generate-guides
-
-# CSS 변수 자동 생성
-npm run generate-css
+pnpm run dev
 
 # 프로덕션 빌드
-npm run build
+pnpm run build
 
 # 프로덕션 서버 실행
-npm run start
-
-# 타입 체크
-npm run type-check
+pnpm run start
 
 # 린트 검사
-npm run lint
+pnpm run lint
+
+# GitHub Pages 배포
+pnpm run deploy
 ```
 
 ## 📁 프로젝트 구조

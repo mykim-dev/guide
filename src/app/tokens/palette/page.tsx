@@ -51,7 +51,6 @@ export default function PalettePage() {
 
         {/* Tailwind CSS 색상 팔레트 */}
         <div>
-          <h3 className="text-lg font-semibold mb-4">Tailwind CSS 색상 팔레트</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
             {Object.entries(tailwindColors).map(([colorName, colorScale]) => (
               <Card key={colorName} className="overflow-hidden">

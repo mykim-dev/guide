@@ -47,7 +47,7 @@ export default function HomePage() {
     <div className="h-[calc(100vh-4rem)]">
       {/* Hero Section */}
       <div className="text-center mb-16" >
-        <h1 className="text-4xl font-bold tracking-tight mb-4">
+        <h1 className="mb-4 text-4xl font-bold tracking-tight leading-tight">
           Design System Guide
         </h1>
         <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
