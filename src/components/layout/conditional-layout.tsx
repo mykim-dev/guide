@@ -309,15 +309,15 @@ const getLayoutType = (pathname: string): LayoutType => {
     return 'theme-editor';
   }
 
-  const mainLayoutRoutes = [
+  const mainLayoutRoutes: readonly string[] = [
     ROUTES.HOME,
     ROUTES.DESIGN_GUIDE,
     ROUTES.TOKENS,
     ROUTES.COMPONENT_GUIDE,
     ROUTES.PLAYGROUND
-  ] as const;
+  ];
 
-  if (mainLayoutRoutes.includes(pathname as any)) {
+  if (mainLayoutRoutes.includes(pathname)) {
     return 'main';
   }
 
