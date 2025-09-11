@@ -14,7 +14,6 @@ import { Slider } from '@/components/ui/slider';
 import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useTheme } from '@/lib/themes/theme-provider';
 import { useThemeEditor } from '@/lib/themes/theme-editor-provider';
 import { tailwindColors } from '@/lib/tokens/colors';
 import { oklchToHex, hexToOklch, isValidHex, normalizeHex } from '@/lib/utils/color-utils';
@@ -86,7 +85,6 @@ const COLOR_TOKEN_KEYS = [
 ];
 
 export function ThemeEditorPreview() {
-  const { theme } = useTheme();
   
   // 마운트 상태 관리
   const [mounted, setMounted] = useState(false);

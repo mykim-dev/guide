@@ -10,7 +10,7 @@
     "start": "next start",
     "lint": "eslint",
     "export": "next build",
-    "predeploy": "pnpm run build",
+    "predeploy": "pnpm run build && cp .nojekyll out/ 2>/dev/null || echo '' > out/.nojekyll",
     "deploy": "gh-pages -d out"
   },
   "dependencies": {

@@ -647,29 +647,29 @@ export const tokenCategories = {
   color: {
     name: '색상',
     description: 'UI 색상 팔레트',
-    tokens: Object.entries(designTokens).filter(([_, token]) => token.category === 'color')
+    tokens: Object.entries(designTokens).filter(([, token]) => token.category === 'color')
   },
   spacing: {
     name: '간격',
     description: '간격 및 컨테이너 크기 설정',
-    tokens: Object.entries(designTokens).filter(([_, token]) => token.category === 'spacing')
+    tokens: Object.entries(designTokens).filter(([, token]) => token.category === 'spacing')
   },
   typography: {
     name: '타이포그래피',
     description: '텍스트 크기, 폰트 두께, 줄 간격 설정',
-    tokens: Object.entries(designTokens).filter(([_, token]) => token.category === 'typography')
+    tokens: Object.entries(designTokens).filter(([, token]) => token.category === 'typography')
   },
   border: {
     name: '테두리',
     description: '테두리 반지름 설정',
-    tokens: Object.entries(designTokens).filter(([_, token]) => token.category === 'border')
+    tokens: Object.entries(designTokens).filter(([, token]) => token.category === 'border')
   }
 };
 
 // 타이포그래피 토큰들을 추출하는 함수들
 export const getTypographyTokens = () => {
   return Object.entries(designTokens)
-    .filter(([_, token]) => token.category === 'typography')
+    .filter(([, token]) => token.category === 'typography')
     .reduce((acc, [key, token]) => {
       acc[key] = {
         name: token.name,
