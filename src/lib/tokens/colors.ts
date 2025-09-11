@@ -1,50 +1,8 @@
 // culori는 현재 사용하지 않음
 
-export interface ColorToken {
-  name: string;
-  value: string;
-  description?: string;
-}
-
-export interface ColorScale {
-  [key: string]: ColorToken;
-}
-
-export interface ColorPalette {
-  primary: ColorScale;
-  secondary: ColorScale;
-  success: ColorScale;
-  warning: ColorScale;
-  error: ColorScale;
-}
 
 
-export const generateColorTokens = (colors: ColorPalette) => {
-  const tokens: Record<string, string> = {};
 
-  Object.entries(colors).forEach(([, scale]) => {
-    Object.entries(scale).forEach(([, token]) => {
-      const colorToken = token as ColorToken;
-      tokens[colorToken.name] = colorToken.value;
-    });
-  });
-
-  return tokens;
-};
-
-export const generateTailwindConfig = (colors: ColorPalette) => {
-  const tailwindColors: Record<string, Record<string, string>> = {};
-
-  Object.entries(colors).forEach(([category, scale]) => {
-    tailwindColors[category] = {};
-    Object.entries(scale).forEach(([shade, token]) => {
-      const colorToken = token as ColorToken;
-      tailwindColors[category][shade] = colorToken.value;
-    });
-  });
-
-  return tailwindColors;
-};
 
 // Tailwind CSS 공식 색상 팔레트
 export const tailwindColors = {
@@ -138,46 +96,4 @@ export const tailwindColors = {
   }
 };
 
-// tailwindColors를 참조하는 간략한 semanticColors
-export const semanticColors: ColorPalette = {
-  success: Object.fromEntries(
-    Object.entries(tailwindColors.green).map(([shade, value]) => [
-      shade,
-      { name: `success-${shade}`, value, description: `Success color ${shade}` }
-    ])
-  ),
-  warning: Object.fromEntries(
-    Object.entries(tailwindColors.amber).map(([shade, value]) => [
-      shade,
-      { name: `warning-${shade}`, value, description: `Warning color ${shade}` }
-    ])
-  ),
-  error: Object.fromEntries(
-    Object.entries(tailwindColors.red).map(([shade, value]) => [
-      shade,
-      { name: `error-${shade}`, value, description: `Error color ${shade}` }
-    ])
-  )
-};
 
-// tailwindColors를 참조하는 간략한 themeColors
-export const themeColors: Record<string, ColorPalette> = {
-  default: semanticColors,
-  ...Object.fromEntries(
-    Object.entries(tailwindColors).map(([colorName, colorScale]) => [
-      colorName,
-      {
-        // primary: Object.fromEntries(
-        //   Object.entries(colorScale).map(([shade, value]) => [
-        //     shade,
-        //     { name: `primary-${shade}`, value, description: `${colorName.charAt(0).toUpperCase() + colorName.slice(1)} primary ${shade}` }
-        //   ])
-        // ),
-        // secondary: semanticColors.secondary,
-        success: semanticColors.success,
-        warning: semanticColors.warning,
-        error: semanticColors.error,
-      }
-    ])
-  )
-};

@@ -1,8 +1,7 @@
 import Link from 'next/link';
-import { Navigation } from '@/components/layout/header';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Palette, Type, Box, BookOpen, Code, Play, Settings } from 'lucide-react';
+import { Palette, Box, BookOpen, Code, Play, Settings } from 'lucide-react';
 
 const features = [
   {

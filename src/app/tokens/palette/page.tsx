@@ -4,15 +4,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { TokenNavigation } from '@/components/layout/token-navigation';
-import { semanticColors, ColorToken, tailwindColors } from '@/lib/tokens';
+import { tailwindColors } from '@/lib/tokens';
 import { CheckCircle, Clipboard } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
-// 타입 가드 함수
-const isColorToken = (token: unknown): token is ColorToken => {
-  return typeof token === 'object' && token !== null && 'value' in token && 'name' in token;
-};
 
 export default function PalettePage() {
   const [copiedTokens, setCopiedTokens] = useState<Set<string>>(new Set());
@@ -52,66 +48,6 @@ export default function PalettePage() {
       </div>
 
       <div className="space-y-6">
-        {/* Semantic UI 색상 팔레트 */}
-        <div>
-          <h3 className="text-lg font-semibold mb-4">Semantic UI 색상 팔레트</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
-            {Object.entries(semanticColors).map(([category, scale]) => (
-              <Card key={category} className="overflow-hidden">
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="capitalize text-sm">{category}</CardTitle>
-                    <Badge variant="secondary" className="text-xs">
-                      {Object.keys(scale).length} 색조
-                    </Badge>
-                  </div>
-                  <CardDescription className="text-xs">
-                    {category} 색상 팔레트
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="pt-0">
-                  {Object.entries(scale).map(([shade, token]) => {
-                    if (!isColorToken(token)) {
-                      return null;
-                    }
-
-                    return (
-                      <div key={shade} className="flex items-center justify-between p-1">
-                        <div className="flex items-center space-x-2 flex-1">
-                          <div
-                            className="w-4 h-4 rounded border border-border"
-                            style={{ backgroundColor: token.value }}
-                            title={`${token.name}: ${token.value}`}
-                          />
-                          <div className="flex flex-col min-w-0">
-                            <span className="text-sm truncate">{token.name}</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <span className="text-sm text-muted-foreground font-mono">
-                            {token.value}
-                          </span>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="h-6 w-6 p-0"
-                            onClick={() => handleCopyToken(`${category}-${shade}`, token.value)}
-                          >
-                            {copiedTokens.has(`${category}-${shade}`) ? (
-                              <CheckCircle className="h-3 w-3 text-green-600" />
-                            ) : (
-                              <Clipboard className="h-3 w-3" />
-                            )}
-                          </Button>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
 
         {/* Tailwind CSS 색상 팔레트 */}
         <div>

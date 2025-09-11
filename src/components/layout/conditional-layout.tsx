@@ -5,7 +5,6 @@ import { usePathname } from 'next/navigation';
 import { ThemeProvider } from '@/lib/themes/theme-provider';
 import { ThemeEditorProvider } from '@/lib/themes/theme-editor-provider';
 import { Toaster } from '@/components/ui/sonner';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { GuideHeader } from './guide-header';
 
 interface ConditionalLayoutProps {

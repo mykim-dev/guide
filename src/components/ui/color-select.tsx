@@ -1,9 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React, { useState } from "react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { ColorPalette } from "@/lib/tokens/colors";
 import { cn } from "@/lib/utils";
 
 interface ColorSelectProps {
@@ -11,7 +11,7 @@ interface ColorSelectProps {
   onChange?: (colorName: string, colorValue: string) => void;
   label?: string;
   className?: string;
-  colorList?: Record<string, ColorPalette>;
+  colorList?: Record<string, any>;
 }
 
 export function ColorSelect({ value, onChange, label = "색상 선택", className = "", colorList }: ColorSelectProps) {
@@ -20,10 +20,10 @@ export function ColorSelect({ value, onChange, label = "색상 선택", classNam
   const handleColorChange = (colorName: string) => {
     setSelectedColor(colorName);
     if (onChange && colorList) {
-      // colorList에서 선택된 색상의 primary 500 값을 가져옴
+      // colorList에서 선택된 색상의 500 값을 가져옴
       const selectedColorPalette = colorList[colorName];
-      if (selectedColorPalette && selectedColorPalette.primary && selectedColorPalette.primary['500']) {
-        const colorValue = selectedColorPalette.primary['500'].value;
+      if (selectedColorPalette && selectedColorPalette['500']) {
+        const colorValue = selectedColorPalette['500'];
         onChange(colorName, colorValue);
       }
     }
@@ -50,7 +50,7 @@ export function ColorSelect({ value, onChange, label = "색상 선택", classNam
   const availableColors = Object.entries(colorList).map(([colorName, colorPalette]) => ({
     name: colorName,
     label: colorName.charAt(0).toUpperCase() + colorName.slice(1), // 첫 글자 대문자
-    colorValue: colorPalette.primary?.['500']?.value || '#000000'
+    colorValue: colorPalette?.['500'] || '#000000'
   }));
 
   return (

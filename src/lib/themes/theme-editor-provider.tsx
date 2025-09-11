@@ -1,8 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { createContext, useContext, useState, useCallback, useEffect } from 'react';
-import { semanticColors, ColorPalette } from '../tokens/colors';
-import { generateColorScale } from '../utils/color-utils';
 
 // 디자인 토큰 타입 정의
 interface DesignToken {
@@ -215,27 +214,18 @@ const defaultTokens: DesignTokens = {
 };
 
 interface ThemeEditorContextType {
-  colors: ColorPalette;
-  setColors: (colors: ColorPalette) => void;
-  updateColor: (category: keyof ColorPalette, shade: string, value: string) => void;
-  applyLocalTheme: (colors: ColorPalette, themeType?: 'customer' | 'primary') => void;
-  resetLocalTheme: () => void;
   tokens: DesignTokens;
   updateToken: (tokenName: string, value: string) => void;
   updateTokenGroup: (category: string, tokens: Record<string, string>) => void;
-  generateColorScale: (baseColor: string) => void;
 }
 
 const ThemeEditorContext = createContext<ThemeEditorContextType | undefined>(undefined);
 
 export function ThemeEditorProvider({
   children,
-  initialColors = semanticColors,
 }: {
   children: React.ReactNode;
-  initialColors?: ColorPalette;
 }) {
-  const [colors, setColors] = useState<ColorPalette>(initialColors);
   const [tokens, setTokens] = useState<DesignTokens>(defaultTokens);
   const [mounted, setMounted] = useState(false);
 
@@ -244,79 +234,6 @@ export function ThemeEditorProvider({
     setMounted(true);
   }, []);
 
-  const updateColor = useCallback((category: keyof ColorPalette, shade: string, value: string) => {
-    setColors(prev => ({
-      ...prev,
-      [category]: {
-        ...prev[category],
-        [shade]: {
-          ...prev[category][shade],
-          value,
-        },
-      },
-    }));
-  }, []);
-
-  const applyLocalTheme = useCallback((localColors: ColorPalette, themeType: 'customer' | 'primary' = 'primary') => {
-    if (!mounted) return;
-    
-    const root = window.document.documentElement;
-    
-    if (themeType === 'customer') {
-      // Customer 테마: --customer- 변수 설정
-      Object.entries(localColors.primary).forEach(([shade, token]) => {
-        if (token && typeof token === 'object' && 'value' in token && 'name' in token) {
-          const colorToken = token as { value: string; name: string };
-          root.style.setProperty(`--customer-${shade}`, colorToken.value);
-        }
-      });
-      
-      // Customer 기본 변수들도 설정
-      const primary500 = localColors.primary['500'] as { value: string };
-      const primary50 = localColors.primary['50'] as { value: string };
-      if (primary500 && primary50) {
-        root.style.setProperty('--customer', primary500.value);
-        root.style.setProperty('--customer-foreground', primary50.value);
-      }
-    } else {
-      // 일반 테마: --primary- 변수 설정
-      Object.entries(localColors.primary).forEach(([shade, token]) => {
-        if (token && typeof token === 'object' && 'value' in token && 'name' in token) {
-          const colorToken = token as { value: string; name: string };
-          root.style.setProperty(`--primary-${shade}`, colorToken.value);
-        }
-      });
-      
-      // 기본 primary 변수들도 설정
-      const primary500 = localColors.primary['500'] as { value: string };
-      const primary50 = localColors.primary['50'] as { value: string };
-      if (primary500 && primary50) {
-        root.style.setProperty('--primary', primary500.value);
-        root.style.setProperty('--primary-foreground', primary50.value);
-      }
-    }
-  }, [mounted]);
-
-  const resetLocalTheme = useCallback(() => {
-    if (!mounted) return;
-    
-    const root = window.document.documentElement;
-    
-    // Primary 관련 CSS 변수들 제거
-    const primaryShades = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'];
-    primaryShades.forEach(shade => {
-      root.style.removeProperty(`--primary-${shade}`);
-    });
-    root.style.removeProperty('--primary');
-    root.style.removeProperty('--primary-foreground');
-    
-    // Customer 관련 CSS 변수들도 제거
-    primaryShades.forEach(shade => {
-      root.style.removeProperty(`--customer-${shade}`);
-    });
-    root.style.removeProperty('--customer');
-    root.style.removeProperty('--customer-foreground');
-  }, [mounted]);
 
   const updateToken = useCallback((tokenName: string, value: string) => {
     if (!mounted) return;
@@ -352,29 +269,11 @@ export function ThemeEditorProvider({
     }));
   }, [mounted]);
 
-  const generateColorScaleFromBase = useCallback((baseColor: string) => {
-    const colorScale = generateColorScale(baseColor);
-    
-    // Primary 색상 업데이트
-    setColors(prev => ({
-      ...prev,
-      primary: colorScale
-    }));
-    
-    // CSS 변수 적용
-    applyLocalTheme({ ...colors, primary: colorScale }, 'primary');
-  }, [colors, applyLocalTheme]);
 
   const value = {
-    colors,
-    setColors,
-    updateColor,
-    applyLocalTheme,
-    resetLocalTheme,
     tokens,
     updateToken,
     updateTokenGroup,
-    generateColorScale: generateColorScaleFromBase
   };
 
   return (
@@ -390,15 +289,9 @@ export function useThemeEditor() {
     // SSR이나 초기 렌더링 중에는 기본값 반환
     if (typeof window === 'undefined') {
       return {
-        colors: semanticColors,
-        setColors: () => {},
-        updateColor: () => {},
-        applyLocalTheme: () => {},
-        resetLocalTheme: () => {},
         tokens: defaultTokens,
         updateToken: () => {},
         updateTokenGroup: () => {},
-        generateColorScale: () => {}
       };
     }
     
@@ -406,15 +299,9 @@ export function useThemeEditor() {
     // 이는 hydration 과정에서 발생할 수 있음
     console.warn('useThemeEditor: ThemeEditorProvider context not available, using default values');
     return {
-      colors: semanticColors,
-      setColors: () => {},
-      updateColor: () => {},
-      applyLocalTheme: () => {},
-      resetLocalTheme: () => {},
       tokens: defaultTokens,
       updateToken: () => {},
       updateTokenGroup: () => {},
-      generateColorScale: () => {}
     };
   }
   return context;

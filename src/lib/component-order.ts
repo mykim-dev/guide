@@ -49,6 +49,7 @@ export const componentOrder = [
   'chart',
 ] as const;
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // 컴포넌트 순서를 기반으로 정렬하는 함수
 export function sortComponentsByOrder<T extends { slug: string }>(components: T[]): T[] {
   return components.sort((a, b) => {

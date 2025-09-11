@@ -7,7 +7,7 @@ export interface MarkdownFile {
   title: string;
   description?: string;
   content: string;
-  frontMatter: Record<string, any>;
+  frontMatter: Record<string, unknown>;
 }
 
 export function getMarkdownFiles(directory: string): MarkdownFile[] {

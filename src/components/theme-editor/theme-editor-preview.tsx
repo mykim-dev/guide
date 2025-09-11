@@ -2,11 +2,10 @@
 
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { GitBranch, Loader2Icon, BadgeCheckIcon, Home, PanelLeft, ChevronDown, CheckIcon, RefreshCcwIcon, Download, Copy, Settings } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Calendar } from '@/components/ui/calendar';
 import { Checkbox } from '@/components/ui/checkbox';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Switch } from '@/components/ui/switch';
@@ -17,7 +16,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useTheme } from '@/lib/themes/theme-provider';
 import { useThemeEditor } from '@/lib/themes/theme-editor-provider';
-import { semanticColors, tailwindColors } from '@/lib/tokens/colors';
+import { tailwindColors } from '@/lib/tokens/colors';
 import { oklchToHex, hexToOklch, isValidHex, normalizeHex } from '@/lib/utils/color-utils';
 import { SidebarProvider, SidebarHeader, SidebarMenu, SidebarMenuItem, SidebarMenuButton, Sidebar } from '@/components/ui/sidebar';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@radix-ui/react-collapsible';
@@ -97,10 +96,6 @@ export function ThemeEditorPreview() {
   }, []);
   
   const {
-    colors,
-    setColors,
-    applyLocalTheme,
-    resetLocalTheme,
     tokens
   } = useThemeEditor();
 
@@ -126,9 +121,9 @@ export function ThemeEditorPreview() {
   // 페이지 언마운트 시 로컬 테마 초기화
   useEffect(() => {
     return () => {
-      resetLocalTheme();
+      // resetLocalTheme functionality removed
     };
-  }, [resetLocalTheme]);
+  }, []);
 
   // 사용자 토큰 수정 기능
   const handleUserTokenChange = useCallback((tokenKey: string, value: string) => {
@@ -228,7 +223,7 @@ export function ThemeEditorPreview() {
       setInputValues(resetInputValues);
       
       // 3. 로컬 테마 초기화 (CSS 변수 제거)
-      resetLocalTheme();
+      // resetLocalTheme functionality removed
       
       // 4. 기본 토큰들을 CSS에 적용
       const root = document.documentElement;
@@ -245,7 +240,7 @@ export function ThemeEditorPreview() {
         description: '다시 시도해주세요.'
       });
     }
-  }, [resetLocalTheme]);
+  }, []);
 
   // 색상 옵션들 (useMemo로 최적화)
   const colorOptions = useMemo((): ColorOption[] => [
@@ -356,7 +351,6 @@ export function ThemeEditorPreview() {
   const handleExportTokens = useCallback(async () => {
     try {
       const tokensData = {
-        colors,
         tokens,
         userTokens,
         timestamp: new Date().toISOString(),
@@ -386,13 +380,12 @@ export function ThemeEditorPreview() {
         description: '다시 시도해주세요.'
       });
     }
-  }, [colors, tokens, userTokens]);
+  }, [tokens, userTokens]);
 
   // JSON 복사 기능
   const handleCopyTokens = useCallback(async () => {
     try {
       const tokensData = {
-        colors,
         tokens,
         userTokens,
         timestamp: new Date().toISOString(),
@@ -411,7 +404,7 @@ export function ThemeEditorPreview() {
         description: '브라우저에서 클립보드 접근을 허용해주세요.'
       });
     }
-  }, [colors, tokens, userTokens]);
+  }, [tokens, userTokens]);
 
   // 마운트되지 않은 경우 로딩 화면 표시
   if (!mounted) {
@@ -486,7 +479,7 @@ export function ThemeEditorPreview() {
                   JSON 복사
                 </Button>
                 <Button
-                  onClick={resetLocalTheme}
+                  onClick={() => {}}
                   variant="outline"
                   size="sm"
                   className="gap-2"

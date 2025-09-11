@@ -1,6 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-import { themeColors, ColorPalette, semanticColors } from '../src/lib/tokens/colors';
 
 function generateCSSVariables() {
   let cssContent = `/* Auto-generated CSS variables from colors.ts */
@@ -42,92 +41,9 @@ function generateCSSVariables() {
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-
-  /* 기본 색상들 (모든 테마에서 공통 사용) */
-  /* Secondary 색상 */
-  --secondary-50: ${semanticColors.secondary['50'].value};
-  --secondary-100: ${semanticColors.secondary['100'].value};
-  --secondary-200: ${semanticColors.secondary['200'].value};
-  --secondary-300: ${semanticColors.secondary['300'].value};
-  --secondary-400: ${semanticColors.secondary['400'].value};
-  --secondary-500: ${semanticColors.secondary['500'].value};
-  --secondary-600: ${semanticColors.secondary['600'].value};
-  --secondary-700: ${semanticColors.secondary['700'].value};
-  --secondary-800: ${semanticColors.secondary['800'].value};
-  --secondary-900: ${semanticColors.secondary['900'].value};
-  --secondary-950: ${semanticColors.secondary['950'].value};
-
-  /* Success 색상 */
-  --success-50: ${semanticColors.success['50'].value};
-  --success-100: ${semanticColors.success['100'].value};
-  --success-200: ${semanticColors.success['200'].value};
-  --success-300: ${semanticColors.success['300'].value};
-  --success-400: ${semanticColors.success['400'].value};
-  --success-500: ${semanticColors.success['500'].value};
-  --success-600: ${semanticColors.success['600'].value};
-  --success-700: ${semanticColors.success['700'].value};
-  --success-800: ${semanticColors.success['800'].value};
-  --success-900: ${semanticColors.success['900'].value};
-  --success-950: ${semanticColors.success['950'].value};
-
-  /* Warning 색상 */
-  --warning-50: ${semanticColors.warning['50'].value};
-  --warning-100: ${semanticColors.warning['100'].value};
-  --warning-200: ${semanticColors.warning['200'].value};
-  --warning-300: ${semanticColors.warning['300'].value};
-  --warning-400: ${semanticColors.warning['400'].value};
-  --warning-500: ${semanticColors.warning['500'].value};
-  --warning-600: ${semanticColors.warning['600'].value};
-  --warning-700: ${semanticColors.warning['700'].value};
-  --warning-800: ${semanticColors.warning['800'].value};
-  --warning-900: ${semanticColors.warning['900'].value};
-  --warning-950: ${semanticColors.warning['950'].value};
-
-  /* Error 색상 */
-  --error-50: ${semanticColors.error['50'].value};
-  --error-100: ${semanticColors.error['100'].value};
-  --error-200: ${semanticColors.error['200'].value};
-  --error-300: ${semanticColors.error['300'].value};
-  --error-400: ${semanticColors.error['400'].value};
-  --error-500: ${semanticColors.error['500'].value};
-  --error-600: ${semanticColors.error['600'].value};
-  --error-700: ${semanticColors.error['700'].value};
-  --error-800: ${semanticColors.error['800'].value};
-  --error-900: ${semanticColors.error['900'].value};
-  --error-950: ${semanticColors.error['950'].value};
-
-  /* 테마별 Primary 색상 변수들 */
 `;
 
-  // 테마별 Primary 색상 변수만 생성
-  Object.entries(themeColors).forEach(([themeName, colors]) => {
-    if (themeName !== 'customer') {
-      // Customer 테마는 별도 CSS 변수 생성하지 않음 (동적으로 --primary- 변수 설정)
-      // 다른 테마들은 --theme-{name}-primary- 접두사 사용
-      cssContent += `  /* ${themeName} 테마 Primary 색상 */\n`;
-      Object.entries(colors.primary).forEach(([shade, token]) => {
-        cssContent += `  --theme-${themeName}-primary-${shade}: ${token.value};\n`;
-      });
-      cssContent += '\n';
-    }
-  });
-
   cssContent += '}\n\n';
-
-  // 테마별 CSS 클래스 생성 (Primary 색상만)
-  Object.entries(themeColors).forEach(([themeName, colors]) => {
-    if (themeName !== 'customer') {
-      // Customer 테마는 CSS 클래스 생성하지 않음 (동적으로 적용)
-      // 다른 테마들은 기존 방식 유지
-      cssContent += `.theme-${themeName} {\n`;
-      cssContent += `  --primary: var(--theme-${themeName}-primary-500);\n`;
-      cssContent += `  --primary-foreground: var(--theme-${themeName}-primary-50);\n`;
-      Object.entries(colors.primary).forEach(([shade, token]) => {
-        cssContent += `  --primary-${shade}: var(--theme-${themeName}-primary-${shade});\n`;
-      });
-      cssContent += `}\n\n`;
-    }
-  });
 
   // Dark 테마 추가
   cssContent += `.dark {

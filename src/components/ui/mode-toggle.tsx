@@ -12,7 +12,7 @@ import {
 import { useTheme } from '@/lib/themes/theme-provider';
 
 export function ModeToggle() {
-  const { theme, setTheme } = useTheme();
+  const { setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
