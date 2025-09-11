@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation';
 import { MarkdownRenderer } from '@/components/docs/markdown-renderer';
 import { getMarkdownFile, getMarkdownSlugs } from '@/lib/markdown';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
 
 interface ComponentGuidePageProps {
   params: Promise<{
@@ -26,16 +25,6 @@ export default async function ComponentGuidePage({ params }: ComponentGuidePageP
 
   return (
     <>
-      <Breadcrumb className="flex items-center justify-end mb-2 list-none text-sm">
-        <BreadcrumbItem>
-          <BreadcrumbLink href="/component-guide">컴포넌트 가이드</BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbLink href={`/component-guide/${slug}`}>{guide.title}</BreadcrumbLink>
-        </BreadcrumbItem>
-      </Breadcrumb>
-
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">{guide.title}</h1>
         {guide.description && (

@@ -1,6 +1,5 @@
 'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -8,7 +7,6 @@ import { getTextSizeTokens } from '@/lib/tokens/design-tokens';
 import { CheckCircle, Clipboard } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
 
 // rem을 px로 변환하는 함수 (기본 16px = 1rem)
 const remToPx = (remValue: string): string => {
@@ -78,70 +76,63 @@ export default function TypographyPage() {
 
   return (
     <>
-      <Breadcrumb className="flex items-center justify-end mb-2 list-none text-sm">
-        <BreadcrumbItem>
-          <BreadcrumbLink href="/tokens">디자인 토큰</BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbLink href={`/tokens/typography`}>타이포그래피</BreadcrumbLink>
-        </BreadcrumbItem>
-      </Breadcrumb>
+      <div className="mb-8">
+        <h2 className="text-2xl font-bold mb-2">타이포그래피</h2>
+        <p className="text-muted-foreground">타이포그래피 설명</p>
+      </div>
 
-      <div className="py-6">      
-        <div className="flex flex-col gap-6">
-          {Object.entries(getTextSizeTokens()).map(([key, token]) => {
-            if (!isTypographyToken(token)) {
-              return null;
-            }
+      <div className="flex flex-col gap-6">
+        {Object.entries(getTextSizeTokens()).map(([key, token]) => {
+          if (!isTypographyToken(token)) {
+            return null;
+          }
 
-            return (
-              <div key={key} className={`${token.name === 'Text Base' ? 'bg-gray-50' : ''}`}>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-muted-foreground">{token.name}</span>
-                    <Badge variant="outline" className="text-xs">
-                      {key}
+          return (
+            <div key={key} className={`${token.name === 'Text Base' ? 'bg-gray-50' : ''}`}>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-medium text-muted-foreground">{token.name}</span>
+                  <Badge variant="outline" className="text-xs">
+                    {key}
+                  </Badge>
+                </div>
+                <div className="flex items-center gap-2">
+                  {token.fontSize && (
+                    <Badge variant="secondary" className="text-xs">
+                      font-size: {formatValue(token.fontSize)}
                     </Badge>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    {token.fontSize && (
-                      <Badge variant="secondary" className="text-xs">
-                        font-size: {formatValue(token.fontSize)}
-                      </Badge>
+                  )}
+                  {token.lineHeight && (
+                    <Badge variant="outline" className="text-xs">
+                      line-height: {formatValue(token.lineHeight)}
+                    </Badge>
+                  )}
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-6 w-6 p-0"
+                    onClick={() => handleCopyToken(key, `${token.fontSize} / ${token.lineHeight}`)}
+                  >
+                    {copiedTokens.has(key) ? (
+                      <CheckCircle className="h-3 w-3 text-green-600" />
+                    ) : (
+                      <Clipboard className="h-3 w-3" />
                     )}
-                    {token.lineHeight && (
-                      <Badge variant="outline" className="text-xs">
-                        line-height: {formatValue(token.lineHeight)}
-                      </Badge>
-                    )}
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="h-6 w-6 p-0"
-                      onClick={() => handleCopyToken(key, `${token.fontSize} / ${token.lineHeight}`)}
-                    >
-                      {copiedTokens.has(key) ? (
-                        <CheckCircle className="h-3 w-3 text-green-600" />
-                      ) : (
-                        <Clipboard className="h-3 w-3" />
-                      )}
-                    </Button>
-                  </div>
+                  </Button>
                 </div>
-
-                <div className="space-y-2">
-                  <div className="text-xs font-medium text-muted-foreground">미리보기:</div>
-                  <div className={`border-l-4 border-primary pl-4 ${key}`} style={{ fontSize: token.fontSize, lineHeight: token.lineHeight }}>
-                    The quick brown fox jumps over the lazy dog
-                  </div>
-                </div>
-
-                <Separator />
               </div>
-            );
-          })}
-        </div>
+
+              <div className="space-y-2">
+                <div className="text-xs font-medium text-muted-foreground">미리보기:</div>
+                <div className={`border-l-4 border-primary pl-4 ${key}`} style={{ fontSize: token.fontSize, lineHeight: token.lineHeight }}>
+                  The quick brown fox jumps over the lazy dog
+                </div>
+              </div>
+
+              <Separator />
+            </div>
+          );
+        })}
       </div>
     </>
   );

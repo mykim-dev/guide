@@ -7,7 +7,6 @@ import { tailwindColors } from '@/lib/tokens';
 import { CheckCircle, Clipboard } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
 
 
 export default function PalettePage() {
@@ -40,67 +39,60 @@ export default function PalettePage() {
 
   return (
     <>
-      <Breadcrumb className="flex items-center justify-end mb-2 list-none text-sm">
-        <BreadcrumbItem>
-          <BreadcrumbLink href="/tokens">디자인 토큰</BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbLink href={`/tokens/typography`}>타이포그래피</BreadcrumbLink>
-        </BreadcrumbItem>
-      </Breadcrumb>
+      <div className="mb-8">
+        <h2 className="text-2xl font-bold mb-2">색상 팔레트</h2>
+        <p className="text-muted-foreground">색상 팔레트 설명</p>
+      </div>
 
-      <div className="py-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
-          {Object.entries(tailwindColors).map(([colorName, colorScale]) => (
-            <Card key={colorName} className="overflow-hidden">
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle className="capitalize text-sm">{colorName}</CardTitle>
-                  <Badge variant="secondary" className="text-xs">
-                    {Object.keys(colorScale).length} 색조
-                  </Badge>
-                </div>
-                <CardDescription className="text-xs">
-                  Tailwind CSS {colorName}
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="pt-0">
-                {Object.entries(colorScale).map(([shade, hexValue]) => (
-                  <div key={shade} className="flex items-center justify-between p-1">
-                    <div className="flex items-center space-x-2 flex-1">
-                      <div
-                        className="w-4 h-4 rounded border border-border"
-                        style={{ backgroundColor: hexValue }}
-                        title={`${colorName}-${shade}: ${hexValue}`}
-                      />
-                      <div className="flex flex-col min-w-0">
-                        <span className="text-sm truncate">{colorName}-{shade}</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm text-muted-foreground">
-                        {hexValue}
-                      </span>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="h-6 w-6 p-0"
-                        onClick={() => handleCopyToken(`${colorName}-${shade}`, hexValue)}
-                      >
-                        {copiedTokens.has(`${colorName}-${shade}`) ? (
-                          <CheckCircle className="h-3 w-3 text-green-600" />
-                        ) : (
-                          <Clipboard className="h-3 w-3" />
-                        )}
-                      </Button>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
+        {Object.entries(tailwindColors).map(([colorName, colorScale]) => (
+          <Card key={colorName} className="overflow-hidden">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <CardTitle className="capitalize text-sm">{colorName}</CardTitle>
+                <Badge variant="secondary" className="text-xs">
+                  {Object.keys(colorScale).length} 색조
+                </Badge>
+              </div>
+              <CardDescription className="text-xs">
+                Tailwind CSS {colorName}
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="pt-0">
+              {Object.entries(colorScale).map(([shade, hexValue]) => (
+                <div key={shade} className="flex items-center justify-between p-1">
+                  <div className="flex items-center space-x-2 flex-1">
+                    <div
+                      className="w-4 h-4 rounded border border-border"
+                      style={{ backgroundColor: hexValue }}
+                      title={`${colorName}-${shade}: ${hexValue}`}
+                    />
+                    <div className="flex flex-col min-w-0">
+                      <span className="text-sm truncate">{colorName}-{shade}</span>
                     </div>
                   </div>
-                ))}
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm text-muted-foreground">
+                      {hexValue}
+                    </span>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-6 w-6 p-0"
+                      onClick={() => handleCopyToken(`${colorName}-${shade}`, hexValue)}
+                    >
+                      {copiedTokens.has(`${colorName}-${shade}`) ? (
+                        <CheckCircle className="h-3 w-3 text-green-600" />
+                      ) : (
+                        <Clipboard className="h-3 w-3" />
+                      )}
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+        ))}
       </div>
     </>
   );

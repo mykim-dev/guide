@@ -1,16 +1,16 @@
 ---
-title: "Radio Group"
+title: "RadioGroup"
 description: "라디오 그룹 컴포넌트 사용 가이드"
 ---
 
 ## 기본 사용법
 
 ```tsx
-import { Radio Group } from '@/components/ui/radio group';
+import { RadioGroup } from '@/components/ui/radio-group';
 
 export function MyComponent() {
   return (
-    <Radio Group>기본 Radio Group</Radio Group>
+    <RadioGroup>기본 Radio Group</RadioGroup>
   );
 }
 ```

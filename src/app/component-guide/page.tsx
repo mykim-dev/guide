@@ -152,7 +152,7 @@ const components = [
     link: '/component-guide/checkbox',
   },
   {
-    title: 'Radio Group',
+    title: 'RadioGroup',
     description: '라디오 버튼 그룹 컴포넌트',
     component: (
       <RadioGroup defaultValue="option-one" className="flex gap-6">
