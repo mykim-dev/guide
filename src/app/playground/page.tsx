@@ -1023,136 +1023,127 @@ export default function PlaygroundPage() {
 
   return (
     <>
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">플레이그라운드</h1>
-        <p className="text-muted-foreground">
-          컴포넌트를 실시간으로 테스트하고 다양한 설정을 시도해보세요.
-        </p>
-      </div>
-
-      <ScrollArea className="h-[calc(100vh-15rem)]">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* 컴포넌트 선택 및 설정 */}
-          <Card>
-            <CardHeader>
-              <CardTitle>컴포넌트 설정</CardTitle>
-              <CardDescription>
-                컴포넌트와 속성을 선택하여 미리보기를 확인하세요.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              {/* 컴포넌트 선택 */}
-              <div className="space-y-2">
-                <Label>컴포넌트</Label>
-                <Select value={selectedComponent} onValueChange={setSelectedComponent}>
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {Object.entries(components).map(([key, comp]) => (
-                      <SelectItem key={key} value={key}>
-                        {comp.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* 속성 설정 */}
-              {currentComponent && currentComponent.props && Object.keys(currentComponent.props).length > 0 && (
-                <div className="space-y-4">
-                  {Object.entries(currentComponent.props).map(([prop, values]) => (
-                    <div key={prop} className="space-y-2">
-                      <Label className="capitalize">{prop}</Label>
-                      {Array.isArray(values) && values.every(v => typeof v === 'boolean') ? (
-                        <Switch
-                          checked={componentProps[prop] !== undefined ? componentProps[prop] : values[0]}
-                          onCheckedChange={(checked) => updateProp(prop, checked)}
-                        />
-                      ) : Array.isArray(values) ? (
-                        <Select
-                          value={componentProps[prop] !== undefined ? componentProps[prop] : values[0]}
-                          onValueChange={(value) => updateProp(prop, value)}
-                        >
-                          <SelectTrigger>
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {values.map((value) => (
-                              <SelectItem key={value} value={value.toString()}>
-                                {value.toString()}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      ) : typeof values === 'boolean' ? (
-                        <Switch
-                          checked={componentProps[prop] !== undefined ? componentProps[prop] : values}
-                          onCheckedChange={(checked) => updateProp(prop, checked)}
-                        />
-                      ) : (
-                        <Input
-                          value={componentProps[prop] || ''}
-                          onChange={(e) => updateProp(prop, e.target.value)}
-                          placeholder={`Enter ${prop}`}
-                        />
-                      )}
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {/* 복잡한 컴포넌트 안내 */}
-              {currentComponent && (!currentComponent.props || Object.keys(currentComponent.props).length === 0) && (
-                <div className="text-sm text-muted-foreground">
-                  이 컴포넌트는 복잡한 구조로 인해 기본 설정으로만 표시됩니다.
-                </div>
-              )}
-            </CardContent>
-          </Card>
-
-          {/* 미리보기 */}
-          <Card>
-            <CardHeader>
-              <CardTitle>미리보기</CardTitle>
-              <CardDescription>
-                선택한 설정으로 컴포넌트가 어떻게 보이는지 확인하세요.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="min-h-[200px] flex items-center justify-center border-2 border-dashed border-muted-foreground/25 rounded-lg p-8">
-                {renderComponent()}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* 코드 출력 */}
-        <Card className="mt-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* 컴포넌트 선택 및 설정 */}
+        <Card>
           <CardHeader>
-            <CardTitle>생성된 코드</CardTitle>
+            <CardTitle>컴포넌트 설정</CardTitle>
             <CardDescription>
-              현재 설정에 따른 컴포넌트 코드입니다.
+              컴포넌트와 속성을 선택하여 미리보기를 확인하세요.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {/* 컴포넌트 선택 */}
+            <div className="space-y-2">
+              <Label>컴포넌트</Label>
+              <Select value={selectedComponent} onValueChange={setSelectedComponent}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {Object.entries(components).map(([key, comp]) => (
+                    <SelectItem key={key} value={key}>
+                      {comp.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* 속성 설정 */}
+            {currentComponent && currentComponent.props && Object.keys(currentComponent.props).length > 0 && (
+              <div className="space-y-4">
+                {Object.entries(currentComponent.props).map(([prop, values]) => (
+                  <div key={prop} className="space-y-2">
+                    <Label className="capitalize">{prop}</Label>
+                    {Array.isArray(values) && values.every(v => typeof v === 'boolean') ? (
+                      <Switch
+                        checked={componentProps[prop] !== undefined ? componentProps[prop] : values[0]}
+                        onCheckedChange={(checked) => updateProp(prop, checked)}
+                      />
+                    ) : Array.isArray(values) ? (
+                      <Select
+                        value={componentProps[prop] !== undefined ? componentProps[prop] : values[0]}
+                        onValueChange={(value) => updateProp(prop, value)}
+                      >
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {values.map((value) => (
+                            <SelectItem key={value} value={value.toString()}>
+                              {value.toString()}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    ) : typeof values === 'boolean' ? (
+                      <Switch
+                        checked={componentProps[prop] !== undefined ? componentProps[prop] : values}
+                        onCheckedChange={(checked) => updateProp(prop, checked)}
+                      />
+                    ) : (
+                      <Input
+                        value={componentProps[prop] || ''}
+                        onChange={(e) => updateProp(prop, e.target.value)}
+                        placeholder={`Enter ${prop}`}
+                      />
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* 복잡한 컴포넌트 안내 */}
+            {currentComponent && (!currentComponent.props || Object.keys(currentComponent.props).length === 0) && (
+              <div className="text-sm text-muted-foreground">
+                이 컴포넌트는 복잡한 구조로 인해 기본 설정으로만 표시됩니다.
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* 미리보기 */}
+        <Card>
+          <CardHeader>
+            <CardTitle>미리보기</CardTitle>
+            <CardDescription>
+              선택한 설정으로 컴포넌트가 어떻게 보이는지 확인하세요.
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-sm">
-              <code>
-                {`import { ${currentComponent?.name} } from '@/components/ui/${selectedComponent}';
-                  <${currentComponent?.name}${Object.entries(componentProps)
-                    .filter(([, value]) => value !== undefined && value !== '')
-                    .map(([key, value]) => {
-                      if (typeof value === 'boolean') {
-                        return value ? ` ${key}` : '';
-                      }
-                      return ` ${key}="${value}"`;
-                    })
-                  .join('')} />`}
-              </code>
-            </pre>
+            <div className="min-h-[200px] flex items-center justify-center border-2 border-dashed border-muted-foreground/25 rounded-lg p-8">
+              {renderComponent()}
+            </div>
           </CardContent>
         </Card>
-      </ScrollArea>
+      </div>
+
+      {/* 코드 출력 */}
+      <Card className="mt-8">
+        <CardHeader>
+          <CardTitle>생성된 코드</CardTitle>
+          <CardDescription>
+            현재 설정에 따른 컴포넌트 코드입니다.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-sm">
+            <code>
+              {`import { ${currentComponent?.name} } from '@/components/ui/${selectedComponent}';
+                <${currentComponent?.name}${Object.entries(componentProps)
+                  .filter(([, value]) => value !== undefined && value !== '')
+                  .map(([key, value]) => {
+                    if (typeof value === 'boolean') {
+                      return value ? ` ${key}` : '';
+                    }
+                    return ` ${key}="${value}"`;
+                  })
+                .join('')} />`}
+            </code>
+          </pre>
+        </CardContent>
+      </Card>
     </>
   );
 }

@@ -22,8 +22,11 @@
 - **일관된 디자인**: 통일된 디자인 언어와 스타일 시스템
 - **접근성 우선**: ARIA 속성과 키보드 네비게이션 지원
 
-### 📚 Markdown 기반 문서화
-- **디자인 가이드**: 디자인 원칙과 가이드라인
+### 📚 체계적인 가이드 구조
+- **Overview**: 디자인 시스템 소개 및 핵심 원칙
+- **Brand**: 브랜드 가이드라인 및 로고 사용법
+- **Platform**: 플랫폼별 로고 및 캐릭터 가이드
+- **Foundations**: 디자인 토큰 (색상, 타이포그래피, 간격)
 - **컴포넌트 가이드**: 각 컴포넌트의 사용법과 예제
 - **실시간 렌더링**: Markdown을 실시간으로 렌더링
 - **자동 가이드 생성**: 컴포넌트 템플릿 기반 자동 문서 생성
@@ -106,7 +109,10 @@ pnpm add -D gh-pages
 
 ### 주요 페이지
 - **홈페이지**: 디자인 시스템 개요
-- **디자인 토큰**: 색상, 타이포그래피, 간격 시스템
+- **Brand**: 브랜드 가이드 (로고, 브랜드 아이덴티티)
+- **Platform**: 플랫폼 가이드 (로고, 캐릭터)
+- **Foundations**: 디자인 토큰 (색상, 타이포그래피, 간격)
+- **Overview**: 디자인 시스템 소개 및 가이드라인
 - **컴포넌트 가이드**: 50+ UI 컴포넌트 사용법
 - **플레이그라운드**: 실시간 컴포넌트 테스트
 - **테마 에디터**: OKLCH 기반 색상 커스터마이징
@@ -135,18 +141,19 @@ pnpm run deploy
 ```
 src/
 ├── app/                    # Next.js App Router
-│   ├── components/         # 컴포넌트 페이지
-│   ├── design-guide/       # 디자인 가이드
-│   ├── component-guide/    # 컴포넌트 가이드
-│   ├── playground/         # 플레이그라운드
-│   ├── theme-editor/       # 테마 에디터
-│   ├── tokens/             # 디자인 토큰
+│   ├── brand/              # 브랜드 가이드 (로고, 브랜드 아이덴티티)
+│   ├── platform/           # 플랫폼 가이드 (로고, 캐릭터)
+│   ├── foundations/        # 디자인 토큰 (색상, 타이포그래피, 간격)
+│   ├── overview/           # 디자인 시스템 개요 및 소개
+│   ├── component-guide/    # 컴포넌트 가이드 (50+ 컴포넌트)
+│   ├── playground/         # 플레이그라운드 (실시간 테스트)
+│   ├── theme-editor/       # 테마 에디터 (OKLCH 색상 편집)
 │   ├── globals.css         # 전역 스타일
 │   └── generated-theme-variables.css # 자동 생성된 CSS 변수
 ├── components/
 │   ├── ui/                 # shadcn/ui 컴포넌트 (50+)
 │   ├── docs/               # 문서 관련 컴포넌트
-│   └── layout/             # 레이아웃 컴포넌트
+│   └── layout/             # 레이아웃 컴포넌트 (조건부 레이아웃)
 ├── lib/
 │   ├── tokens/             # 디자인 토큰 정의
 │   ├── themes/             # 테마 시스템
@@ -156,13 +163,33 @@ src/
 └── hooks/                  # 커스텀 훅
 
 content/
-├── design-guide/           # 디자인 가이드 Markdown
 └── component-guide/        # 컴포넌트 가이드 Markdown (자동 생성)
 
 scripts/
 ├── generate-component-guides.ts # 컴포넌트 가이드 자동 생성
 └── generate-css-variables.ts    # CSS 변수 자동 생성
 ```
+
+## 🏗️ 새로운 가이드 구조
+
+### 📋 개선된 구조
+프로젝트가 더 체계적이고 직관적인 구조로 개편되었습니다:
+
+| 섹션 | 설명 | 주요 기능 |
+|------|------|-----------|
+| **Overview** | 디자인 시스템 소개 | 핵심 원칙, 목표, 사용 방법 가이드 |
+| **Brand** | 브랜드 가이드라인 | 로고, 브랜드 아이덴티티, 사용법 |
+| **Platform** | 플랫폼별 가이드 | 로고, 캐릭터, 플랫폼별 가이드라인 |
+| **Foundations** | 디자인 토큰 | 색상, 타이포그래피, 간격 시스템 |
+| **Components** | 컴포넌트 가이드 | 50+ UI 컴포넌트 사용법 및 예제 |
+| **Playground** | 실시간 테스트 | 컴포넌트 실시간 테스트 및 속성 조정 |
+| **Theme Editor** | 테마 커스터마이징 | OKLCH 기반 색상 편집 도구 |
+
+### 🎯 개선 사항
+- **계층적 네비게이션**: 사이드바에서 관련 섹션을 그룹화하여 더 쉽게 탐색
+- **명확한 분류**: 브랜드, 플랫폼, 토큰을 명확히 구분
+- **일관된 레이아웃**: 모든 가이드 페이지에서 일관된 사용자 경험
+- **반응형 디자인**: 모든 디바이스에서 최적화된 레이아웃
 
 ## 🎨 디자인 토큰
 
@@ -215,27 +242,30 @@ scripts/
 
 ## 🔧 사용 방법
 
-### 1. 디자인 토큰 확인
-- `/tokens` 페이지에서 기본 토큰들을 확인
+### 1. 디자인 시스템 개요 확인
+- `/overview` 페이지에서 디자인 시스템 소개 및 가이드라인 확인
+- 디자인 원칙과 목표 이해
+
+### 2. 디자인 토큰 확인
+- `/foundations` 페이지에서 기본 토큰들을 확인
 - 색상, 타이포그래피, 간격 토큰 체계 이해
 - OKLCH 색상 공간의 장점 체험
 
-### 2. 컴포넌트 탐색
-- `/components` 페이지에서 사용 가능한 컴포넌트 확인
+### 3. 브랜드 및 플랫폼 가이드 확인
+- `/brand`에서 브랜드 가이드라인 확인
+- `/platform`에서 플랫폼별 로고 및 캐릭터 가이드 확인
+
+### 4. 컴포넌트 탐색
+- `/component-guide` 페이지에서 사용 가능한 컴포넌트 확인
 - 각 컴포넌트의 다양한 변형과 사용법 학습
 - 50+ 컴포넌트의 일관된 디자인 시스템 체험
 
-### 3. 문서 읽기
-- `/design-guide`에서 디자인 원칙과 가이드라인 확인
-- `/component-guide`에서 각 컴포넌트의 상세 사용법 확인
-- 자동 생성된 가이드의 완성도 확인
-
-### 4. 플레이그라운드에서 테스트
+### 5. 플레이그라운드에서 테스트
 - `/playground`에서 컴포넌트를 실시간으로 테스트
 - 다양한 속성 조합을 시도해보기
 - 50+ 컴포넌트의 모든 기능 체험
 
-### 5. 테마 커스터마이징
+### 6. 테마 커스터마이징
 - `/theme-editor`에서 OKLCH 색상 공간 기반 커스터마이징
 - 실시간 색상 변경 및 미리보기
 - Tailwind CSS 설정 자동 생성
@@ -294,13 +324,18 @@ import { ComponentName } from '@/components/ui/component-name';
 ### 새로운 토큰 추가
 1. `src/lib/tokens/`에 토큰 정의 파일 생성
 2. `src/lib/tokens/index.ts`에 토큰 추가
-3. 관련 페이지에 토큰 표시 추가
+3. `src/app/foundations/` 관련 페이지에 토큰 표시 추가
 4. `npm run generate-css`로 CSS 변수 자동 생성
 
 ### 새로운 문서 추가
-1. `content/design-guide/` 또는 `content/component-guide/`에 Markdown 파일 생성
+1. `content/component-guide/`에 Markdown 파일 생성
 2. Front matter에 title과 description 추가
 3. 자동으로 페이지에 반영됨
+
+### 새로운 가이드 섹션 추가
+1. `src/app/`에 새로운 폴더 생성 (예: `brand/`, `platform/`)
+2. 해당 폴더에 `page.tsx` 파일 생성
+3. `src/components/layout/conditional-layout.tsx`에 네비게이션 추가
 
 ### 자동화 스크립트 사용
 ```bash
@@ -380,6 +415,6 @@ npm run dev -- -p 3001
 
 **Design System Guide** - 체계적인 디자인 시스템 구축을 위한 종합 가이드
 
-[시작하기](#-빠른-시작) • [문서 보기](/design-guide) • [컴포넌트 보기](/components) • [플레이그라운드](/playground)
+[시작하기](#-빠른-시작) • [개요 보기](/overview) • [컴포넌트 보기](/component-guide) • [플레이그라운드](/playground)
 
 </div>

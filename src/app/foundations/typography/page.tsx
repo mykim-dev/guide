@@ -76,11 +76,6 @@ export default function TypographyPage() {
 
   return (
     <>
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold mb-2">타이포그래피</h2>
-        <p className="text-muted-foreground">타이포그래피 설명</p>
-      </div>
-
       <div className="flex flex-col gap-6">
         {Object.entries(getTextSizeTokens()).map(([key, token]) => {
           if (!isTypographyToken(token)) {

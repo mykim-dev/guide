@@ -1,39 +1,51 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Palette, BookOpen, Code, Play, Settings } from 'lucide-react';
+import { Palette, BookOpen, Code, Play, Settings, Star, Globe } from 'lucide-react';
 
 const features = [
   {
-    title: '디자인 가이드',
-    description: 'Markdown으로 작성 가능한 디자인 가이드',
+    title: 'Overview',
+    description: '이 디자인 시스템은 일관성 있고 확장 가능한 사용자 인터페이스를 구축하기 위한 가이드라인을 제공합니다.',
     icon: BookOpen,
-    href: '/design-guide',
+    href: '/overview/introduction/',
   },
   {
-    title: '디자인 토큰',
-    description: '색상, 타이포그래피, 간격 등 디자인 토큰을 체계적으로 관리',
+    title: 'Brand',
+    description: '브랜드 아이덴티티와 일관된 시각적 표현을 위한 가이드라인을 제공합니다.',
+    icon: Star,
+    href: '/brand/',
+  },
+  {
+    title: 'Platform',
+    description: '플랫폼별 로고 및 캐릭터 가이드를 제공합니다.',
+    icon: Globe,
+    href: '/platform/',
+  },
+  {
+    title: 'Foundations',
+    description: '디자인 시스템의 기본 구성 요소인 색상, 타이포그래피, 간격 토큰들을 제공합니다.',
     icon: Palette,
-    href: '/tokens',
-  },
-  {
-    title: '테마 에디터',
-    description: 'Tailwind CSS 기반의 테마 커스터마이징 도구',
-    icon: Settings,
-    href: '/theme-editor',
-  },
+    href: '/foundations/',
+  },  
   {
     title: '컴포넌트 가이드',
-    description: '각 컴포넌트의 사용법과 예제를 제공',
+    description: '50+ UI 컴포넌트의 사용법과 예제를 제공합니다.',
     icon: Code,
-    href: '/component-guide',
+    href: '/component-guide/',
   },
   {
     title: '플레이그라운드',
-    description: '실시간으로 컴포넌트를 테스트하고 미리보기',
+    description: '실시간으로 컴포넌트를 테스트하고 미리보기할 수 있는 환경을 제공합니다.',
     icon: Play,
-    href: '/playground',
+    href: '/playground/',
   },  
+  {
+    title: '테마 에디터',
+    description: 'OKLCH 색상 공간 기반의 테마 커스터마이징 도구입니다.',
+    icon: Settings,
+    href: '/theme-editor/',
+  },
 ];
 
 export default function HomePage() {
@@ -63,7 +75,12 @@ export default function HomePage() {
               </CardHeader>
               <CardContent>
                 <Button asChild variant="outline" className="w-full">
-                  <Link href={feature.href}>자세히 보기</Link>
+                  <Link 
+                    href={feature.href}
+                    target={feature.title === '테마 에디터' ? '_blank' : undefined}
+                  >
+                    자세히 보기
+                  </Link>
                 </Button>
               </CardContent>
             </Card>

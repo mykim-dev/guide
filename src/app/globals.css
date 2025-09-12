@@ -64,6 +64,27 @@
     @apply bg-background text-foreground;
   }
 
+  .guide-error {
+    height: 260px;
+    position: relative;
+    overflow: hidden;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 1px;
+      height: 280%;
+      background-color: red;
+      transform: rotate(68deg)translate(-21rem, -7rem);
+    }
+
+    img {
+      margin: 0 auto;
+    }
+  }
+
   /*  */
   .layout-container {
     @apply bg-background;
@@ -77,9 +98,7 @@
     @apply w-16;
   }
 
-  .layout-main {
-    /* @apply border border-red-500; */
-  }
+  .layout-main {}
 
   /* screen */
   .screen-wrap {

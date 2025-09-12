@@ -68,11 +68,6 @@ export default function SpacingPage() {
 
   return (
     <>
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold mb-2">간격</h2>
-        <p className="text-muted-foreground">간격 설명</p>
-      </div>
-
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {Object.entries(spacingTokens).map(([key, token]) => {
           if (!isSpacingToken(token)) {

@@ -745,37 +745,28 @@ const components = [
 export default function ComponentsPage() {
   return (
     <>
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">컴포넌트 가이드</h1>
-        <p className="text-muted-foreground">
-          shadcn/ui 기반의 재사용 가능한 <strong>{components.length}개</strong>의 컴포넌트들을 확인하세요.
-        </p>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {components.map((component) => (
+          <Card
+            key={component.title}
+            id={component.title.toLowerCase().replace(/\s+/g, '-')}
+            className="flex flex-col justify-between"
+          >
+            <CardHeader>
+              <CardTitle>{component.title}</CardTitle>
+              <CardDescription>{component.description}</CardDescription>
+            </CardHeader>
+            <CardContent className="flex-1">
+              {component.component}
+            </CardContent>
+            <CardFooter className="flex justify-end">
+              <Link href={component.link}>
+                자세히 보기 →
+              </Link>
+            </CardFooter>
+          </Card>
+        ))}
       </div>
-
-      <ScrollArea className="h-[calc(100vh-15rem)]">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-2">
-          {components.map((component) => (
-            <Card
-              key={component.title}
-              id={component.title.toLowerCase().replace(/\s+/g, '-')}
-              className="flex flex-col justify-between"
-            >
-              <CardHeader>
-                <CardTitle>{component.title}</CardTitle>
-                <CardDescription>{component.description}</CardDescription>
-              </CardHeader>
-              <CardContent className="flex-1">
-                {component.component}
-              </CardContent>
-              <CardFooter className="flex justify-end">
-                <Link href={component.link}>
-                  자세히 보기 →
-                </Link>
-              </CardFooter>
-            </Card>
-          ))}
-        </div>
-      </ScrollArea>
     </>
   );
 }

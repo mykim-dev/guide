@@ -38,11 +38,6 @@ export default function DesignTokensPage() {
 
   return (
     <>
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold mb-2">디자인 토큰</h2>
-        <p className="text-muted-foreground">디자인 토큰 설명</p>
-      </div>
-
       {Object.entries(tokenCategories).map(([categoryKey, category]) => (
         <Card key={categoryKey}>
           <CardHeader>

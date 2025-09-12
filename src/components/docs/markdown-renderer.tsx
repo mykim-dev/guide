@@ -1027,7 +1027,7 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
             );
           },
           table: ({ children, ...props }) => (
-            <div className="overflow-x-auto mb-8  border border-red-500">
+            <div className="overflow-x-auto mb-8">
               <table className="w-full border-collapse border border-border" {...props}>
                 {children}
               </table>

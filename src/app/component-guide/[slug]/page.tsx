@@ -25,13 +25,6 @@ export default async function ComponentGuidePage({ params }: ComponentGuidePageP
 
   return (
     <>
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">{guide.title}</h1>
-        {guide.description && (
-          <p className="text-muted-foreground">{guide.description}</p>
-        )}
-      </div>
-
       <div className="prose prose-gray dark:prose-invert max-w-none">
         <MarkdownRenderer content={guide.content} />
       </div>

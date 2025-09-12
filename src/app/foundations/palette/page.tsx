@@ -39,11 +39,6 @@ export default function PalettePage() {
 
   return (
     <>
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold mb-2">색상 팔레트</h2>
-        <p className="text-muted-foreground">색상 팔레트 설명</p>
-      </div>
-
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
         {Object.entries(tailwindColors).map(([colorName, colorScale]) => (
           <Card key={colorName} className="overflow-hidden">
