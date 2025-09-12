@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Palette, BookOpen, Code, Play, Settings, Star, Globe } from 'lucide-react';
 
 const features = [
@@ -14,7 +14,7 @@ const features = [
     title: 'Brand',
     description: '브랜드 아이덴티티와 일관된 시각적 표현을 위한 가이드라인을 제공합니다.',
     icon: Star,
-    href: '/brand/',
+    href: '/brand/logo/',
   },
   {
     title: 'Platform',
@@ -27,7 +27,7 @@ const features = [
     description: '디자인 시스템의 기본 구성 요소인 색상, 타이포그래피, 간격 토큰들을 제공합니다.',
     icon: Palette,
     href: '/foundations/',
-  },  
+  },
   {
     title: '컴포넌트 가이드',
     description: '50+ UI 컴포넌트의 사용법과 예제를 제공합니다.',
@@ -39,7 +39,7 @@ const features = [
     description: '실시간으로 컴포넌트를 테스트하고 미리보기할 수 있는 환경을 제공합니다.',
     icon: Play,
     href: '/playground/',
-  },  
+  },
   {
     title: '테마 에디터',
     description: 'OKLCH 색상 공간 기반의 테마 커스터마이징 도구입니다.',
@@ -65,7 +65,7 @@ export default function HomePage() {
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" >
         {
           features.map((feature) => (
-            <Card key={feature.title} className="hover:shadow-lg transition-shadow">
+            <Card key={feature.title} className="flex flex-col justify-between hover:shadow-lg transition-shadow">
               <CardHeader>
                 <div className="flex items-center space-x-2">
                   <feature.icon className="h-6 w-6" />
@@ -73,16 +73,16 @@ export default function HomePage() {
                 </div>
                 <CardDescription>{feature.description}</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardFooter>
                 <Button asChild variant="outline" className="w-full">
-                  <Link 
+                  <Link
                     href={feature.href}
                     target={feature.title === '테마 에디터' ? '_blank' : undefined}
                   >
                     자세히 보기
                   </Link>
                 </Button>
-              </CardContent>
+              </CardFooter>
             </Card>
           ))
         }

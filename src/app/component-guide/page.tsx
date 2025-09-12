@@ -604,7 +604,7 @@ const components = [
     title: 'Scroll Area',
     description: '스크롤 영역 컴포넌트',
     component: (
-      <ScrollArea className="h-[200px] w-[350px] rounded-md border p-4">
+      <ScrollArea className="h-[200px] w-[350px] rounded-md border p-4 pr-2">
         <div className="space-y-4">
           {Array.from({ length: 20 }).map((_, i) => (
             <div key={i} className="text-sm">

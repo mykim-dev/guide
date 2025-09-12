@@ -64,10 +64,12 @@
     @apply bg-background text-foreground;
   }
 
-  .guide-error {
-    height: 260px;
-    position: relative;
-    overflow: hidden;
+  .brand-logo {
+    @apply flex justify-center items-center h-60 bg-slate-500/5 rounded-xl;
+  }
+
+  .error-logo {
+    @apply flex flex-col h-64 p-4 relative overflow-hidden bg-slate-500/5 rounded-xl;
 
     &:before {
       content: '';
@@ -77,11 +79,23 @@
       width: 1px;
       height: 280%;
       background-color: red;
-      transform: rotate(68deg)translate(-21rem, -7rem);
+      transform: rotate(68deg) translate(-328px, -160px);
     }
 
+    .error-logo-description {
+      @apply flex justify-start items-center gap-2;
+    }
+
+    .error-logo-img {
+      @apply flex-1 flex justify-center items-center;
+    }
+  }
+
+  .platform-logo {
+    @apply flex justify-center items-center h-60 bg-slate-500/5 rounded-xl;
+
     img {
-      margin: 0 auto;
+      @apply h-32;
     }
   }
 
@@ -91,14 +105,16 @@
   }
 
   .layout-header {
-    @apply h-16;
+    @apply flex justify-between items-center h-16 border border-red-500;
   }
 
   .layout-aside {
-    @apply w-16;
+    @apply w-16 border border-green-500;
   }
 
-  .layout-main {}
+  .layout-main {
+    @apply flex-1 border border-blue-500;
+  }
 
   /* screen */
   .screen-wrap {

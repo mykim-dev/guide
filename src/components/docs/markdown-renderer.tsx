@@ -120,7 +120,7 @@ const createComponentExample = (componentName: string) => {
       if (state === 'Loading') {
         return function LoadingButtonExample() {
           return (
-            <Button {...props as Record<string, unknown>}>  
+            <Button {...props as Record<string, unknown>}>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               Loading...
             </Button>

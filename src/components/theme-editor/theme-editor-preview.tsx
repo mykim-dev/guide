@@ -85,14 +85,14 @@ const COLOR_TOKEN_KEYS = [
 ];
 
 export function ThemeEditorPreview() {
-  
+
   // 마운트 상태 관리
   const [mounted, setMounted] = useState(false);
-  
+
   useEffect(() => {
     setMounted(true);
   }, []);
-  
+
   const {
     tokens
   } = useThemeEditor();
@@ -150,7 +150,7 @@ export function ThemeEditorPreview() {
       });
       return;
     }
-    
+
     const normalizedValue = normalizeHex(value);
     handleUserTokenChange(tokenKey, hexToOklch(normalizedValue));
   }, [handleUserTokenChange]);
@@ -209,7 +209,7 @@ export function ThemeEditorPreview() {
     try {
       // 1. 사용자 토큰을 기본값으로 초기화
       setUserTokens(DEFAULT_TOKENS);
-      
+
       // 2. 입력 필드들을 기본값으로 초기화
       const resetInputValues: TokenInputValues = {};
       Object.entries(DEFAULT_TOKENS).forEach(([tokenKey, tokenValue]) => {
@@ -219,16 +219,16 @@ export function ThemeEditorPreview() {
         }
       });
       setInputValues(resetInputValues);
-      
+
       // 3. 로컬 테마 초기화 (CSS 변수 제거)
       // resetLocalTheme functionality removed
-      
+
       // 4. 기본 토큰들을 CSS에 적용
       const root = document.documentElement;
       Object.entries(DEFAULT_TOKENS).forEach(([tokenKey, tokenValue]) => {
         root.style.setProperty(tokenKey, tokenValue);
       });
-      
+
       toast.success('토큰이 초기화되었습니다!', {
         description: '기본값으로 되돌아갔습니다.'
       });
@@ -296,7 +296,7 @@ export function ThemeEditorPreview() {
       const tokenValue = userTokens[tokenKey];
       if (tokenValue) {
         root.style.setProperty(tokenKey, tokenValue);
-        
+
         toast.success('토큰이 적용되었습니다!', {
           description: `${tokenKey} 토큰이 적용되었습니다.`
         });
@@ -420,21 +420,18 @@ export function ThemeEditorPreview() {
     <>
       <div className="layout-container">
         <header className="layout-header">
-          <div className="header-left flex items-center gap-3">
+          <div className="header-left">
             <h1 className="text-xl font-bold">테마 에디터</h1>
-            <p className="text-sm text-muted-foreground">
-              독립 레이아웃 - 실시간 토큰 편집 및 미리보기
-            </p>
           </div>
-          <div className="header-right flex items-center gap-3">
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button variant="outline"><Settings className="size-4" /></Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-80">
-              
-            </PopoverContent>
-          </Popover>
+          <div className="header-right gap-3">
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button variant="outline"><Settings className="size-4" /></Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-80">
+
+              </PopoverContent>
+            </Popover>
           </div>
         </header>
         <aside className="layout-aside"></aside>
@@ -455,7 +452,7 @@ export function ThemeEditorPreview() {
                   </Button>
                 </div>
               </div>
-              
+
               {/* 액션 버튼들 */}
               <div className="flex items-center gap-2 pt-2 border-t border-border">
                 <Button
@@ -477,7 +474,7 @@ export function ThemeEditorPreview() {
                   JSON 복사
                 </Button>
                 <Button
-                  onClick={() => {}}
+                  onClick={() => { }}
                   variant="outline"
                   size="sm"
                   className="gap-2"
@@ -829,7 +826,7 @@ export function ThemeEditorPreview() {
                               <div className="form-item">
                                 <div className="form-item-title">Checkbox</div>
                                 <div className="form-item-content">
-                                  <ScrollArea className="h-9 w-full">
+                                  <ScrollArea className="h-9 w-full pr-2">
                                     <div className="control-group">
                                       <div className="control-item"><Checkbox id="chk1" checked={false} /><Label htmlFor="chk1">Default</Label></div>
                                       <div className="control-item"><Checkbox id="chk2" checked={true} /><Label htmlFor="chk2">Checked</Label></div>
@@ -844,13 +841,13 @@ export function ThemeEditorPreview() {
                               <div className="form-item">
                                 <div className="form-item-title">RadioGroup</div>
                                 <div className="form-item-content">
-                                  <ScrollArea className="h-9 w-full">
-                                    <RadioGroup defaultValue="rdo2">                                
+                                  <ScrollArea className="h-9 w-full pr-2">
+                                    <RadioGroup defaultValue="rdo2">
                                       <div className="control-group">
                                         <div className="control-item"><RadioGroupItem value="rdo1" id="rdo1" /><Label htmlFor="rdo1">Default</Label></div>
                                         <div className="control-item"><RadioGroupItem value="rdo2" id="rdo2" /><Label htmlFor="rdo2">Checked</Label></div>
                                         <div className="control-item"><RadioGroupItem value="rdo3" id="rdo3" disabled={true} /><Label htmlFor="rdo3">Disabled</Label></div>
-                                      </div>                                
+                                      </div>
                                     </RadioGroup>
                                     <ScrollBar orientation="horizontal" />
                                   </ScrollArea>
