@@ -5,7 +5,7 @@ export default function PlatformLogosPage() {
       <div className="flex flex-col gap-24">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {Array.from({ length: 12 }, (_, index) => (
-            <div className="platform-logo">
+            <div key={index} className="platform-logo">
               <img
                 src="/guide/images/brand/logo-signature.png"
                 alt={`Platform Logo ${index + 1}`}

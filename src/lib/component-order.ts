@@ -14,6 +14,7 @@ export const componentOrder = [
   'toggle-group',
   'slider',
   'progress',
+  'color-picker',
   'textarea',
   'dialog',
   'alert-dialog',
