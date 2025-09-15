@@ -2,9 +2,8 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { PanelLeft, User } from 'lucide-react';
+import { PanelLeft, PanelLeftClose, User } from 'lucide-react';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator, BreadcrumbPage } from '@/components/ui/breadcrumb';
-import { Avatar } from '@/components/ui/avatar';
 
 interface CalsAppHeaderProps {
   sidebarOpen: boolean;
@@ -21,10 +20,10 @@ export function CalsAppHeader({
         <Button
           variant="outline"
           size="icon"
-          className={`rounded-sm transition-all duration-300 cursor-pointer ${sidebarOpen ? '' : ''}`}
+          className="rounded-sm transition-all duration-300 cursor-pointer"
           onClick={() => setSidebarOpen(!sidebarOpen)}
         >
-          <PanelLeft />
+          {sidebarOpen ? <PanelLeftClose className="h-4 w-4" /> : <PanelLeft className="h-4 w-4" />}
         </Button>
         <h1 className="logo text-xl font-bold">CALS APP</h1>
       </div>

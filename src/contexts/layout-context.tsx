@@ -55,6 +55,9 @@ interface LayoutContextType {
   setLayoutType: (type: LayoutType) => void;
   updateLayoutConfig: (config: Partial<LayoutConfig>) => void;
   resetToDefault: () => void;
+  sidebarOpen: boolean;
+  toggleSidebar: () => void;
+  setSidebarOpen: (open: boolean) => void;
 }
 
 // 컨텍스트 생성
@@ -82,11 +85,22 @@ export function LayoutProvider({ children, defaultLayout = 'default' }: LayoutPr
     return LAYOUT_PRESETS[defaultLayout];
   });
 
+  const [sidebarOpen, setSidebarOpen] = useState<boolean>(() => {
+    // 클라이언트 사이드에서만 로컬 스토리지 접근
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('sidebar-open');
+      if (saved !== null) {
+        return JSON.parse(saved);
+      }
+    }
+    return true; // 기본값: 열림
+  });
+
   // 레이아웃 타입 변경
   const setLayoutType = (type: LayoutType) => {
     const newConfig = LAYOUT_PRESETS[type];
     setLayoutConfig(newConfig);
-    
+
     // 로컬 스토리지에 저장
     if (typeof window !== 'undefined') {
       localStorage.setItem('layout-config', JSON.stringify(newConfig));
@@ -97,7 +111,7 @@ export function LayoutProvider({ children, defaultLayout = 'default' }: LayoutPr
   const updateLayoutConfig = (config: Partial<LayoutConfig>) => {
     const newConfig = { ...layoutConfig, ...config };
     setLayoutConfig(newConfig);
-    
+
     // 로컬 스토리지에 저장
     if (typeof window !== 'undefined') {
       localStorage.setItem('layout-config', JSON.stringify(newConfig));
@@ -107,6 +121,27 @@ export function LayoutProvider({ children, defaultLayout = 'default' }: LayoutPr
   // 기본값으로 리셋
   const resetToDefault = () => {
     setLayoutType(defaultLayout);
+  };
+
+  // 사이드바 토글
+  const toggleSidebar = () => {
+    const newState = !sidebarOpen;
+    setSidebarOpen(newState);
+
+    // 로컬 스토리지에 저장
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('sidebar-open', JSON.stringify(newState));
+    }
+  };
+
+  // 사이드바 상태 설정
+  const setSidebarOpenState = (open: boolean) => {
+    setSidebarOpen(open);
+
+    // 로컬 스토리지에 저장
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('sidebar-open', JSON.stringify(open));
+    }
   };
 
   // 하이드레이션 후 로컬 스토리지에서 설정 로드
@@ -121,6 +156,16 @@ export function LayoutProvider({ children, defaultLayout = 'default' }: LayoutPr
           // 파싱 실패 시 무시
         }
       }
+
+      const sidebarSaved = localStorage.getItem('sidebar-open');
+      if (sidebarSaved !== null) {
+        try {
+          const parsed = JSON.parse(sidebarSaved);
+          setSidebarOpen(parsed);
+        } catch {
+          // 파싱 실패 시 무시
+        }
+      }
     }
   }, []);
 
@@ -129,6 +174,9 @@ export function LayoutProvider({ children, defaultLayout = 'default' }: LayoutPr
     setLayoutType,
     updateLayoutConfig,
     resetToDefault,
+    sidebarOpen,
+    toggleSidebar,
+    setSidebarOpen: setSidebarOpenState,
   };
 
   return (

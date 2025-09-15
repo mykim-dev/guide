@@ -1,7 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useThemeEditorState } from '@/hooks/use-theme-editor';
+import { useLayout } from '@/contexts/layout-context';
 import { CalsAppHeader } from '@/components/cals-app/cals-app-header';
 import { CalsAppSidebar } from '@/components/cals-app/cals-app-sidebar';
 import { CalsAppTagBar } from '@/components/cals-app/cals-app-tag-bar';
@@ -12,29 +13,19 @@ interface LayoutCalsAppProps {
 }
 
 export function LayoutCalsApp({ children }: LayoutCalsAppProps) {
-  const {
-    mounted,
-    inputValues,
-    userTokens,
-    sidebarOpen,
-    setSidebarOpen,
-    tokenCode,
-    setTokenCode,
-    colorTokensAsHex,
-    colorOptions,
-    customerColorOptions,
-    updateToken,
-    handleSaveUserTokens,
-    handleResetUserTokens,
-    handleSaveTokenCode,
-    handleResetTokenCode,
-    handleSaveTokenCodeToStorage,
-    handleCopyTokenCode,
-    handleApplyToken,
-    handleResetToken,
-    handleExportTokens,
-    handleCopyTokens,
-  } = useThemeEditorState();
+  const { mounted } = useThemeEditorState();
+  const { sidebarOpen, setSidebarOpen } = useLayout();
+
+  // 클래스명 메모이제이션
+  const containerClasses = useMemo(() =>
+    `layout-container grid grid-rows-[4rem_4rem_1fr] bg-background transition-all duration-300 ${sidebarOpen ? 'grid-cols-[16rem_1fr]' : 'grid-cols-[4rem_1fr]'
+    }`, [sidebarOpen]
+  );
+
+  const scrollAreaClasses = useMemo(() =>
+    `h-[calc(100svh-8rem)] transition-all duration-300 ${sidebarOpen ? 'w-[calc(100svw-16rem)]' : 'w-[calc(100svw-4rem)]'
+    }`, [sidebarOpen]
+  );
 
   // 마운트되지 않은 경우 로딩 화면 표시
   if (!mounted) {
@@ -49,16 +40,15 @@ export function LayoutCalsApp({ children }: LayoutCalsAppProps) {
   }
 
   return (
-    <div className="layout-container grid grid-cols-[16rem_1fr] grid-rows-[4rem_4rem_1fr] bg-background">
+    <div className={containerClasses}>
       <CalsAppHeader
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}
       />
       <CalsAppSidebar />
       <CalsAppTagBar />
-      {/* <CalsAppMain /> */}
       <main className="layout-main">
-        <ScrollArea className="w-[calc(100svw-16rem)] h-[calc(100svh-8rem)]">
+        <ScrollArea className={scrollAreaClasses}>
           {children}
           <ScrollBar orientation="vertical" />
         </ScrollArea>

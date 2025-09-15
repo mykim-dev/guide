@@ -44,7 +44,7 @@ const features = [
     title: '테마 에디터',
     description: 'OKLCH 색상 공간 기반의 테마 커스터마이징 도구입니다.',
     icon: Settings,
-    href: '/layout-theme/',
+    href: '/layout-cals-app/',
   },
 ];
 
@@ -56,7 +56,7 @@ export default function HomePage() {
         <h1 className="text-5xl font-bold tracking-tight mt-16">
           Design System Guide
         </h1>
-        
+
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
           체계적인 디자인 시스템을 구축하고 관리할 수 있는 종합적인 가이드입니다.
           <br />
@@ -116,7 +116,7 @@ export default function HomePage() {
         {/* <h2 className="text-3xl font-bold text-center">주요 기능</h2> */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature) => (
-            <Card key={feature.title} className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+            <Card key={feature.title} className="flex flex-col justify-between group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
               <CardHeader className="space-y-3">
                 <div className="flex items-center space-x-3">
                   <div className="p-2 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">

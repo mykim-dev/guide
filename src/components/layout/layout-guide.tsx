@@ -30,7 +30,7 @@ const ROUTES = {
   FOUNDATIONS: '/layout-guide/foundations/design-tokens/',
   COMPONENT_GUIDE: '/layout-guide/component-guide/',
   PLAYGROUND: '/layout-guide/playground/',
-  THEME_EDITOR: '/layout-theme/',
+  THEME_EDITOR: '/layout-cals-app/',
 } as const;
 
 // 네비게이션 데이터
@@ -454,21 +454,21 @@ ActiveMenuTitle.displayName = 'ActiveMenuTitle';
 
 export function LayoutGuide({ children }: LayoutGuideProps) {
   const pathname = usePathname();
-  
+
   // 현재 경로에 해당하는 네비게이션 아이템 찾기
   const findNavigationItem = (items: NavigationItem[], currentPath: string): NavigationItem | null => {
     for (const item of items) {
       // 정확한 매칭 또는 슬래시 제거 후 매칭
-      if (item.href === currentPath || 
-          item.href === currentPath.replace(/\/$/, '') || 
-          item.href.replace(/\/$/, '') === currentPath) {
+      if (item.href === currentPath ||
+        item.href === currentPath.replace(/\/$/, '') ||
+        item.href.replace(/\/$/, '') === currentPath) {
         return item;
       }
       if (item.children) {
         for (const child of Object.values(item.children)) {
-          if (child.href === currentPath || 
-              child.href === currentPath.replace(/\/$/, '') || 
-              child.href.replace(/\/$/, '') === currentPath) {
+          if (child.href === currentPath ||
+            child.href === currentPath.replace(/\/$/, '') ||
+            child.href.replace(/\/$/, '') === currentPath) {
             return child;
           }
         }
@@ -476,10 +476,10 @@ export function LayoutGuide({ children }: LayoutGuideProps) {
     }
     return null;
   };
-  
+
   const currentItem = findNavigationItem(navigation, pathname);
   const showSidebar = currentItem?.sidebar !== false; // sidebar가 false가 아닌 경우
-  
+
   return (
     <div className="guide-container bg-background h-screen overflow-hidden">
       <Header />
