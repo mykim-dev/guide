@@ -65,7 +65,7 @@
   }
 
   .brand-logo {
-    @apply flex justify-center items-center h-60 bg-slate-500/5 rounded-xl;
+    @apply flex justify-center items-center h-60 bg-slate-500/5 rounded-xl relative;    
   }
 
   .error-logo {
@@ -92,53 +92,29 @@
   }
 
   .platform-logo {
-    @apply flex justify-center items-center h-60 bg-slate-500/5 rounded-xl;
+    @apply flex justify-center items-center min-h-60 bg-slate-500/5 rounded-xl relative;
+
+    .platform-logo-title {
+      @apply text-sm font-medium absolute top-4 left-4;
+    }
+
+    .btn-download {
+      @apply absolute bottom-4 right-4;
+    }
 
     img {
-      @apply h-32;
+      @apply my-16;
     }
   }
 
   /*  */
-  .layout-container {
-    @apply grid grid-cols-[4rem_1fr] grid-rows-[4rem_4rem_1fr] bg-background;
-  }
+  .layout-container {}
 
-  .layout-header {
-    @apply col-span-2 flex justify-around items-center gap-4 px-4 h-16 border-b;
+  .layout-header {}
 
-    h1 {
-      @apply text-xl font-bold;
-    }
+  .layout-aside {}
 
-    .header-left {
-      @apply flex items-center gap-4;
-    }
-
-    .header-center {
-      @apply flex-1 flex items-end gap-4;
-    }
-
-    .header-right {
-      @apply flex items-center gap-4;
-    }
-  }
-
-  .layout-aside {
-    @apply row-span-2 w-16 border-r;
-
-    ul {
-      @apply flex flex-col gap-2;
-    }
-  }
-
-  .layout-tag {
-    @apply w-full h-16 border-b;
-
-    ul {
-      @apply flex items-center gap-4 p-4;
-    }
-  }
+  .layout-tag {}
 
   .layout-main {}
 
@@ -189,7 +165,7 @@
     }
   }
 
-  /* control */
+  /* control-group : RadioGroup, Checkbox, ToggleGroup 에 사용 */
   .control-group {
     @apply min-h-8 flex items-center gap-4;
 

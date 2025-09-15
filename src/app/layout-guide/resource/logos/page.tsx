@@ -1,0 +1,275 @@
+'use client';
+
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { CircleX, DownloadIcon } from 'lucide-react';
+
+export default function ResourceLogosPage() {
+  // 이미지 다운로드 함수
+  const downloadImage = async (imageUrl: string, fileName: string) => {
+    try {
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('이미지 다운로드 실패:', error);
+    }
+  };
+
+  // 솔루션 로고 데이터
+  const solutionLogos = [
+    {
+      id: 1,
+      title: "CALS Solution Favicon",
+      imageSrc: "/guide/images/resource/favicon-cals.png",
+      alt: "CALS Solution Favicon",
+      downloadUrl: "/guide/images/resource/favicon-cals.zip",
+      fileName: "favicon-cals.zip"
+    },
+    {
+      id: 2,
+      title: "CALS Sales",
+      imageSrc: "/guide/images/resource/logo-cals-sales.png",
+      alt: "CALS Sales 로고",
+      downloadUrl: "/guide/images/resource/logo-cals-sales.png",
+      fileName: "logo-cals-sales.png"
+    },
+    {
+      id: 3,
+      title: "CALS Platz",
+      imageSrc: "/guide/images/resource/logo-cals-platz.png",
+      alt: "CALS Platz 로고",
+      downloadUrl: "/guide/images/resource/logo-cals-platz.png",
+      fileName: "logo-cals-platz.png"
+    },
+    {
+      id: 4,
+      title: "CALS Platform",
+      imageSrc: "/guide/images/resource/logo-cals-platform.png",
+      alt: "CALS Platform 로고",
+      downloadUrl: "/guide/images/resource/logo-cals-platform.png",
+      fileName: "logo-cals-platform.png"
+    },
+    {
+      id: 5,
+      title: "CALS Studio",
+      imageSrc: "/guide/images/resource/logo-cals-studio.png",
+      alt: "CALS Studio 로고",
+      downloadUrl: "/guide/images/resource/logo-cals-studio.png",
+      fileName: "logo-cals-studio.png"
+    },
+    {
+      id: 6,
+      title: "CALS Private Studio",
+      imageSrc: "/guide/images/resource/logo-cals-private-studio.png",
+      alt: "CALS Private Studio 로고",
+      downloadUrl: "/guide/images/resource/logo-cals-private-studio.png",
+      fileName: "logo-cals-private-studio.png"
+    },
+    {
+      id: 7,
+      title: "CALS Analytics",
+      imageSrc: "/guide/images/resource/logo-cals-analytics.png",
+      alt: "CALS Analytics 로고",
+      downloadUrl: "/guide/images/resource/logo-cals-analytics.png",
+      fileName: "logo-cals-analytics.png"
+    },
+    {
+      id: 8,
+      title: "CALS Retail",
+      imageSrc: "/guide/images/resource/logo-cals-retail.png",
+      alt: "CALS Retail 로고",
+      downloadUrl: "/guide/images/resource/logo-cals-retail.png",
+      fileName: "logo-cals-retail.png"
+    },
+    {
+      id: 9,
+      title: "CALS PMS",
+      imageSrc: "/guide/images/resource/logo-cals-pms.png",
+      alt: "CALS PMS 로고",
+      downloadUrl: "/guide/images/resource/logo-cals-pms.png",
+      fileName: "logo-cals-pms.png"
+    },
+    {
+      id: 10,
+      title: "CALS TMS",
+      imageSrc: "/guide/images/resource/logo-cals-tms.png",
+      alt: "CALS TMS 로고",
+      downloadUrl: "/guide/images/resource/logo-cals-tms.png",
+      fileName: "logo-cals-tms.png"
+    },
+    {
+      id: 11,
+      title: "CALS CX Marketing-Text",
+      imageSrc: "/guide/images/resource/logo-cals-cx-marketing-text.png",
+      alt: "CALS CX Marketing-Text 로고",
+      downloadUrl: "/guide/images/resource/logo-cals-cx-marketing-text.png",
+      fileName: "logo-cals-cx-marketing-text.png"
+    },
+    {
+      id: 12,
+      title: "CALS CX Marketing",
+      imageSrc: "/guide/images/resource/logo-cals-cx-marketing.png",
+      alt: "CALS CX Marketing 로고",
+      downloadUrl: "/guide/images/resource/logo-cals-cx-marketing.png",
+      fileName: "logo-cals-cx-marketing.png"
+    },
+    {
+      id: 13,
+      title: "CALS CX Membership-Text",
+      imageSrc: "/guide/images/resource/logo-cals-cx-membership-text.png",
+      alt: "CALS CX Membership-Text 로고",
+      downloadUrl: "/guide/images/resource/logo-cals-cx-membership-text.png",
+      fileName: "logo-cals-cx-membership-text.png"
+    },
+    {
+      id: 14,
+      title: "CALS CX Membership",
+      imageSrc: "/guide/images/resource/logo-cals-cx-membership.png",
+      alt: "CALS CX Membership 로고",
+      downloadUrl: "/guide/images/resource/logo-cals-cx-membership.png",
+      fileName: "logo-cals-cx-membership.png"
+    },
+    {
+      id: 15,
+      title: "CALS AI Agent Favicon",
+      imageSrc: "/guide/images/resource/favicon-cals-ai-agent.png",
+      alt: "CALS AI Agent Favicon",
+      downloadUrl: "/guide/images/resource/favicon-cals-ai-agent.zip",
+      fileName: "favicon-cals-ai-agent.zip"
+    },
+    {
+      id: 16,
+      title: "CALS AI Agent",
+      imageSrc: "/guide/images/resource/logo-cals-ai-agent.png",
+      alt: "CALS AI Agent 로고",
+      downloadUrl: "/guide/images/resource/logo-cals-ai-agent.png",
+      fileName: "logo-cals-ai-agent.png"
+    },
+    {
+      id: 17,
+      title: "CALS Analytics Studio Favicon",
+      imageSrc: "/guide/images/resource/favicon-cals-analytics-studio.png",
+      alt: "CALS Analytics Studio Favicon",
+      downloadUrl: "/guide/images/resource/favicon-cals-analytics-studio.zip",
+      fileName: "favicon-cals-analytics-studio.zip"
+    },
+    {
+      id: 18,
+      title: "CALS Analytics Studio",
+      imageSrc: "/guide/images/resource/logo-cals-analytics-studio.png",
+      alt: "CALS Analytics Studio 로고",
+      downloadUrl: "/guide/images/resource/logo-cals-analytics-studio.png",
+      fileName: "logo-cals-analytics-studio.png"
+    },
+    {
+      id: 19,
+      title: "GALC",
+      imageSrc: "/guide/images/resource/logo-galc.png",
+      alt: "GALC 로고",
+      downloadUrl: "/guide/images/resource/logo-galc.png",
+      fileName: "logo-galc.png"
+    },
+    {
+      id: 20,
+      title: "Open GA",
+      imageSrc: "/guide/images/resource/logo-open-ga.png",
+      alt: "Open GA 로고",
+      downloadUrl: "/guide/images/resource/logo-open-ga.png",
+      fileName: "logo-open-ga.png"
+    },
+    {
+      id: 21,
+      title: "APlus Community Favicon",
+      imageSrc: "/guide/images/resource/favicon-aplus-community.png",
+      alt: "APlus Community Favicon",
+      downloadUrl: "/guide/images/resource/favicon-aplus-community.zip",
+      fileName: "favicon-aplus-community.zip"
+    },
+    {
+      id: 22,
+      title: "APlus Community",
+      imageSrc: "/guide/images/resource/logo-aplus-community.png",
+      alt: "APlus Community 로고",
+      downloadUrl: "/guide/images/resource/logo-aplus-community.png",
+      fileName: "logo-aplus-community.png"
+    },
+  ];
+  return (
+    <div className="flex flex-col gap-24">
+      {/* CALS Logo */}
+      <div>
+        <h2 className="text-2xl font-bold mb-2">CALS Logo</h2>
+        <p className="text-sm text-muted-foreground mb-6">퀸텟시스템즈의 중심이 되는 대표 로고입니다. 대·내외 다양한 커뮤니케이션에 최우선으로 사용되어야 하며, 단독으로 표기하는 것을 원칙으로 하고 있습니다.</p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-8">            
+          <div className="platform-logo">
+            <img
+              src="/guide/images/resource/logo-cals-guide.png"
+              alt="CALS 로고 가이드"
+            />
+          </div>
+      
+          <div className="platform-logo">
+            <img
+              src="/guide/images/resource/logo-cals.png"
+              alt="CALS 로고"
+            />
+            <Button
+              variant="outline"
+              onClick={() => downloadImage('/guide/images/resource/logo-cals.png', 'cals-logo.png')}
+              className="btn-download"
+            >
+              <DownloadIcon /> 다운로드
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      {/* Solution Logo */}
+      <div>
+        <h2 className="text-2xl font-bold mb-2">Solution Logo</h2>
+        <p className="text-sm text-muted-foreground mb-6">퀸텟시스템즈의 중심이 되는 대표 로고입니다. 대·내외 다양한 커뮤니케이션에 최우선으로 사용되어야 하며, <br />
+        단독으로 표기하는 것을 원칙으로 하고 있습니다.</p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-8">
+          {solutionLogos.map((logo) => (
+            <div key={logo.id} className="platform-logo">
+              {logo.title && <span className="platform-logo-title">{logo.title}</span>}
+              <img
+                src={logo.imageSrc}
+                alt={logo.alt}
+              />
+              {logo.downloadUrl && logo.fileName && (
+                <Button
+                  variant="outline"
+                  onClick={() => downloadImage(logo.downloadUrl!, logo.fileName!)}
+                  className="btn-download"
+                >
+                  <DownloadIcon /> 다운로드
+                </Button>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {Array.from({ length: 12 }, (_, index) => (
+          <div key={index} className="platform-logo">
+            <img
+              src="/guide/images/brand/logo-quintet.png"
+              alt={`Platform Logo ${index + 1}`}
+            />
+          </div>
+        ))}
+      </div> */}
+    </div>
+  );
+}
