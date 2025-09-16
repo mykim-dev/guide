@@ -5,7 +5,7 @@ import { DataTableDemo as List } from '@/components/cals-app/list';
 
 export default function DefaultPage() {
   return (
-    <div className="screen-wrap grid grid-cols-1 grid-rows-auto gap-5 p-5">
+    <div className="screen-wrap grid grid-cols-1 gap-5 p-5">
       <div className="screen-item">
         <List />
       </div>

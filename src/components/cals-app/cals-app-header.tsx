@@ -10,10 +10,7 @@ interface CalsAppHeaderProps {
   setSidebarOpen: (open: boolean) => void;
 }
 
-export function CalsAppHeader({
-  sidebarOpen,
-  setSidebarOpen,
-}: CalsAppHeaderProps) {
+export function CalsAppHeader({ sidebarOpen, setSidebarOpen }: CalsAppHeaderProps) {
   return (
     <header className="layout-header col-span-2 flex justify-around items-center gap-4 px-4 h-16 border-b">
       <div className="header-left flex items-center gap-4">

@@ -1,27 +1,25 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { useThemeEditorState } from '@/hooks/use-theme-editor';
-import { CalsAppHeader } from '@/components/cals-app/cals-app-header';
-import { CalsAppSidebar } from '@/components/cals-app/cals-app-sidebar';
-import { CalsAppTagBar } from '@/components/cals-app/cals-app-tag-bar';
+import { AgentStudioHeader } from '@/components/agent-studio/agent-studio-header';
+import { AgentStudioSidebar } from '@/components/agent-studio/agent-studio-sidebar';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 
-interface LayoutCalsAppProps {
+interface LayoutAgentStudioProps {
   children?: React.ReactNode;
 }
 
-export function LayoutCalsApp({ children }: LayoutCalsAppProps) {
+export function LayoutAgentStudio({ children }: LayoutAgentStudioProps) {
   const { mounted } = useThemeEditorState();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // 클래스명 메모이제이션 - 사이드바 상태에 따라 동적 변경
+  // 클래스명 메모이제이션 - 사이드바 항상 열린 상태
   const containerClasses = useMemo(() =>
-    `layout-container grid grid-rows-[4rem_4rem_1fr] bg-background transition-all duration-300 ${sidebarOpen ? 'grid-cols-[16rem_1fr]' : 'grid-cols-[4rem_1fr]'}`, [sidebarOpen]
+    'layout-container grid grid-rows-[3rem_1fr] grid-cols-[3rem_1fr] bg-background transition-all duration-300', []
   );
 
   const scrollAreaClasses = useMemo(() =>
-    `h-[calc(100svh-8rem)] transition-all duration-300 ${sidebarOpen ? 'w-[calc(100svw-16rem)]' : 'w-[calc(100svw-4rem)]'}`, [sidebarOpen]
+    'h-[calc(100svh-3rem)] w-[calc(100svw-3rem)] transition-all duration-300', []
   );
 
   // 마운트되지 않은 경우 로딩 화면 표시
@@ -38,12 +36,8 @@ export function LayoutCalsApp({ children }: LayoutCalsAppProps) {
 
   return (
     <div className={containerClasses}>
-      <CalsAppHeader
-        sidebarOpen={sidebarOpen}
-        setSidebarOpen={setSidebarOpen}
-      />
-      <CalsAppSidebar sidebarOpen={sidebarOpen} />
-      <CalsAppTagBar />
+      <AgentStudioHeader />
+      <AgentStudioSidebar />
       <main className="layout-main">
         <ScrollArea className={scrollAreaClasses}>
           {children}

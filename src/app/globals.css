@@ -177,4 +177,42 @@
       }
     }
   }
+
+  /* agent-studio */
+  .chat-wrap {
+    @apply grid grid-cols-1 h-[calc(100svh-3rem)] gap-5 p-5;
+
+    .chat-row {
+      &:has(.chat-bubble) {
+        @apply pl-[25%] justify-end;
+      }
+
+      .chat-bubble {
+        @apply bg-gray-500/10 rounded-2xl p-6 my-6 mr-4 rounded-tr-none relative;
+
+        &:before {
+          @apply content-[''] absolute top-0 -right-4;
+          border: 8px color-mix(in srgb, transparent, var(--color-gray-500) 10%) solid;
+          border-right-color: transparent;
+          border-bottom-color: transparent;
+        }
+      }
+
+      .chat-accordion {
+        @apply flex flex-col my-3;
+
+        [data-slot=accordion-trigger] {
+          @apply flex items-center gap-4 px-4 py-3 text-lg font-semibold bg-background rounded-xl shadow-md [&>div]:gap-4 [&>svg]:size-6 hover:no-underline;
+
+          .agent-title {
+            @apply flex items-center gap-4;
+          }
+        }
+
+        [data-slot=accordion-content] {
+          @apply px-6 py-4 text-base;
+        }  
+      }
+    }
+  }
 }

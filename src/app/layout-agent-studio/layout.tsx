@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { ThemeProvider } from '@/lib/themes/theme-provider';
-import { LayoutCalsApp } from '@/components/layout/layout-cals-app';
+import { LayoutAgentStudio } from '@/components/layout/layout-agent-studio';
 import { TokenManager } from '@/components/token-manager';
 import { useThemeEditorState } from '@/hooks/use-theme-editor';
 
@@ -55,12 +55,12 @@ export default function CalsAppLayoutWrapper({
 }) {
   return (
     <>
-      <ThemeProvider defaultTheme="dark">
-        <LayoutCalsApp>{children}</LayoutCalsApp>
+      <ThemeProvider defaultTheme="light">
+        <LayoutAgentStudio>{children}</LayoutAgentStudio>
       </ThemeProvider>
 
       {/* 토큰 관리 컴포넌트를 전역으로 배치 */}
-      <div className="fixed bottom-4 left-4 z-50">
+      <div className="fixed bottom-2 left-2 z-50">
         <TokenManagerWrapper />
       </div>
     </>

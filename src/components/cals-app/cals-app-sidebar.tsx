@@ -5,9 +5,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Home, Columns2, Columns3Cog, Rows2, Square } from 'lucide-react';
-import { useLayout } from '@/contexts/layout-context';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { ChevronDown } from 'lucide-react';
 
 // 네비게이션 메뉴 데이터
 const navigationMenu = [
@@ -40,12 +38,13 @@ const navigationMenu = [
   // }
 ];
 
-export function CalsAppSidebar() {
-  const { sidebarOpen } = useLayout();
+interface CalsAppSidebarProps {
+  sidebarOpen: boolean;
+}
 
+export function CalsAppSidebar({ sidebarOpen }: CalsAppSidebarProps) {
   return (
-    <aside className={`layout-aside row-span-2 border-r transition-all duration-300 ${sidebarOpen ? 'w-64' : 'w-16'
-      }`}>
+    <aside className={`layout-aside row-span-2 border-r transition-all duration-300 ${sidebarOpen ? 'w-64' : 'w-16'}`}>
       <ScrollArea className="h-[calc(100svh-4rem)]">
         <nav className="flex flex-col py-2">
           {navigationMenu.map((item) => (
@@ -83,9 +82,6 @@ export function CalsAppSidebar() {
                       {item.children.map((child) => (
                         <li key={child.id}>
                           <div className="flex items-center p-2 hover:bg-accent rounded-md">
-                            {/* <Button variant="outline" size="icon" className="menu-icon h-8 w-8 ml-2">
-                              <child.icon className="h-4 w-4" />
-                            </Button> */}
                             <Link href={child.href} className="menu-label text-sm ml-4">
                               {child.label}
                             </Link>

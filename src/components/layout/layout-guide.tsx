@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ModeToggle } from '@/components/ui/mode-toggle';
 import { usePathname } from 'next/navigation';
@@ -23,25 +23,25 @@ interface NavigationItem {
 
 // 경로 상수 정의
 const ROUTES = {
-  HOME: '/layout-guide',
+  // HOME: '/layout-guide',
   OVERVIEW: '/layout-guide/overview/introduction/',
   BRAND: '/layout-guide/brand/logo/',
   PLATFORM: '/layout-guide/resource/logos/',
   FOUNDATIONS: '/layout-guide/foundations/design-tokens/',
   COMPONENT_GUIDE: '/layout-guide/component-guide/',
   PLAYGROUND: '/layout-guide/playground/',
-  THEME_EDITOR: '/layout-cals-app/',
+  LAYOUTS: '/layout-guide/layouts/',
 } as const;
 
 // 네비게이션 데이터
 const navigation: NavigationItem[] = [
-  {
-    id: '0',
-    name: 'Home',
-    href: ROUTES.HOME,
-    description: '디자인 시스템 메인 페이지',
-    sidebar: false
-  },
+  // {
+  //   id: '0',
+  //   name: 'Home',
+  //   href: ROUTES.HOME,
+  //   description: '디자인 시스템 메인 페이지',
+  //   sidebar: false
+  // },
   {
     id: '1',
     name: 'Overview',
@@ -184,8 +184,8 @@ const navigation: NavigationItem[] = [
   },
   {
     id: '7',
-    name: 'Theme Editor',
-    href: ROUTES.THEME_EDITOR,
+    name: 'Layout',
+    href: ROUTES.LAYOUTS,
     description: 'OKLCH 색상 공간 기반의 테마 커스터마이징 도구입니다.'
   },
 ];
@@ -238,7 +238,7 @@ const Header = React.memo(() => {
     <header className="guide-header border-b">
       <div className="container mx-auto h-16 flex items-center justify-between">
         <strong className="logo text-xl font-bold">
-          <Link href={ROUTES.HOME}>Design System</Link>
+          <Link href="/layout-guide/">Design System</Link>
         </strong>
         <nav>
           <ul className="flex gap-6">
@@ -246,7 +246,6 @@ const Header = React.memo(() => {
               <li key={item.id}>
                 <Link
                   href={item.href}
-                  target={item.name === 'Theme Editor' ? '_blank' : undefined}
                   className={cn(
                     'flex px-3 py-2 text-sm font-medium rounded-md transition-colors',
                     isNavigationItemActive(item, pathname)
@@ -326,7 +325,6 @@ const Sidebar = React.memo(() => {
                   <AccordionTrigger className="flex items-center justify-between w-full rounded-md">
                     <Link
                       href={item.href}
-                      target={item.name === 'Theme Editor' ? '_blank' : undefined}
                       className={cn(
                         'flex py-2 text-base font-medium rounded-md transition-colors',
                         pathname === item.href
@@ -416,7 +414,7 @@ const ActiveMenuTitle = React.memo(() => {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/">Home</BreadcrumbLink>
+              <BreadcrumbLink href="/layout-guide/">Home</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>

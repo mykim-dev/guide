@@ -1,0 +1,8 @@
+export { SupervisorIcon } from './SupervisorIcon'
+export { BAIcon } from './BAIcon'
+export { PlannerIcon } from './PlannerIcon'
+export { DBAIcon } from './DBAIcon'
+export { BackendIcon } from './BackendIcon'
+export { FrontendIcon } from './FrontendIcon'
+export { QAIcon } from './QAIcon'
+export { TaskLoading } from './TaskLoading'

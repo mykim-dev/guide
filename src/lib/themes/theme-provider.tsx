@@ -7,6 +7,7 @@ type Theme = 'light' | 'dark' | 'system';
 interface ThemeContextType {
   theme: Theme;
   setTheme: (theme: Theme) => void;
+  isDark: boolean;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -67,6 +68,9 @@ export function ThemeProvider({
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, [theme, mounted]);
 
+  // 현재 다크 모드 상태 계산
+  const isDark = theme === 'dark' || (theme === 'system' && mounted && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
   const value = {
     theme,
     setTheme: (theme: Theme) => {
@@ -75,6 +79,7 @@ export function ThemeProvider({
       }
       setTheme(theme);
     },
+    isDark,
   };
 
   return (

@@ -12,7 +12,7 @@ import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetDescri
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
-interface CalsAppTokenManagerProps {
+interface TokenManagerProps {
   inputValues: Record<string, string>;
   colorTokensAsHex: Record<string, string>;
   colorOptions: Array<{ name: string; label: string; value: string }>;
@@ -31,7 +31,7 @@ interface CalsAppTokenManagerProps {
   handleExportTokens: () => void;
 }
 
-export function CalsAppTokenManager({
+export function TokenManager({
   inputValues,
   colorTokensAsHex,
   colorOptions,
@@ -43,12 +43,11 @@ export function CalsAppTokenManager({
   handleResetUserTokens,
   handleSaveTokenCode,
   handleResetTokenCode,
-  handleSaveTokenCodeToStorage,
   handleCopyTokenCode,
   handleApplyToken,
   handleResetToken,
   handleExportTokens,
-}: CalsAppTokenManagerProps) {
+}: TokenManagerProps) {
   return (
     <Sheet>
       <SheetTrigger asChild>
