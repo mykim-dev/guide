@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
 
 export default function RootPage() {
-  redirect('/layout-guide');
+  redirect('/app-guide');
 }

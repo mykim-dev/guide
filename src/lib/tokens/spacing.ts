@@ -45,23 +45,3 @@ export const spacingTokens: SpacingScale = {
   '80': { name: '80', value: '20rem', description: '320px 간격' },
   '96': { name: '96', value: '24rem', description: '384px 간격' },
 };
-
-export const generateSpacingTokens = () => {
-  const tokens: Record<string, string> = {};
-  
-  Object.entries(spacingTokens).forEach(([key, token]) => {
-    tokens[key] = token.value;
-  });
-  
-  return tokens;
-};
-
-export const generateTailwindSpacingConfig = () => {
-  const config: Record<string, string> = {};
-  
-  Object.entries(spacingTokens).forEach(([key, token]) => {
-    config[key] = token.value;
-  });
-  
-  return config;
-};

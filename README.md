@@ -1,12 +1,17 @@
 # 🎨 Design System Guide
 
-> 체계적인 디자인 시스템을 구축하고 관리할 수 있는 종합적인 가이드입니다. 디자인 토큰부터 컴포넌트 라이브러리, 그리고 테마 에디터까지 모든 것을 제공합니다.
+> 체계적인 디자인 시스템을 구축하고 관리할 수 있는 종합적인 가이드입니다. 디자인 토큰부터 컴포넌트 라이브러리, 그리고 UI 템플릿까지 모든 것을 제공합니다.
 
 [![Next.js](https://img.shields.io/badge/Next.js-15.5.0-black)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19.1.0-blue)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-v4-38B2AC)](https://tailwindcss.com/)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+
+## 🗂 프로젝트 문서
+
+- 전체 문서 모음과 단계별 템플릿은 `docs/` 에 있습니다.
+- 바로가기: [docs/README.md](docs/README.md)
 
 ## ✨ 주요 기능
 
@@ -37,7 +42,7 @@
 - **코드 생성**: 설정에 따른 코드 자동 생성
 - **50+ 컴포넌트 지원**: 모든 UI 컴포넌트 실시간 테스트
 
-### 🎨 테마 에디터
+### 🎨 UI 템플릿
 - **색상 커스터마이징**: OKLCH 색상 공간 기반 실시간 편집
 - **미리보기**: 변경사항 실시간 미리보기
 - **설정 내보내기**: Tailwind CSS 설정 자동 생성
@@ -59,8 +64,6 @@
 | **Markdown** | react-markdown | 실시간 Markdown 렌더링 |
 | **Icons** | Lucide React | 아름다운 아이콘 라이브러리 |
 | **State** | React Context | 전역 상태 관리 |
-| **Build Tool** | Turbopack | 빠른 개발 환경 |
-| **Color System** | OKLCH | 현대적 색상 공간 |
 
 ## 🚀 빠른 시작
 
@@ -108,14 +111,13 @@ pnpm add -D gh-pages
 🔗 **[https://mykim-dev.github.io/guide/](https://mykim-dev.github.io/guide/)**
 
 ### 주요 페이지
-- **홈페이지**: 디자인 시스템 개요
-- **Brand**: 브랜드 가이드 (로고, 브랜드 아이덴티티)
-- **Platform**: 플랫폼 가이드 (로고, 캐릭터)
-- **Foundations**: 디자인 토큰 (색상, 타이포그래피, 간격)
 - **Overview**: 디자인 시스템 소개 및 가이드라인
-- **컴포넌트 가이드**: 50+ UI 컴포넌트 사용법
-- **플레이그라운드**: 실시간 컴포넌트 테스트
-- **테마 에디터**: OKLCH 기반 색상 커스터마이징
+- **Brand**: 브랜드 가이드 (로고, 브랜드 아이덴티티)
+- **Resource**: 플랫폼 가이드 (로고, 캐릭터)
+- **Foundations**: 디자인 토큰 (색상, 타이포그래피, 간격)
+- **Components**: UI 컴포넌트 사용법
+- **Playground**: 실시간 컴포넌트 테스트
+- **Demos**: 
 
 ## 📦 사용 가능한 명령어
 
@@ -147,7 +149,7 @@ src/
 │   ├── overview/           # 디자인 시스템 개요 및 소개
 │   ├── component-guide/    # 컴포넌트 가이드 (50+ 컴포넌트)
 │   ├── playground/         # 플레이그라운드 (실시간 테스트)
-│   ├── theme-editor/       # 테마 에디터 (OKLCH 색상 편집)
+│   ├── theme-editor/       # UI 템플릿 (OKLCH 색상 편집)
 │   ├── globals.css         # 전역 스타일
 │   └── generated-theme-variables.css # 자동 생성된 CSS 변수
 ├── components/
@@ -183,7 +185,7 @@ scripts/
 | **Foundations** | 디자인 토큰 | 색상, 타이포그래피, 간격 시스템 |
 | **Components** | 컴포넌트 가이드 | 50+ UI 컴포넌트 사용법 및 예제 |
 | **Playground** | 실시간 테스트 | 컴포넌트 실시간 테스트 및 속성 조정 |
-| **Theme Editor** | 테마 커스터마이징 | OKLCH 기반 색상 편집 도구 |
+| **Demos** | 테마 커스터마이징 | OKLCH 기반 색상 편집 도구 |
 
 ### 🎯 개선 사항
 - **계층적 네비게이션**: 사이드바에서 관련 섹션을 그룹화하여 더 쉽게 탐색
@@ -196,7 +198,6 @@ scripts/
 ### 색상 시스템 (OKLCH 기반)
 - **Primary**: 브랜드 메인 색상
 - **Secondary**: 보조 색상
-- **Neutral**: 중성 색상
 - **Success**: 성공 상태
 - **Warning**: 경고 상태
 - **Error**: 오류 상태
@@ -204,10 +205,6 @@ scripts/
 - **Custom**: 사용자 정의 색상
 
 ### 타이포그래피
-- **Display**: 큰 제목용 (2XL, XL, LG, MD, SM)
-- **Heading**: 제목용 (XL, LG, MD, SM)
-- **Body**: 본문용 (XL, LG, MD, SM)
-- **Label**: 라벨용 (LG, MD, SM)
 
 ### 간격
 - **0-96**: 4px 단위로 구성된 간격 체계

@@ -47,7 +47,7 @@
 
 :root {
   /* 기본 CSS 변수들 */
-  /* --radius: 0.625rem;
+  --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -74,25 +74,19 @@
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-primary-foreground: oklch(0.55 0.17 29.9);
   --sidebar-accent: oklch(0.97 0 0);
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0); */
+  --sidebar-ring: oklch(0.708 0 0);
 
   /* Customer */
   --customer: oklch(0.66 0.21 354.31);
-  --customer-foreground: oklch(0.985 0 0);
-  
-  --text-5xl--line-height: var(--leading-tight);
-  --text-6xl--line-height: var(--leading-tight);
-  --text-7xl--line-height: var(--leading-tight);
-  --text-8xl--line-height: var(--leading-tight);
-  --text-9xl--line-height: var(--leading-tight);
+  --customer-foreground: oklch(0.985 0 0);  
 }
 
 .dark {
-  /* --background: oklch(0.145 0 0);
+  --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
@@ -118,11 +112,11 @@
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-primary-foreground: oklch(0.55 0.17 29.9);
   --sidebar-accent: oklch(0.269 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0); */
+  --sidebar-ring: oklch(0.556 0 0);
 }
 
 @layer base {
@@ -132,5 +126,49 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* guide */
+  .brand-logo {
+    @apply flex justify-center items-center h-60 bg-slate-500/5 rounded-xl relative;    
+  }
+
+  .error-logo {
+    @apply flex flex-col h-64 p-4 relative overflow-hidden bg-slate-500/5 rounded-xl;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 1px;
+      height: 280%;
+      background-color: red;
+      transform: rotate(68deg) translate(-328px, -160px);
+    }
+
+    .error-logo-description {
+      @apply flex justify-start items-center gap-2;
+    }
+
+    .error-logo-img {
+      @apply flex-1 flex justify-center items-center;
+    }
+  }
+
+  .platform-logo {
+    @apply flex justify-center items-center min-h-60 bg-slate-500/5 rounded-xl relative;
+
+    .platform-logo-title {
+      @apply text-sm font-medium absolute top-4 left-4;
+    }
+
+    .btn-download {
+      @apply absolute bottom-4 right-4;
+    }
+
+    img {
+      @apply my-16;
+    }
   }
 }

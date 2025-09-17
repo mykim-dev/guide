@@ -46,8 +46,7 @@
 }
 
 :root {
-  /* 기본 CSS 변수들 */
-  /* --radius: 0.625rem;
+  --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -78,21 +77,14 @@
   --sidebar-accent: oklch(0.97 0 0);
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0); */
-
-  /* Customer */
-  --customer: oklch(0.66 0.21 354.31);
-  --customer-foreground: oklch(0.985 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
   
-  --text-5xl--line-height: var(--leading-tight);
-  --text-6xl--line-height: var(--leading-tight);
-  --text-7xl--line-height: var(--leading-tight);
-  --text-8xl--line-height: var(--leading-tight);
-  --text-9xl--line-height: var(--leading-tight);
+  --customer: oklch(0.66 0.21 354.31);
+  --customer-foreground: oklch(0.985 0 0);  
 }
 
 .dark {
-  /* --background: oklch(0.145 0 0);
+  --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
@@ -122,7 +114,7 @@
   --sidebar-accent: oklch(0.269 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0); */
+  --sidebar-ring: oklch(0.556 0 0);
 }
 
 @layer base {
@@ -132,5 +124,65 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* screen */
+  .screen-wrap {
+    @apply grid grid-cols-2 gap-5 p-5;
+
+    .screen-item {
+      @apply space-y-5;
+    }
+  }
+
+  /* component */
+  .component-wrap {
+    @apply border rounded-md;
+
+    .component-header {
+      @apply flex items-center justify-between h-10 px-2;
+
+      .component-title {
+        @apply flex-1 text-base font-medium px-2;
+      }
+
+      .component-actions {
+        @apply flex-1 flex items-center justify-end gap-2 px-2;
+      }
+    }
+
+    .component-content {
+      @apply border-t border-border p-4;
+    }
+  }
+
+  /* form */
+  .form-wrap {
+    @apply grid grid-cols-2 gap-4 leading-[1];
+
+    .form-item {
+      @apply flex flex-col;
+
+      .form-item-title {
+        @apply min-h-8 flex;
+      }
+
+      .form-item-content {
+        @apply min-h-8 flex;
+      }
+    }
+  }
+
+  /* control-group : RadioGroup, Checkbox, ToggleGroup 에 사용 */
+  .control-group {
+    @apply min-h-8 flex items-center gap-4;
+
+    .control-item {
+      @apply flex gap-2;
+
+      [data-slot="label"] {
+        @apply whitespace-nowrap;
+      }
+    }
   }
 }

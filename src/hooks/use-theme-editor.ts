@@ -383,7 +383,7 @@ export function useThemeEditorState() {
         userTokens,
         timestamp: new Date().toISOString(),
         version: '1.0.0',
-        description: 'Theme Editor Tokens - Independent Layout'
+        description: 'Demos Tokens - Independent Layout'
       };
 
       const blob = new Blob([JSON.stringify(tokensData, null, 2)], {
@@ -418,7 +418,7 @@ export function useThemeEditorState() {
         userTokens,
         timestamp: new Date().toISOString(),
         version: '1.0.0',
-        description: 'Theme Editor Tokens - Independent Layout'
+        description: 'Demos Tokens - Independent Layout'
       };
 
       await navigator.clipboard.writeText(JSON.stringify(tokensData, null, 2));
