@@ -612,7 +612,7 @@ export default function PlaygroundPage() {
                 <div className="p-1">
                   <Card>
                     <CardContent>
-                      <div  className="flex aspect-square items-center justify-center p-6">
+                      <div className="flex aspect-square items-center justify-center p-6">
                         <span className="text-4xl font-semibold">{index + 1}</span>
                       </div>
                     </CardContent>
@@ -885,7 +885,7 @@ export default function PlaygroundPage() {
     if (selectedComponent === 'tabs') {
       return (
         <Component {...props as any} className="w-[400px]" defaultValue="account">
-          <TabsList className="grid w-full grid-cols-2">
+          <TabsList className="w-full">
             <TabsTrigger value="account">Account</TabsTrigger>
             <TabsTrigger value="password">Password</TabsTrigger>
           </TabsList>
@@ -1139,7 +1139,7 @@ export default function PlaygroundPage() {
                     }
                     return ` ${key}="${value}"`;
                   })
-                .join('')} />`}
+                  .join('')} />`}
             </code>
           </pre>
         </CardContent>

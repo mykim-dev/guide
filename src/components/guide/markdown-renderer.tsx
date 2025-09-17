@@ -1085,7 +1085,7 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
 
                 return (
                   <Tabs defaultValue="preview" className="p-0 mb-8 gap-0 border rounded-md bg-muted overflow-hidden">
-                    <TabsList className="">
+                    <TabsList className="w-full">
                       <TabsTrigger value="preview">Preview</TabsTrigger>
                       <TabsTrigger value="code">Code</TabsTrigger>
                     </TabsList>

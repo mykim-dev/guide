@@ -52,8 +52,8 @@ const ColorPreview = ({ value, tokenKey }: { value: string; tokenKey: string }) 
     <div className="flex items-center justify-center">
       <div
         className="w-8 h-8 rounded border-2 border-border shadow-sm"
-        style={{ 
-          backgroundColor: value.startsWith('var(') ? `var(${tokenKey})` : value 
+        style={{
+          backgroundColor: value.startsWith('var(') ? `var(${tokenKey})` : value
         }}
         title={value}
       />
@@ -122,9 +122,9 @@ const TokenTable = ({ title, tokens, isCopied, onCopy }: TokenTableProps) => {
 }
 
 // 라이트/다크 비교 테이블 컴포넌트
-const LightDarkComparisonTable = ({ 
-  title, 
-  lightTokens, 
+const LightDarkComparisonTable = ({
+  title,
+  lightTokens,
   darkTokens,
   lightCopied,
   darkCopied,
@@ -133,7 +133,7 @@ const LightDarkComparisonTable = ({
 }: LightDarkComparisonTableProps) => {
   // 모든 토큰 키를 수집
   const allKeys = new Set([...lightTokens.map(t => t.key), ...darkTokens.map(t => t.key)]);
-  
+
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
@@ -186,7 +186,7 @@ const LightDarkComparisonTable = ({
               {Array.from(allKeys).map((key) => {
                 const lightToken = lightTokens.find(t => t.key === key);
                 const darkToken = darkTokens.find(t => t.key === key);
-                
+
                 return (
                   <TableRow key={key}>
                     <TableCell className="font-mono text-sm">
@@ -194,17 +194,17 @@ const LightDarkComparisonTable = ({
                         {key}
                       </code>
                     </TableCell>
-                    
+
                     {/* Light 색상 */}
                     <TableCell className="text-center">
                       {lightToken ? (
                         <div className="flex items-center justify-center">
                           <div
                             className="w-6 h-6 rounded border border-border shadow-sm"
-                            style={{ 
-                              backgroundColor: lightToken.value.startsWith('var(') 
-                                ? `var(${key})` 
-                                : lightToken.value 
+                            style={{
+                              backgroundColor: lightToken.value.startsWith('var(')
+                                ? `var(${key})`
+                                : lightToken.value
                             }}
                             title={lightToken.value}
                           />
@@ -213,7 +213,7 @@ const LightDarkComparisonTable = ({
                         <span className="text-muted-foreground text-xs">-</span>
                       )}
                     </TableCell>
-                    
+
                     {/* Light 값 */}
                     <TableCell className="font-mono text-sm">
                       {lightToken ? (
@@ -224,17 +224,17 @@ const LightDarkComparisonTable = ({
                         <span className="text-muted-foreground text-xs">-</span>
                       )}
                     </TableCell>
-                    
+
                     {/* Dark 색상 */}
                     <TableCell className="text-center">
                       {darkToken && isColorValue(darkToken.value) ? (
                         <div className="flex items-center justify-center">
                           <div
                             className="w-6 h-6 rounded border border-border shadow-sm"
-                            style={{ 
-                              backgroundColor: darkToken.value.startsWith('var(') 
-                                ? `var(${key})` 
-                                : darkToken.value 
+                            style={{
+                              backgroundColor: darkToken.value.startsWith('var(')
+                                ? `var(${key})`
+                                : darkToken.value
                             }}
                             title={darkToken.value}
                           />
@@ -243,7 +243,7 @@ const LightDarkComparisonTable = ({
                         <span className="text-muted-foreground text-xs">-</span>
                       )}
                     </TableCell>
-                    
+
                     {/* Dark 값 */}
                     <TableCell className="font-mono text-sm">
                       {darkToken ? (
@@ -254,7 +254,7 @@ const LightDarkComparisonTable = ({
                         <span className="text-muted-foreground text-xs">-</span>
                       )}
                     </TableCell>
-                    
+
                     {/* 설명 */}
                     <TableCell className="text-sm text-muted-foreground">
                       {lightToken?.description || darkToken?.description || '-'}
@@ -318,7 +318,7 @@ const generateCodeFromTokens = (tokens: Record<string, string>, exportName: stri
   const entries = Object.entries(tokens)
     .map(([key, value]) => `  '${key}': '${value}'`)
     .join(',\n');
-  
+
   return `export const ${exportName} = {\n${entries}\n};`;
 };
 
@@ -336,14 +336,14 @@ const generateTypographyTokensCode = () => {
 
 export const typographyTokens: TypographyScale = {
 ${Object.entries(typographyTokens).map(([key, token]) => {
-  return `  '${key}': {
+    return `  '${key}': {
     name: '${token.name}',
     description: [${token.description.map(d => `'${d}'`).join(', ')}],
     category: '${token.category}',
     value: '${token.value}',
     class: [${token.class.map(c => `'${c}'`).join(', ')}]
   }`;
-}).join(',\n')}
+  }).join(',\n')}
 };`;
 };
 
@@ -356,21 +356,21 @@ const generateSpacingTokensCode = () => {
 
 export const spacingTokens: SpacingScale = {
 ${Object.entries(spacingTokens).map(([key, token]) => {
-  return `  '${key}': { 
+    return `  '${key}': { 
     name: '${token.name}', 
     value: '${token.value}'${token.description ? `, description: '${token.description}'` : ''} 
   }`;
-}).join(',\n')}
+  }).join(',\n')}
 };`;
 };
 
 const generateColorsCode = () => {
   return `export const tailwindColors = {
 ${Object.entries(tailwindColors).map(([colorName, colorScale]) => {
-  return `  ${colorName}: {
+    return `  ${colorName}: {
 ${Object.entries(colorScale).map(([shade, hexValue]) => `    ${shade}: '${hexValue}'`).join(',\n')}
   }`;
-}).join(',\n')}
+  }).join(',\n')}
 };`;
 };
 
@@ -381,7 +381,7 @@ export default function DesignTokensPage() {
     try {
       await navigator.clipboard.writeText(code);
       setCopiedTokens(prev => new Set(prev).add(codeKey));
-      
+
       toast.success('코드가 복사되었습니다!', {
         description: `${codeKey} 코드를 클립보드에 복사했습니다.`
       });
@@ -401,7 +401,7 @@ export default function DesignTokensPage() {
 
   return (
     <Tabs defaultValue="design-tokens" className="w-full">
-      <TabsList className="grid w-full grid-cols-4">
+      <TabsList className="w-full">
         <TabsTrigger value="design-tokens">디자인 토큰</TabsTrigger>
         <TabsTrigger value="typography">타이포그래피</TabsTrigger>
         <TabsTrigger value="spacing">간격</TabsTrigger>
@@ -416,7 +416,7 @@ export default function DesignTokensPage() {
               CSS 변수로 정의된 디자인 토큰들입니다. 라이트/다크 테마를 한눈에 비교할 수 있습니다.
             </p>
           </div>
-          
+
           <LightDarkComparisonTable
             title="design-tokens.ts"
             lightTokens={getDesignTokensLightData()}
