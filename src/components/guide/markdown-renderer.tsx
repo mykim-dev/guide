@@ -57,7 +57,6 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Separator } from '@/components/ui/separator';
-
 interface MarkdownRendererProps {
   content: string;
   className?: string;
@@ -915,196 +914,212 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
   const processedContent = processComponentExamples(content);
 
   return (
-    <div className={cn('prose prose-gray dark:prose-invert max-w-none', className)}>
-      <ReactMarkdown
-        remarkPlugins={[remarkGfm, remarkEmoji, remarkBreaks]}
-        rehypePlugins={[
-          rehypeHighlight,
-          rehypeRaw,
-          rehypeSlug,
-          [rehypeAutolinkHeadings, { behavior: 'wrap' }],
-        ]}
-        components={{
-          h1: ({ children, ...props }) => (
-            <h1 className="text-3xl font-bold mb-4 mt-8 first:mt-0" {...props}>
-              {children}
-            </h1>
-          ),
-          h2: ({ children, ...props }) => (
-            <h2 className="text-2xl font-bold mb-3 mt-6" {...props}>
-              {children}
-            </h2>
-          ),
-          h3: ({ children, ...props }) => (
-            <h3 className="text-xl font-bold mb-2 mt-6" {...props}>
-              {children}
-            </h3>
-          ),
-          h4: ({ children, ...props }) => (
-            <h4 className="text-lg font-bold mb-2 mt-4" {...props}>
-              {children}
-            </h4>
-          ),
-          p: ({ children, ...props }) => (
-            <p className="" {...props}>
-              {children}
-            </p>
-          ),
-          ul: ({ children, ...props }) => (
-            <ul className="list-disc list-inside mb-8 space-y-1" {...props}>
-              {children}
-            </ul>
-          ),
-          ol: ({ children, ...props }) => (
-            <ol className="list-decimal list-inside mb-8 space-y-1" {...props}>
-              {children}
-            </ol>
-          ),
-          li: ({ children, ...props }) => (
-            <li className="ml-4" {...props}>
-              {children}
-            </li>
-          ),
-          blockquote: ({ children, ...props }) => (
-            <blockquote className="border-l-4 border-primary pl-4 italic my-4" {...props}>
-              {children}
-            </blockquote>
-          ),
-          code: ({ children, className, ...props }) => {
-            const isInline = !className;
-            return isInline ? (
-              <code className="bg-muted px-1 py-0.5 rounded text-sm" {...props}>
+    <>
+      <div className="flex items-center justify-between my-4">
+        <span className="font-semibold text-muted-foreground">Components</span>
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/app-guide/">Home</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href="">Components</BreadcrumbLink>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </div>
+      <div className={cn('', className)}>
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm, remarkEmoji, remarkBreaks]}
+          rehypePlugins={[
+            rehypeHighlight,
+            rehypeRaw,
+            rehypeSlug,
+            [rehypeAutolinkHeadings, { behavior: 'wrap' }],
+          ]}
+          components={{
+            h1: ({ children, ...props }) => (
+              <h1 className="text-3xl font-bold mb-4 mt-8 first:mt-0" {...props}>
                 {children}
-              </code>
-            ) : (
-              <code className={className} {...props}>
+              </h1>
+            ),
+            h2: ({ children, ...props }) => (
+              <h2 className="text-2xl font-bold mb-3 mt-6" {...props}>
                 {children}
-              </code>
-            );
-          },
-          pre: ({ children, ...props }) => {
-            // Check if this is a code block with tsx language
-            const codeElement = children as React.ReactElement;
-            const isTsxCode = (codeElement?.props as any)?.className?.includes('language-tsx');
-
-            // Extract the actual text content from the code block
-            const extractTextContent = (element: React.ReactElement): string => {
-              if (typeof (element.props as any)?.children === 'string') {
-                return (element.props as any).children;
-              }
-              if (Array.isArray((element.props as any)?.children)) {
-                return (element.props as any).children
-                  .map((child: React.ReactNode) => {
-                    if (typeof child === 'string') {
-                      return child;
-                    }
-                    if (typeof child === 'object' && (child as any).props) {
-                      return extractTextContent(child as React.ReactElement);
-                    }
-                    return '';
-                  })
-                  .join('');
-              }
-              return '';
-            };
-
-            const codeContent = isTsxCode ? extractTextContent(codeElement) : '';
-
-            return (
-              <div className="relative group">
-                <pre className="bg-muted p-4 rounded-lg overflow-x-auto mb-4" {...props}>
+              </h2>
+            ),
+            h3: ({ children, ...props }) => (
+              <h3 className="text-xl font-bold mb-2 mt-6" {...props}>
+                {children}
+              </h3>
+            ),
+            h4: ({ children, ...props }) => (
+              <h4 className="text-lg font-bold mb-2 mt-4" {...props}>
+                {children}
+              </h4>
+            ),
+            p: ({ children, ...props }) => (
+              <p className="" {...props}>
+                {children}
+              </p>
+            ),
+            ul: ({ children, ...props }) => (
+              <ul className="list-disc list-inside mb-8 space-y-1" {...props}>
+                {children}
+              </ul>
+            ),
+            ol: ({ children, ...props }) => (
+              <ol className="list-decimal list-inside mb-8 space-y-1" {...props}>
+                {children}
+              </ol>
+            ),
+            li: ({ children, ...props }) => (
+              <li className="ml-4" {...props}>
+                {children}
+              </li>
+            ),
+            blockquote: ({ children, ...props }) => (
+              <blockquote className="border-l-4 border-primary pl-4 italic my-4" {...props}>
+                {children}
+              </blockquote>
+            ),
+            code: ({ children, className, ...props }) => {
+              const isInline = !className;
+              return isInline ? (
+                <code className="bg-muted px-1 py-0.5 rounded text-sm" {...props}>
                   {children}
-                </pre>
-                {isTsxCode && codeContent && (
-                  <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <CopyButton
-                      text={codeContent}
-                      className="bg-background/80 backdrop-blur-sm hover:bg-background"
-                    />
-                  </div>
-                )}
-              </div>
-            );
-          },
-          table: ({ children, ...props }) => (
-            <div className="overflow-x-auto mb-8">
-              <table className="w-full border-collapse border border-border" {...props}>
-                {children}
-              </table>
-            </div>
-          ),
-          th: ({ children, ...props }) => (
-            <th className="border border-border px-4 py-2 bg-muted font-semibold" {...props}>
-              {children}
-            </th>
-          ),
-          td: ({ children, ...props }) => (
-            <td className="border border-border px-4 py-2" {...props}>
-              {children}
-            </td>
-          ),
-          a: ({ children, href, ...props }) => (
-            <Link
-              href={href || '#'}
-              className="text-primary hover:underline"
-              target={href?.startsWith('http') ? '_blank' : undefined}
-              rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
-              {...props}
-            >
-              {children}
-            </Link>
-          ),
-          img: ({ src, alt, ...props }) => (
-            <img
-              src={src as string || '/placeholder.jpg'}
-              alt={alt as string || ''}
-              className="max-w-full h-auto rounded-lg my-4"
-              {...props}
-            />
-          ),
-          div: ({ children, className, ...props }: Record<string, unknown>) => {
-            // 컴포넌트 예제 블록 처리
-            if (className === 'component-example') {
-              const codeText = decodeURIComponent((props['data-code'] as string) || '');
-              const componentName = props['data-component'] as string;
-              const ComponentExample = createComponentExample(componentName);
+                </code>
+              ) : (
+                <code className={className} {...props}>
+                  {children}
+                </code>
+              );
+            },
+            pre: ({ children, ...props }) => {
+              // Check if this is a code block with tsx language
+              const codeElement = children as React.ReactElement;
+              const isTsxCode = (codeElement?.props as any)?.className?.includes('language-tsx');
+
+              // Extract the actual text content from the code block
+              const extractTextContent = (element: React.ReactElement): string => {
+                if (typeof (element.props as any)?.children === 'string') {
+                  return (element.props as any).children;
+                }
+                if (Array.isArray((element.props as any)?.children)) {
+                  return (element.props as any).children
+                    .map((child: React.ReactNode) => {
+                      if (typeof child === 'string') {
+                        return child;
+                      }
+                      if (typeof child === 'object' && (child as any).props) {
+                        return extractTextContent(child as React.ReactElement);
+                      }
+                      return '';
+                    })
+                    .join('');
+                }
+                return '';
+              };
+
+              const codeContent = isTsxCode ? extractTextContent(codeElement) : '';
 
               return (
-                <Tabs defaultValue="preview" className="p-0 mb-8 gap-0 border rounded-md bg-muted overflow-hidden">
-                  <TabsList className="">
-                    <TabsTrigger value="preview">Preview</TabsTrigger>
-                    <TabsTrigger value="code">Code</TabsTrigger>
-                  </TabsList>
-                  <TabsContent value="preview" className="p-8 bg-background">
-                    <div className="component-preview">
-                      <ComponentExample />
-                    </div>
-                  </TabsContent>
-                  <TabsContent value="code" className="p-0 bg-background relative">
-                    <pre className="p-8 overflow-x-auto text-sm">
-                      <code className="language-tsx">{codeText}</code>
-                    </pre>
-                    <div className="absolute top-2 right-2">
+                <div className="relative group">
+                  <pre className="bg-muted p-4 rounded-lg overflow-x-auto mb-4" {...props}>
+                    {children}
+                  </pre>
+                  {isTsxCode && codeContent && (
+                    <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
                       <CopyButton
-                        text={codeText}
+                        text={codeContent}
                         className="bg-background/80 backdrop-blur-sm hover:bg-background"
                       />
                     </div>
-                  </TabsContent>
-                </Tabs>
+                  )}
+                </div>
               );
-            }
-
-            return (
-              <div className={className} {...props}>
-                {children}
+            },
+            table: ({ children, ...props }) => (
+              <div className="overflow-x-auto mb-8">
+                <table className="w-full border-collapse border border-border" {...props}>
+                  {children}
+                </table>
               </div>
-            );
-          },
-        }}
-      >
-        {processedContent}
-      </ReactMarkdown>
-    </div>
+            ),
+            th: ({ children, ...props }) => (
+              <th className="border border-border px-4 py-2 bg-muted font-semibold" {...props}>
+                {children}
+              </th>
+            ),
+            td: ({ children, ...props }) => (
+              <td className="border border-border px-4 py-2" {...props}>
+                {children}
+              </td>
+            ),
+            a: ({ children, href, ...props }) => (
+              <Link
+                href={href || '#'}
+                className="text-primary hover:underline"
+                target={href?.startsWith('http') ? '_blank' : undefined}
+                rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+                {...props}
+              >
+                {children}
+              </Link>
+            ),
+            img: ({ src, alt, ...props }) => (
+              <img
+                src={src as string || '/placeholder.jpg'}
+                alt={alt as string || ''}
+                className="max-w-full h-auto rounded-lg my-4"
+                {...props}
+              />
+            ),
+            div: ({ children, className, ...props }: Record<string, unknown>) => {
+              // 컴포넌트 예제 블록 처리
+              if (className === 'component-example') {
+                const codeText = decodeURIComponent((props['data-code'] as string) || '');
+                const componentName = props['data-component'] as string;
+                const ComponentExample = createComponentExample(componentName);
+
+                return (
+                  <Tabs defaultValue="preview" className="p-0 mb-8 gap-0 border rounded-md bg-muted overflow-hidden">
+                    <TabsList className="">
+                      <TabsTrigger value="preview">Preview</TabsTrigger>
+                      <TabsTrigger value="code">Code</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="preview" className="p-8 bg-background">
+                      <div className="component-preview">
+                        <ComponentExample />
+                      </div>
+                    </TabsContent>
+                    <TabsContent value="code" className="p-0 bg-background relative">
+                      <pre className="p-8 overflow-x-auto text-sm">
+                        <code className="language-tsx">{codeText}</code>
+                      </pre>
+                      <div className="absolute top-2 right-2">
+                        <CopyButton
+                          text={codeText}
+                          className="bg-background/80 backdrop-blur-sm hover:bg-background"
+                        />
+                      </div>
+                    </TabsContent>
+                  </Tabs>
+                );
+              }
+
+              return (
+                <div className={className} {...props}>
+                  {children}
+                </div>
+              );
+            },
+          }}
+        >
+          {processedContent}
+        </ReactMarkdown>
+      </div>
+    </>
   );
 }

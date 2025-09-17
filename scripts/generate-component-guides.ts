@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { componentTemplates, generateComponentGuideMarkdown } from '../src/lib/component-guide-templates';
+import { componentTemplates, generateComponentGuideMarkdown } from '../src/lib/component-guide-templates.js';
 
 const CONTENT_DIR = path.join(process.cwd(), 'content', 'component-guide');
 

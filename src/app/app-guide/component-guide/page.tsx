@@ -288,6 +288,17 @@ const components = [
     link: '/app-guide/component-guide/progress',
   },
   {
+    title: 'ColorPicker',
+    description: '색상 선택기 컴포넌트',
+    component: (
+      <div className="flex items-center justify-center p-4 border rounded-lg bg-muted/50">
+        <div className="w-8 h-8 rounded border" style={{ backgroundColor: '#409EFF' }} />
+        <span className="ml-2 text-sm text-muted-foreground">ColorPicker</span>
+      </div>
+    ),
+    link: '/app-guide/component-guide/color-picker',
+  },
+  {
     title: 'Dialog',
     description: '모달 다이얼로그 컴포넌트',
     component: (
@@ -604,7 +615,7 @@ const components = [
     title: 'Scroll Area',
     description: '스크롤 영역 컴포넌트',
     component: (
-      <ScrollArea className="h-[200px] w-[350px] rounded-md border p-4 pr-2">
+      <ScrollArea className="h-[200px] w-full rounded-md border p-4 pr-2">
         <div className="space-y-4">
           {Array.from({ length: 20 }).map((_, i) => (
             <div key={i} className="text-sm">
@@ -745,28 +756,30 @@ const components = [
 export default function ComponentsPage() {
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {components.map((component) => (
-          <Card
-            key={component.title}
-            id={component.title.toLowerCase().replace(/\s+/g, '-')}
-            className="flex flex-col justify-between"
-          >
-            <CardHeader>
-              <CardTitle>{component.title}</CardTitle>
-              <CardDescription>{component.description}</CardDescription>
-            </CardHeader>
-            <CardContent className="flex-1">
-              {component.component}
-            </CardContent>
-            <CardFooter className="flex justify-end">
-              <Link href={component.link}>
-                자세히 보기 →
-              </Link>
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
+      <ScrollArea className="h-[calc(100svh-240px)]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {components.map((component) => (
+            <Card
+              key={component.title}
+              id={component.title.toLowerCase().replace(/\s+/g, '-')}
+              className="flex flex-col justify-between"
+            >
+              <CardHeader>
+                <CardTitle>{component.title}</CardTitle>
+                <CardDescription>{component.description}</CardDescription>
+              </CardHeader>
+              <CardContent className="flex-1">
+                {component.component}
+              </CardContent>
+              <CardFooter className="flex justify-end">
+                <Link href={component.link}>
+                  자세히 보기 →
+                </Link>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+      </ScrollArea>
     </>
   );
 }

@@ -25,9 +25,7 @@ export default async function ComponentGuidePage({ params }: ComponentGuidePageP
 
   return (
     <>
-      <div className="prose prose-gray dark:prose-invert max-w-none">
-        <MarkdownRenderer content={guide.content} />
-      </div>
+      <MarkdownRenderer content={guide.content} />
     </>
   );
 }

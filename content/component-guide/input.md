@@ -1,7 +1,11 @@
 ---
 title: "Input"
-description: "입력 필드는 사용자로부터 텍스트 데이터를 수집하는 기본적인 UI 요소입니다. 입력 필드는 사용자로부터 텍스트 데이터를 수집하는 기본적인 UI 요소입니다. 입력 필드는 사용자로부터 텍스트 데이터를 수집하는 기본적인 UI 요소입니다. 입력 필드는 사용자로부터 텍스트 데이터를 수집하는 기본적인 UI 요소입니다. 입력 필드는 사용자로부터 텍스트 데이터를 수집하는 기본적인 UI 요소입니다."
+description: "입력 필드는 사용자로부터 텍스트 데이터를 수집하는 기본적인 UI 요소입니다."
 ---
+
+# Input 컴포넌트
+
+입력 필드는 사용자로부터 텍스트 데이터를 수집하는 기본적인 UI 요소입니다.
 
 ## 기본 사용법
 
@@ -31,20 +35,130 @@ export function MyComponent() {
 </div>
 :::
 
+### Email
+
+:::component-example EmailInputExample
+```tsx
+<Input type="email" placeholder="Enter your email" />
+```
+
+<div>
+<Input type="email" placeholder="Enter your email" />
+</div>
+:::
+
+### Password
+
+:::component-example PasswordInputExample
+```tsx
+<Input type="password" placeholder="Enter your password" />
+```
+
+<div>
+<Input type="password" placeholder="Enter your password" />
+</div>
+:::
+
+### Number
+
+:::component-example NumberInputExample
+```tsx
+<Input type="number" placeholder="Enter your age" />
+```
+
+<div>
+<Input type="number" placeholder="Enter your age" />
+</div>
+:::
+
+### Search
+
+:::component-example SearchInputExample
+```tsx
+<Input type="search" placeholder="Search..." />
+```
+
+<div>
+<Input type="search" placeholder="Search..." />
+</div>
+:::
+
+## 아이콘과 함께 사용
+
 ### Icon Input
 
 :::component-example IconInputExample
 ```tsx
-<div className="relative">
-  <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-  <Input placeholder="Search..." className="pl-10" />
+<div className="space-y-4">
+  <div className="relative">
+    <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+    <Input placeholder="Search..." className="pl-10" />
+  </div>
+  <div className="relative">
+    <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+    <Input type="email" placeholder="Email" className="pl-10" />
+  </div>
+  <div className="relative">
+    <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+    <Input type="password" placeholder="Password" className="pl-10" />
+  </div>
 </div>
 ```
 
 <div>
-<div className="relative">
-  <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-  <Input placeholder="Search..." className="pl-10" />
+<div className="space-y-4">
+  <div className="relative">
+    <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+    <Input placeholder="Search..." className="pl-10" />
+  </div>
+  <div className="relative">
+    <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+    <Input type="email" placeholder="Email" className="pl-10" />
+  </div>
+  <div className="relative">
+    <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+    <Input type="password" placeholder="Password" className="pl-10" />
+  </div>
+</div>
+</div>
+:::
+
+## 라벨과 함께 사용
+
+### Basic Form
+
+:::component-example BasicFormExample
+```tsx
+<div className="space-y-4">
+  <div className="space-y-2">
+    <Label htmlFor="name">Name</Label>
+    <Input id="name" placeholder="Enter your full name" />
+  </div>
+  <div className="space-y-2">
+    <Label htmlFor="email">Email</Label>
+    <Input id="email" type="email" placeholder="Enter your email" />
+  </div>
+  <div className="space-y-2">
+    <Label htmlFor="password">Password</Label>
+    <Input id="password" type="password" placeholder="Enter your password" />
+  </div>
+</div>
+```
+
+<div>
+<div className="space-y-4">
+  <div className="space-y-2">
+    <Label htmlFor="name">Name</Label>
+    <Input id="name" placeholder="Enter your full name" />
+  </div>
+  <div className="space-y-2">
+    <Label htmlFor="email">Email</Label>
+    <Input id="email" type="email" placeholder="Enter your email" />
+  </div>
+  <div className="space-y-2">
+    <Label htmlFor="password">Password</Label>
+    <Input id="password" type="password" placeholder="Enter your password" />
+  </div>
 </div>
 </div>
 :::
@@ -55,11 +169,9 @@ export function MyComponent() {
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `type` | `string` | `'text'` | 입력 필드 타입 |
-| `placeholder` | `string` | `undefined` | 플레이스홀더 텍스트 |
-| `disabled` | `boolean` | `false` | 입력 필드 비활성화 |
-| `value` | `string` | `undefined` | 입력 값 |
-| `onChange` | `(event: ChangeEvent<HTMLInputElement>) => void` | `undefined` | 값 변경 핸들러 |
+| `variant` | `string` | `'default'` | 컴포넌트의 스타일 변형 |
+| `size` | `string` | `'default'` | 컴포넌트의 크기 |
+| `disabled` | `boolean` | `false` | 컴포넌트 비활성화 |
 
 ## 접근성
 

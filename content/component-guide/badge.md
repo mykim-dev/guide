@@ -3,6 +3,10 @@ title: "Badge"
 description: "배지는 상태, 카테고리, 알림 등을 표시하는 작은 UI 요소입니다."
 ---
 
+# Badge 컴포넌트
+
+배지는 상태, 카테고리, 알림 등을 표시하는 작은 UI 요소입니다.
+
 ## 기본 사용법
 
 ```tsx
@@ -31,6 +35,44 @@ export function MyComponent() {
 </div>
 :::
 
+### Secondary
+
+:::component-example SecondaryBadgeExample
+```tsx
+<Badge variant="secondary">Secondary Badge</Badge>
+```
+
+<div>
+<Badge variant="secondary">Secondary Badge</Badge>
+</div>
+:::
+
+### Destructive
+
+:::component-example DestructiveBadgeExample
+```tsx
+<Badge variant="destructive">Error</Badge>
+```
+
+<div>
+<Badge variant="destructive">Error</Badge>
+</div>
+:::
+
+### Outline
+
+:::component-example OutlineBadgeExample
+```tsx
+<Badge variant="outline">Outline Badge</Badge>
+```
+
+<div>
+<Badge variant="outline">Outline Badge</Badge>
+</div>
+:::
+
+## 사용 사례
+
 ### Status
 
 :::component-example StatusBadgeExample
@@ -39,6 +81,7 @@ export function MyComponent() {
   <Badge>Active</Badge>
   <Badge variant="secondary">Pending</Badge>
   <Badge variant="destructive">Failed</Badge>
+  <Badge variant="outline">Draft</Badge>
 </div>
 ```
 
@@ -47,6 +90,85 @@ export function MyComponent() {
   <Badge>Active</Badge>
   <Badge variant="secondary">Pending</Badge>
   <Badge variant="destructive">Failed</Badge>
+  <Badge variant="outline">Draft</Badge>
+</div>
+</div>
+:::
+
+### Category
+
+:::component-example CategoryBadgeExample
+```tsx
+<div className="flex gap-2">
+  <Badge>React</Badge>
+  <Badge>TypeScript</Badge>
+  <Badge>Next.js</Badge>
+  <Badge>Tailwind CSS</Badge>
+</div>
+```
+
+<div>
+<div className="flex gap-2">
+  <Badge>React</Badge>
+  <Badge>TypeScript</Badge>
+  <Badge>Next.js</Badge>
+  <Badge>Tailwind CSS</Badge>
+</div>
+</div>
+:::
+
+### Notification
+
+:::component-example NotificationBadgeExample
+```tsx
+<div className="flex items-center gap-2">
+  <span>Notifications</span>
+  <Badge variant="destructive">5</Badge>
+</div>
+```
+
+<div>
+<div className="flex items-center gap-2">
+  <span>Notifications</span>
+  <Badge variant="destructive">5</Badge>
+</div>
+</div>
+:::
+
+### Icon Badge
+
+:::component-example IconBadgeExample
+```tsx
+<div className="flex gap-2">
+  <Badge className="flex items-center gap-1">
+    <CheckCircle className="h-3 w-3" />
+    Completed
+  </Badge>
+  <Badge variant="secondary" className="flex items-center gap-1">
+    <Clock className="h-3 w-3" />
+    In Progress
+  </Badge>
+  <Badge variant="destructive" className="flex items-center gap-1">
+    <AlertCircle className="h-3 w-3" />
+    Error
+  </Badge>
+</div>
+```
+
+<div>
+<div className="flex gap-2">
+  <Badge className="flex items-center gap-1">
+    <CheckCircle className="h-3 w-3" />
+    Completed
+  </Badge>
+  <Badge variant="secondary" className="flex items-center gap-1">
+    <Clock className="h-3 w-3" />
+    In Progress
+  </Badge>
+  <Badge variant="destructive" className="flex items-center gap-1">
+    <AlertCircle className="h-3 w-3" />
+    Error
+  </Badge>
 </div>
 </div>
 :::
@@ -57,8 +179,9 @@ export function MyComponent() {
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `variant` | `'default' | 'secondary' | 'destructive' | 'outline'` | `'default'` | 배지의 스타일 변형 |
-| `asChild` | `boolean` | `false` | 자식 요소를 배지로 렌더링 |
+| `variant` | `string` | `'default'` | 컴포넌트의 스타일 변형 |
+| `size` | `string` | `'default'` | 컴포넌트의 크기 |
+| `disabled` | `boolean` | `false` | 컴포넌트 비활성화 |
 
 ## 접근성
 

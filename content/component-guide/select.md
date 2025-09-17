@@ -3,6 +3,10 @@ title: "Select"
 description: "셀렉트는 드롭다운 목록에서 옵션을 선택할 수 있는 컴포넌트입니다."
 ---
 
+# Select 컴포넌트
+
+셀렉트는 드롭다운 목록에서 옵션을 선택할 수 있는 컴포넌트입니다.
+
 ## 기본 사용법
 
 ```tsx
@@ -29,6 +33,7 @@ export function MyComponent() {
     <SelectItem value="apple">Apple</SelectItem>
     <SelectItem value="banana">Banana</SelectItem>
     <SelectItem value="orange">Orange</SelectItem>
+    <SelectItem value="grape">Grape</SelectItem>
   </SelectContent>
 </Select>
 ```
@@ -42,36 +47,73 @@ export function MyComponent() {
     <SelectItem value="apple">Apple</SelectItem>
     <SelectItem value="banana">Banana</SelectItem>
     <SelectItem value="orange">Orange</SelectItem>
+    <SelectItem value="grape">Grape</SelectItem>
   </SelectContent>
 </Select>
 </div>
 :::
 
-### Small Select
+### Label Select
 
-:::component-example SmallSelectExample
+:::component-example LabelSelectExample
 ```tsx
-<Select>
-  <SelectTrigger size="sm" className="w-[180px]">
-    <SelectValue placeholder="Select a fruit" />
+<div className="space-y-2">
+  <Label htmlFor="framework">Framework</Label>
+  <Select>
+    <SelectTrigger id="framework">
+      <SelectValue placeholder="Select a framework" />
+    </SelectTrigger>
+    <SelectContent>
+      <SelectItem value="react">React</SelectItem>
+      <SelectItem value="vue">Vue</SelectItem>
+      <SelectItem value="angular">Angular</SelectItem>
+      <SelectItem value="svelte">Svelte</SelectItem>
+    </SelectContent>
+  </Select>
+</div>
+```
+
+<div>
+<div className="space-y-2">
+  <Label htmlFor="framework">Framework</Label>
+  <Select>
+    <SelectTrigger id="framework">
+      <SelectValue placeholder="Select a framework" />
+    </SelectTrigger>
+    <SelectContent>
+      <SelectItem value="react">React</SelectItem>
+      <SelectItem value="vue">Vue</SelectItem>
+      <SelectItem value="angular">Angular</SelectItem>
+      <SelectItem value="svelte">Svelte</SelectItem>
+    </SelectContent>
+  </Select>
+</div>
+</div>
+:::
+
+### Disabled Select
+
+:::component-example DisabledSelectExample
+```tsx
+<Select disabled>
+  <SelectTrigger>
+    <SelectValue placeholder="Disabled select" />
   </SelectTrigger>
   <SelectContent>
-    <SelectItem value="apple">Apple</SelectItem>
-    <SelectItem value="banana">Banana</SelectItem>
-    <SelectItem value="orange">Orange</SelectItem>
+    <SelectItem value="option1">Option 1</SelectItem>
+    <SelectItem value="option2">Option 2</SelectItem>
   </SelectContent>
 </Select>
 ```
 
 <div>
-<Select>
-  <SelectTrigger size="sm" className="w-[180px]">
-    <SelectValue placeholder="Select a fruit" />
+<Select disabled>
+  <SelectTrigger>
+    <SelectValue placeholder="Disabled select" />
   </SelectTrigger>
   <SelectContent>
-    <SelectItem value="apple">Apple</SelectItem>
-    <SelectItem value="banana">Banana</SelectItem>
-    <SelectItem value="orange">Orange</SelectItem>
+    <SelectItem value="option1">Option 1</SelectItem>
+    <SelectItem value="option2">Option 2</SelectItem>
   </SelectContent>
 </Select>
 </div>
@@ -83,20 +125,9 @@ export function MyComponent() {
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `value` | `string` | `undefined` | 선택된 값 |
-| `onValueChange` | `(value: string) => void` | `undefined` | 값 변경 핸들러 |
-| `defaultValue` | `string` | `undefined` | 기본값 |
-| `disabled` | `boolean` | `false` | 셀렉트 비활성화 |
-
-### SelectTrigger Props
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `size` | `'sm' | 'default'` | `'default'` | 트리거 크기 |
-
-### SelectContent Props
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `position` | `'popper' | 'item'` | `'popper'` | 위치 설정 |
+| `variant` | `string` | `'default'` | 컴포넌트의 스타일 변형 |
+| `size` | `string` | `'default'` | 컴포넌트의 크기 |
+| `disabled` | `boolean` | `false` | 컴포넌트 비활성화 |
 
 ## 접근성
 

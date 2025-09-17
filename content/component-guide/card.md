@@ -1,7 +1,11 @@
 ---
 title: "Card"
-description: "카드 컴포넌트는 콘텐츠를 그룹화하고 구조화하는 컨테이너입니다."
+description: "카드는 관련된 콘텐츠를 그룹화하고 구조화하는 컨테이너 컴포넌트입니다."
 ---
+
+# Card 컴포넌트
+
+카드는 관련된 콘텐츠를 그룹화하고 구조화하는 컨테이너 컴포넌트입니다.
 
 ## 기본 사용법
 
@@ -21,34 +25,6 @@ export function MyComponent() {
 
 :::component-example SimpleCardExample
 ```tsx
-<Card className="w-[300px]">
-  <CardHeader>
-    <CardTitle>Card Title</CardTitle>
-    <CardDescription>Card description</CardDescription>
-  </CardHeader>
-  <CardContent>
-    <p>Card content goes here.</p>
-  </CardContent>
-</Card>
-```
-
-<div>
-<Card className="w-[300px]">
-  <CardHeader>
-    <CardTitle>Card Title</CardTitle>
-    <CardDescription>Card description</CardDescription>
-  </CardHeader>
-  <CardContent>
-    <p>Card content goes here.</p>
-  </CardContent>
-</Card>
-</div>
-:::
-
-### Card with Stats
-
-:::component-example CardWithStatsExample
-```tsx
 <Card>
   <CardContent className="pt-6">
     <div className="text-2xl font-bold">$1,234</div>
@@ -71,44 +47,88 @@ export function MyComponent() {
 </div>
 :::
 
-### Card with Action
+### Card with Header
 
-:::component-example CardWithActionExample
+:::component-example CardWithHeaderExample
 ```tsx
-<Card className="w-[300px]">
+<Card>
   <CardHeader>
-    <CardTitle>Card Title</CardTitle>
-    <CardDescription>Card description</CardDescription>
-    <CardAction>
-      <Button size="sm">Action</Button>
-    </CardAction>
+    <CardTitle>Create project</CardTitle>
+    <CardDescription>
+      Deploy your new project in one-click.
+    </CardDescription>
   </CardHeader>
   <CardContent>
-    <p>Card content goes here.</p>
+    <p>This is the main content of the card.</p>
   </CardContent>
-  <CardFooter>
-    <Button variant="outline" size="sm">Cancel</Button>
-    <Button size="sm">Save</Button>
-  </CardFooter>
 </Card>
 ```
 
 <div>
-<Card className="w-[300px]">
+<Card>
   <CardHeader>
-    <CardTitle>Card Title</CardTitle>
-    <CardDescription>Card description</CardDescription>
-    <CardAction>
-      <Button size="sm">Action</Button>
-    </CardAction>
+    <CardTitle>Create project</CardTitle>
+    <CardDescription>
+      Deploy your new project in one-click.
+    </CardDescription>
   </CardHeader>
   <CardContent>
-    <p>Card content goes here.</p>
+    <p>This is the main content of the card.</p>
   </CardContent>
-  <CardFooter>
-    <Button variant="outline" size="sm">Cancel</Button>
-    <Button size="sm">Save</Button>
-  </CardFooter>
+</Card>
+</div>
+:::
+
+## 폼과 함께 사용
+
+### Card with Form
+
+:::component-example CardWithFormExample
+```tsx
+<Card className="w-[350px]">
+  <CardHeader>
+    <CardTitle>Create account</CardTitle>
+    <CardDescription>
+      Enter your email below to create your account.
+    </CardDescription>
+  </CardHeader>
+  <CardContent>
+    <div className="grid w-full items-center gap-4">
+      <div className="flex flex-col space-y-1.5">
+        <Label htmlFor="email">Email</Label>
+        <Input id="email" placeholder="Enter your email" />
+      </div>
+      <div className="flex flex-col space-y-1.5">
+        <Label htmlFor="password">Password</Label>
+        <Input id="password" type="password" />
+      </div>
+      <Button>Create account</Button>
+    </div>
+  </CardContent>
+</Card>
+```
+
+<div>
+<Card className="w-[350px]">
+  <CardHeader>
+    <CardTitle>Create account</CardTitle>
+    <CardDescription>
+      Enter your email below to create your account.
+    </CardDescription>
+  </CardHeader>
+  <CardContent>
+    <div className="grid w-full items-center gap-4">
+      <div className="flex flex-col space-y-1.5">
+        <Label htmlFor="email">Email</Label>
+        <Input id="email" placeholder="Enter your email" />
+      </div>
+      <div className="flex flex-col space-y-1.5">
+        <Label htmlFor="password">Password</Label>
+        <Input id="password" type="password" />
+      </div>
+      <Button>Create account</Button>
+    </div>
+  </CardContent>
 </Card>
 </div>
 :::
@@ -117,7 +137,11 @@ export function MyComponent() {
 
 ### Props
 
-모든 Card 컴포넌트들은 표준 HTML div props를 상속받습니다.
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `string` | `'default'` | 컴포넌트의 스타일 변형 |
+| `size` | `string` | `'default'` | 컴포넌트의 크기 |
+| `disabled` | `boolean` | `false` | 컴포넌트 비활성화 |
 
 ## 접근성
 

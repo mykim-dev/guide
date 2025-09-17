@@ -11,7 +11,10 @@
     "lint": "eslint",
     "export": "next build",
     "predeploy": "pnpm run build && cp .nojekyll out/ 2>/dev/null || echo '' > out/.nojekyll",
-    "deploy": "gh-pages -d out"
+    "deploy": "gh-pages -d out",
+    "generate:css": "node --loader ts-node/esm scripts/generate-css-variables.ts",
+    "generate:guides": "node --loader ts-node/esm scripts/generate-component-guides.ts",
+    "generate": "pnpm run generate:css && pnpm run generate:guides"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",

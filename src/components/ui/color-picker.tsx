@@ -1,19 +1,34 @@
 "use client";
 
 import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 
-interface ColorPickerProps {
+const colorPickerVariants = cva(
+    "inline-flex items-center justify-start gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+    {
+        variants: {
+            size: {
+                small: "h-8 w-16 text-xs px-2",
+                default: "h-10 w-20 text-sm px-3",
+                large: "h-12 w-24 text-base px-4",
+            },
+        },
+        defaultVariants: {
+            size: "default",
+        },
+    }
+);
+
+interface ColorPickerProps extends VariantProps<typeof colorPickerVariants> {
     value?: string;
     onChange?: (color: string) => void;
     showAlpha?: boolean;
-    size?: "small" | "default" | "large";
     disabled?: boolean;
     predefine?: string[];
     colorFormat?: "hex" | "rgb" | "hsl" | "hsv";
@@ -123,16 +138,17 @@ const hsvToRgb = (h: number, s: number, v: number): { r: number; g: number; b: n
     };
 };
 
-export function ColorPicker({
+function ColorPicker({
     value = "#409EFF",
     onChange,
     showAlpha = false,
-    size = "default",
+    size,
     disabled = false,
     predefine = [],
     colorFormat = "hex",
     className,
     placeholder = "색상을 선택하세요",
+    ...props
 }: ColorPickerProps) {
     const [isOpen, setIsOpen] = React.useState(false);
     const [color, setColor] = React.useState<ColorObject>(() => {
@@ -209,17 +225,6 @@ export function ColorPicker({
         setIsOpen(false);
     };
 
-    const sizeClasses = {
-        small: "h-8 w-16 text-xs",
-        default: "h-10 w-20 text-sm",
-        large: "h-12 w-24 text-base",
-    };
-
-    const buttonSizeClasses = {
-        small: "h-8 px-2",
-        default: "h-10 px-3",
-        large: "h-12 px-4",
-    };
 
     return (
         <Popover open={isOpen} onOpenChange={setIsOpen}>
@@ -229,10 +234,11 @@ export function ColorPicker({
                     className={cn(
                         "justify-start text-left font-normal",
                         !value && "text-muted-foreground",
-                        buttonSizeClasses[size],
+                        colorPickerVariants({ size }),
                         className
                     )}
                     disabled={disabled}
+                    {...props}
                 >
                     <div
                         className={cn(
@@ -442,3 +448,5 @@ export function ColorPicker({
         </Popover>
     );
 }
+
+export { ColorPicker, colorPickerVariants };

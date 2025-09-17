@@ -1,13 +1,29 @@
-# ColorPicker
+---
+title: "ColorPicker"
+description: "ColorPicker는 다양한 색상 포맷을 지원하는 색상 선택기입니다."
+---
+
+# ColorPicker 컴포넌트
 
 ColorPicker는 다양한 색상 포맷을 지원하는 색상 선택기입니다.
 
 ## 기본 사용법
 
-ColorPicker는 문자열 타입의 변수를 v-model로 바인딩해야 합니다.
+```tsx
+import { ColorPicker } from '@/components/ui/color-picker';
 
-기본값이 있는 경우
+export function MyComponent() {
+  return (
+    <ColorPicker>기본 ColorPicker</ColorPicker>
+  );
+}
+```
 
+ColorPicker는 문자열 타입의 변수를 value로 바인딩해야 합니다.
+
+### 기본값이 있는 경우
+
+:::component-example ColorPickerBasicExample
 ```tsx
 import { ColorPicker } from "@/components/ui/color-picker";
 
@@ -30,10 +46,16 @@ export function ColorPickerBasic() {
 }
 ```
 
+<div>
+  <ColorPicker value="#409EFF" onChange={() => {}} />
+</div>
+:::
+
 ## Alpha 채널
 
 ColorPicker는 Alpha 채널 선택을 지원합니다. Alpha 선택을 활성화하려면 `showAlpha` 속성을 추가하세요.
 
+:::component-example ColorPickerAlphaExample
 ```tsx
 import { ColorPicker } from "@/components/ui/color-picker";
 
@@ -50,10 +72,16 @@ export function ColorPickerAlpha() {
 }
 ```
 
+<div>
+  <ColorPicker value="rgba(19, 206, 102, 0.8)" onChange={() => {}} showAlpha />
+</div>
+:::
+
 ## 사전 정의된 색상
 
 ColorPicker는 사전 정의된 색상 옵션을 지원합니다.
 
+:::component-example ColorPickerPredefineExample
 ```tsx
 import { ColorPicker } from "@/components/ui/color-picker";
 
@@ -84,77 +112,90 @@ export function ColorPickerPredefine() {
 }
 ```
 
+<div>
+  <ColorPicker value="rgba(255, 69, 0, 0.68)" onChange={() => {}} showAlpha predefine={["#ff4500", "#ff8c00", "#ffd700", "#90ee90", "#00ced1", "#1e90ff", "#c71585"]} />
+</div>
+:::
+
 ## 크기
 
+ColorPicker는 다양한 크기를 지원합니다:
+
+### Large
+
+:::component-example ColorPickerLargeExample
 ```tsx
-import { ColorPicker } from "@/components/ui/color-picker";
-
-export function ColorPickerSizes() {
-  const [color, setColor] = React.useState("#409EFF");
-
-  return (
-    <div className="flex items-center space-x-4">
-      <ColorPicker value={color} onChange={setColor} size="large" />
-      <ColorPicker value={color} onChange={setColor} />
-      <ColorPicker value={color} onChange={setColor} size="small" />
-    </div>
-  );
-}
+<ColorPicker value="#409EFF" onChange={() => {}} size="large" />
 ```
+
+<div>
+<ColorPicker value="#409EFF" onChange={() => {}} size="large" />
+</div>
+:::
+
+### Default
+
+:::component-example ColorPickerDefaultExample
+```tsx
+<ColorPicker value="#409EFF" onChange={() => {}} />
+```
+
+<div>
+<ColorPicker value="#409EFF" onChange={() => {}} />
+</div>
+:::
+
+### Small
+
+:::component-example ColorPickerSmallExample
+```tsx
+<ColorPicker value="#409EFF" onChange={() => {}} size="small" />
+```
+
+<div>
+<ColorPicker value="#409EFF" onChange={() => {}} size="small" />
+</div>
+:::
 
 ## 색상 포맷
 
 다양한 색상 포맷을 지원합니다.
 
+### HEX 포맷
+
+:::component-example ColorPickerHexExample
 ```tsx
-import { ColorPicker } from "@/components/ui/color-picker";
-
-export function ColorPickerFormats() {
-  const [hexColor, setHexColor] = React.useState("#409EFF");
-  const [rgbColor, setRgbColor] = React.useState("rgb(64, 158, 255)");
-
-  return (
-    <div className="space-y-4">
-      <div className="flex items-center space-x-4">
-        <span className="text-sm font-medium w-32">HEX 포맷</span>
-        <ColorPicker 
-          value={hexColor} 
-          onChange={setHexColor}
-          colorFormat="hex"
-        />
-        <span className="text-sm text-muted-foreground">{hexColor}</span>
-      </div>
-      <div className="flex items-center space-x-4">
-        <span className="text-sm font-medium w-32">RGB 포맷</span>
-        <ColorPicker 
-          value={rgbColor} 
-          onChange={setRgbColor}
-          colorFormat="rgb"
-        />
-        <span className="text-sm text-muted-foreground">{rgbColor}</span>
-      </div>
-    </div>
-  );
-}
+<ColorPicker value="#409EFF" onChange={() => {}} colorFormat="hex" />
 ```
+
+<div>
+<ColorPicker value="#409EFF" onChange={() => {}} colorFormat="hex" />
+</div>
+:::
+
+### RGB 포맷
+
+:::component-example ColorPickerRgbExample
+```tsx
+<ColorPicker value="rgb(64, 158, 255)" onChange={() => {}} colorFormat="rgb" />
+```
+
+<div>
+<ColorPicker value="rgb(64, 158, 255)" onChange={() => {}} colorFormat="rgb" />
+</div>
+:::
 
 ## 비활성화
 
+:::component-example ColorPickerDisabledExample
 ```tsx
-import { ColorPicker } from "@/components/ui/color-picker";
-
-export function ColorPickerDisabled() {
-  const [color, setColor] = React.useState("#409EFF");
-
-  return (
-    <ColorPicker 
-      value={color} 
-      onChange={setColor}
-      disabled 
-    />
-  );
-}
+<ColorPicker value="#409EFF" onChange={() => {}} disabled />
 ```
+
+<div>
+<ColorPicker value="#409EFF" onChange={() => {}} disabled />
+</div>
+:::
 
 ## API
 
