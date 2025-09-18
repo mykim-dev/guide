@@ -1,13 +1,13 @@
 'use client';
 
 import React from 'react';
-import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { ArrowUp, User } from 'lucide-react';
 import { Card, CardTitle, CardContent } from '@/components/ui/card';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 import { Dialog, DialogTrigger, DialogTitle, DialogDescription, DialogHeader, DialogContent } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import CalsAgentHeader from '@/components/agent/header';
+import CalsAgentPrompt from '@/components/agent/prompt';
 
 // 타입 정의
 interface WorkflowStep {
@@ -97,106 +97,78 @@ export default function CalsAgentPage() {
       "answer": "베타 기간에는 자유롭게 테스트 및 개인/팀 프로젝트에 활용하실 수 있습니다. 상업적 이용은 정식 출시 후 라이선스 정책 공개에 따라 가능하며, 세부 내용은 추후 안내드를 예정입니다."
     }
   ];
-  
+
   return (
-    <div className="layout-container bg-background">
-      <header className="layout-header h-16 border-b">
-        <div className="container h-full mx-auto flex justify-around items-center gap-4">
-          <div className="header-left flex items-center gap-4">
-            <h1 className="logo text-xl font-bold">CALS Agent</h1>
-          </div>
-          <div className="header-center flex-1 flex items-end gap-4">
-          </div>
-          <div className="header-right flex items-center gap-4">
-            <Button variant="outline" size="icon" className="rounded-full cursor-pointer">
-              <User />
-            </Button>
-          </div>
-        </div>
-      </header>
+    <div className="bg-background">
+      <CalsAgentHeader />
+      <main>
+        <section className="h-[calc(100svh-4rem)] flex flex-col items-center justify-center">
+          <div className="container mx-auto space-y-24">
+            <h2 className="text-gradient typography-7xl text-center">
+              한 줄의 프롬프트 <br />에이전트 팀이 완성합니다.
+            </h2>
 
-      <main className="layout-main">
-      
-        <section className="section1 min-h-[calc(100svh-4rem)] flex items-center justify-center">
-          <div className="container text-center flex flex-col justify-center items-center gap-[8svh]">
-            <div className="section-title">
-              <h2 className="text-gradient text-7xl font-bold leading-tight">
-                한 줄의 프롬프트 <br />에이전트 팀이 완성합니다.
-              </h2>
+            <div className="flex items-center justify-center">
+              <span className="flex">기획부터 완성, 운영까지</span>
+              <span className="flex w-8 h-[1px] mx-2 bg-muted-foreground" />
+              <span className="flex">에이전트로 만들고, 로우코드로 운영하세요.</span>
             </div>
 
-            <div className="section-description">
-              <p className="relative flex items-center justify-center">
-                <span className="flex">기획부터 완성, 운영까지</span>
-                <span className="flex w-8 h-[1px] mx-2 bg-muted-foreground" />
-                <span className="flex">에이전트로 만들고, 로우코드로 운영하세요.</span>
-              </p>
-            </div>
-
-            <div className="prompt-wrap w-full flex border rounded-2xl">
-              <Textarea className="h-30 resize-none focus-visible:outline-0 border-none shadow-none flex-1" />
-              <div className="prompt-options flex items-end justify-end">
-                <Button disabled className="btn-prompt-action size-10 rounded-full p-0 m-2">
-                  <ArrowUp className="size-6" />
-                </Button>
-              </div>
-            </div>
+            <CalsAgentPrompt />
           </div>
         </section>
 
-        <section className="section2 min-h-[calc(100svh-4rem)] flex items-center justify-center">
-          <div className="container mx-auto text-center">
-            <div className="w-full h-[70svh] max-h-[800px] border border-border bg-muted-foreground/20 rounded-3xl">
+        <section className="h-[calc(100svh-4rem)] flex flex-col items-center justify-center">
+          <div className="container h-[60svh] mx-auto text-center">
+            <div className="size-full bg-muted-foreground/10 rounded-2xl">
               앱 생성 화면 이미지 or 영상 (Agent 단계)
             </div>
           </div>
         </section>
 
-        {/* How It Works 섹션 */}
-        <section className="section3 min-h-[calc(100svh-4rem)] flex items-center justify-center">
-          <div className="container mx-auto text-center">
-            <h2 className="section-title text-3xl font-semibold">
-              아이디어만으로 앱 생성, 운영까지 아이디어 한 줄이면 충분해요.
-            </h2>
-
-            <div className="section-description mt-4">
-              <p>CALS의 에이전트들이 앱을 생성하고, 로우코드 솔루션 &apos;CALS&apos;에서 운영까지 이어집니다.</p>
-              <p>개발 지식 없이도, 지금 바로 시작해보세요.</p>
+        <section className="flex flex-col items-center justify-center">
+          <div className="container mx-auto my-32">
+            <div className="space-y-4 text-center">
+              <h2 className="typography-3xl">아이디어만으로 앱 생성, 운영까지 아이디어 한 줄이면 충분해요.</h2>
+              <div className="typography-lg">
+                <p>CALS의 에이전트들이 앱을 생성하고, 로우코드 솔루션 &apos;CALS&apos;에서 운영까지 이어집니다.</p>
+                <p>개발 지식 없이도, 지금 바로 시작해보세요.</p>
+              </div>
             </div>
 
-            <div className="lg:mt-20">
-              {workflowSteps.map((item: WorkflowStep, index: number) => (
-                <dl key={index} className="grid grid-cols-1 mb-12 gap-12 lg:grid-cols-2">
-                  <dt className="h-80 border border-border bg-muted-foreground/10 rounded-3xl"></dt>
-                  <dd className="flex-1 text-left space-y-4">
-                    <h3 className="text-3xl font-bold tracking-tight">{item.title}</h3>
-                    <p className="text-lg text-muted-foreground">{item.description}</p>
-                  </dd>
-                </dl>
-              ))}
-            </div>
+            {workflowSteps.map((item: WorkflowStep, index: number) => (
+              <dl key={index} className="grid grid-cols-1 lg:grid-cols-2 my-24 gap-12">
+                <dt className="h-80 border border-border bg-muted-foreground/10 rounded-2xl"></dt>
+                <dd className="flex-1 text-left space-y-4">
+                  <h3 className="typography-2xl">{item.title}</h3>
+                  <p className="typography-lg text-muted-foreground">{item.description}</p>
+                </dd>
+              </dl>
+            ))}
+
           </div>
         </section>
 
-        {/* Who Is It For 섹션 */}
-        <section className="section4 min-h-[calc(100svh-4rem)] flex items-center justify-center">
-          <div className="container mx-auto text-center">
-            <h2 className="section-title text-3xl font-semibold">누구를 위한 서비스인가요?</h2>
-            <div className="section-description mt-4">
-              <p>다양한 상황에서 CALS를 활용할 수 있습니다.</p>
+        <section className="h-[calc(100svh-4rem)] flex flex-col items-center justify-center">
+          <div className="container mx-auto space-y-32">
+            <div className="space-y-4 text-center">
+              <h2 className="typography-3xl">누구를 위한 서비스인가요?</h2>
+              <div className="typography-lg">
+                <p>다양한 상황에서 CALS를 활용할 수 있습니다.</p>
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 xl:grid-cols-3 mt-20 gap-8 text-left">
+            <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
               {featureCards.map((item: FeatureCard, index: number) => {
                 const svgSrc = getSvgSrc(index)
 
                 return (
-                  <Card key={index} className="p-8 xl:h-96 rounded-4xl border-none shadow-none">
-                    <CardTitle className="text-blue-900 text-3xl font-bold tracking-tight leading-10">
+                  <Card key={index}>
+                    <CardTitle className="px-6 typography-2xl text-blue-900">
                       <img src={svgSrc} className="size-16 mb-5" alt="Feature icon" />
                       {item.title}
                     </CardTitle>
-                    <CardContent className="px-0 pb-4 text-lg text-secondary-foreground dark:text-gray-300">
+                    <CardContent className="text-muted-foreground">
                       {item.description}
                     </CardContent>
                   </Card>
@@ -207,25 +179,26 @@ export default function CalsAgentPage() {
         </section>
 
         {/* FAQ 섹션 */}
-        <section className="section5 min-h-[calc(100svh-4rem)] flex items-center justify-center">
-          <div className="container mx-auto text-center">
-            <h2 className="section-title text-3xl font-semibold">자주 묻는 질문</h2>
-            <div className="section-description mt-4">
-              <p>CALS에 대해 궁금한 점들을 확인해보세요.</p>
+        <section className="h-[calc(100svh-4rem)] flex flex-col items-center justify-center">
+          <div className="container mx-auto space-y-32">
+            <div className="space-y-4 text-center">
+              <h2 className="typography-3xl">자주 묻는 질문</h2>
+              <div className="typography-xl">
+                <p>CALS에 대해 궁금한 점들을 확인해보세요.</p>
+              </div>
             </div>
 
-            <Accordion type="single" collapsible className="border-y border-input lg:mt-20">
+            <Accordion type="single" collapsible className="border-y">
               {faqItems.map((item: FaqItem, index: number) => (
                 <AccordionItem
                   key={index}
                   value={`item-${index + 1}`}
-                  className="accordion-item"
                 >
-                  <AccordionTrigger className="py-5 text-xl [&>svg]:size-6">
-                    {item.question}
+                  <AccordionTrigger className="[&>svg]:size-5 [&>svg]:mr-4">
+                    <div className="px-4 typography-lg">{item.question}</div>
                   </AccordionTrigger>
-                  <AccordionContent className="p-6 text-left bg-muted-foreground/10 text-muted-foreground text-xl">
-                    {item.answer}
+                  <AccordionContent className="p-5 bg-muted/50">
+                    <div className="typography-base text-muted-foreground">{item.answer}</div>
                   </AccordionContent>
                 </AccordionItem>
               ))}
@@ -234,16 +207,16 @@ export default function CalsAgentPage() {
         </section>
 
         {/* CTA 섹션 */}
-        <section className="section6 min-h-[calc(100svh-4rem)] flex items-center justify-center">
-          <div className="container mx-auto text-center">
-            <h2 className="section-title text-3xl font-semibold">지금 바로 시작해보세요</h2>
-            <div className="section-description mt-4">
-              <p>아이디어만 있으면 누구나 앱을 만들 수 있습니다.</p>
-              <p>복잡한 설정 없이 바로 시작하세요.</p>
-              <p>무료로 체험해보실 수 있습니다.</p>
-            </div>
-            <div>
-              <Button className="btn-start mt-24 scale-120">
+        <section className="h-[calc(100svh-4rem)] flex flex-col items-center justify-center">
+          <div className="container mx-auto space-y-32">
+            <div className="space-y-4 text-center">
+              <h2 className="typography-3xl">지금 바로 시작해보세요</h2>
+              <div>
+                <p>아이디어만 있으면 누구나 앱을 만들 수 있습니다.</p>
+                <p>복잡한 설정 없이 바로 시작하세요.</p>
+                <p>무료로 체험해보실 수 있습니다.</p>
+              </div>
+              <Button variant="customer" size="lg" className="btn-start my-12">
                 무료로 시작하기
               </Button>
             </div>
@@ -254,10 +227,7 @@ export default function CalsAgentPage() {
           <div className="container mx-auto">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 py-4">
               <div className="flex items-center gap-4">
-                {/* Logo */}
-                <div className="h-8 w-32 bg-muted-foreground/20 rounded flex items-center justify-center">
-                  <span className="text-sm font-semibold">CALS</span>
-                </div>
+                <div>CALS</div>
 
                 <Dialog>
                   <DialogTrigger asChild>
@@ -304,13 +274,12 @@ export default function CalsAgentPage() {
                 </Select>
               </div>
             </div>
-            <p className="text-sm text-muted-foreground text-center py-4">
+            <p className="my-4 typography-xs text-muted-foreground text-center">
               COPYRIGHT © QuintetSystems Inc. All Rights Reserved
             </p>
           </div>
         </footer>
-
-        </main>
+      </main>
     </div>
   )
 }

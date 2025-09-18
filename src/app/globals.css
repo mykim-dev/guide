@@ -130,6 +130,7 @@
 }
 
 @layer components {
+
   /* Typography Classes using CSS Variables */
   .typography-xs {
     font-size: var(--text-xs);
@@ -145,7 +146,6 @@
 
   .typography-lg {
     font-size: var(--text-lg);
-    font-weight: var(--font-weight-medium);
   }
 
   .typography-xl {
@@ -188,7 +188,7 @@
 
   .typography-7xl {
     font-size: var(--text-7xl);
-    font-weight: var(--font-weight-bold); 
+    font-weight: var(--font-weight-bold);
     letter-spacing: var(--tracking-tight);
     line-height: var(--leading-snug);
   }
@@ -197,13 +197,13 @@
     font-size: var(--text-8xl);
     font-weight: var(--font-weight-bold);
     letter-spacing: var(--tracking-tight);
-    line-height: var(--leading-snug);      
+    line-height: var(--leading-snug);
   }
 
   .typography-9xl {
     font-size: var(--text-9xl);
     font-weight: var(--font-weight-bold);
     letter-spacing: var(--tracking-tight);
-    line-height: var(--leading-snug);    
+    line-height: var(--leading-snug);
   }
 }

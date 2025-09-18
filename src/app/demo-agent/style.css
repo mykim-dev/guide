@@ -82,7 +82,7 @@
 
   /* Customer */
   --customer: oklch(0.66 0.21 354.31);
-  --customer-foreground: oklch(0.985 0 0);  
+  --customer-foreground: oklch(0.985 0 0);
 }
 
 .dark {
@@ -151,17 +151,17 @@
       .chat-accordion {
         @apply flex flex-col my-3;
 
-        [data-slot=accordion-trigger] {
-          @apply flex items-center gap-4 px-4 py-3 text-lg font-semibold bg-background rounded-xl shadow-md [&>div]:gap-4 [&>svg]:size-6 hover:no-underline;
+        [data-slot="accordion-trigger"] {
+          @apply flex items-center gap-4 px-4 py-0 border bg-background rounded-lg shadow-none [&>div]:gap-4 [&>svg]:size-6 hover:no-underline;
 
           .agent-title {
             @apply flex items-center gap-4;
           }
         }
 
-        [data-slot=accordion-content] {
+        [data-slot="accordion-content"] {
           @apply px-6 py-4 text-base;
-        }  
+        }
       }
     }
   }
