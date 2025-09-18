@@ -1,12 +1,9 @@
 'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { spacingTokens, SpacingToken } from '@/lib/tokens';
-import { CheckCircle, Clipboard } from 'lucide-react';
-import { useState } from 'react';
-import { toast } from 'sonner';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Badge } from '@/components/ui/badge';
 
 // rem을 px로 변환하는 함수 (기본 16px = 1rem)
 const remToPx = (remValue: string): string => {
@@ -39,113 +36,63 @@ const isSpacingToken = (token: unknown): token is SpacingToken => {
 };
 
 export default function SpacingPage() {
-  const [copiedTokens, setCopiedTokens] = useState<Set<string>>(new Set());
-
-  const handleCopyToken = async (tokenKey: string, tokenValue: string) => {
-    try {
-      await navigator.clipboard.writeText(tokenValue);
-      setCopiedTokens(prev => new Set(prev).add(tokenKey));
-
-      toast.success('토큰이 복사되었습니다!', {
-        description: `${tokenKey}: ${tokenValue}`
-      });
-
-      // 2초 후 복사 상태 해제
-      setTimeout(() => {
-        setCopiedTokens(prev => {
-          const newSet = new Set(prev);
-          newSet.delete(tokenKey);
-          return newSet;
-        });
-      }, 2000);
-    } catch (error) {
-      console.error('Token copy failed:', error);
-      toast.error('토큰 복사에 실패했습니다.', {
-        description: '다시 시도해주세요.'
-      });
-    }
-  };
 
   return (
-    <>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {Object.entries(spacingTokens).map(([key, token]) => {
-          if (!isSpacingToken(token)) {
-            return null;
-          }
-
-          return (
-            <Card key={key} className="overflow-hidden">
-              <CardHeader className="pb-3">
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-sm">{token.name}</CardTitle>
-                  <div className="flex items-center gap-2">
-                    <Badge variant="secondary" className="text-xs">
-                      {formatValue(token.value)}
-                    </Badge>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="h-6 w-6 p-0"
-                      onClick={() => handleCopyToken(key, token.value)}
-                    >
-                      {copiedTokens.has(key) ? (
-                        <CheckCircle className="h-3 w-3 text-green-600" />
-                      ) : (
-                        <Clipboard className="h-3 w-3" />
-                      )}
-                    </Button>
-                  </div>
-                </div>
-                <CardDescription className="text-xs">
-                  {token.description}
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="pt-0">
-                <div className="space-y-3">
-                  {/* Visual representation */}
-                  <div className="space-y-2">
-                    <div className="flex flex-wrap items-center">
-                      <div
-                        className="bg-primary rounded"
-                        style={{ width: token.value, height: '1rem' }}
-                      />
-                      <span className="text-xs text-muted-foreground">
-                        Width: {formatValue(token.value)}
-                      </span>
-                    </div>
-                    <div className="flex items-center">
-                      <div
-                        className="bg-secondary rounded"
-                        style={{ width: '1rem', height: token.value }}
-                      />
-                      <span className="text-xs text-muted-foreground">
-                        Height: {formatValue(token.value)}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Usage examples */}
-                  <div className="space-y-2">
-                    <div className="text-xs font-medium text-muted-foreground">사용 예시:</div>
-                    <div className="space-y-1">
-                      <div className="text-xs text-muted-foreground">
-                        p-{token.name} → padding: {formatValue(token.value)}
-                      </div>
-                      <div className="text-xs text-muted-foreground">
-                        m-{token.name} → margin: {formatValue(token.value)}
-                      </div>
-                      <div className="text-xs text-muted-foreground">
-                        gap-{token.name} → gap: {formatValue(token.value)}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          );
-        })}
+    <div className="space-y-6">
+      <div>
+        <h2 className="text-2xl font-bold mb-2">Size Unit</h2>
+        <p className="text-sm text-muted-foreground mb-6">
+        스페이싱의 기본 단위는 4와 8의 배수에 기반한 8가지로 규정하여 사용합니다. 8의 배수는 가장 큰 기본 배수이며 8이 포함하고 있는 2와 4의 배수도 사용 가능합니다.
+        </p>
+        <div className="flex items-end justify-center gap-8 p-12 bg-muted rounded-md">
+          <div className="flex flex-col items-center justify-end text-xs space-y-4"><div className="size-1 bg-cyan-500"></div>{4*1}</div>
+          <div className="flex flex-col items-center justify-end text-xs space-y-4"><div className="size-2 bg-cyan-500"></div>{4*2}</div>
+          <div className="flex flex-col items-center justify-end text-xs space-y-4"><div className="size-3 bg-cyan-500"></div>{4*3}</div>
+          <div className="flex flex-col items-center justify-end text-xs space-y-4"><div className="size-4 bg-cyan-500"></div>{4*4}</div>
+          <div className="flex flex-col items-center justify-end text-xs space-y-4"><div className="size-5 bg-cyan-500"></div>{4*5}</div>
+          <div className="flex flex-col items-center justify-end text-xs space-y-4"><div className="size-6 bg-cyan-500"></div>{4*6}</div>
+          <div className="flex flex-col items-center justify-end text-xs space-y-4"><div className="size-7 bg-cyan-500"></div>{4*7}</div>
+          <div className="flex flex-col items-center justify-end text-xs space-y-4"><div className="size-8 bg-cyan-500"></div>{4*8}</div>
+          <div className="flex flex-col items-center justify-end text-xs space-y-4"><div className="size-9 bg-cyan-500"></div>{4*9}</div>
+          <div className="flex flex-col items-center justify-end text-xs space-y-4"><div className="size-10 bg-cyan-500"></div>{4*10}</div>
+        </div>
       </div>
-    </>
+      <div className="relative">
+        <ScrollArea className="h-[calc(40px*10)] w-full rounded-md border">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>토큰</TableHead>
+                <TableHead>값</TableHead>
+                <TableHead>설명</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+            {Object.entries(spacingTokens).map(([key, token]) => {
+              if (!isSpacingToken(token)) {
+                return null;
+              }
+
+              return (
+                <TableRow key={key}>
+                  <TableCell>
+                    <Badge variant="secondary" className="text-xs">{token.name}</Badge>
+                  </TableCell>
+                  <TableCell>
+                    {token.value}
+                  </TableCell>
+                  <TableCell>
+                    <span className={key === '4' || key === '6' ? 'font-semibold' : ''}>                  
+                      {token.description}
+                    </span>
+                  </TableCell>
+                </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </ScrollArea>
+      </div>
+    </div>
   );
 }

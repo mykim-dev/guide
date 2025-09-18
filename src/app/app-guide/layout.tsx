@@ -18,7 +18,6 @@ export default function LayoutGuide({
 }) {
   const pathname = usePathname();
   const isHome = pathname === '/app-guide' || pathname === '/app-guide/';
-  const isComponentGuide = pathname === '/app-guide/component-guide' || pathname === '/app-guide/component-guide/';
   return (
     <ThemeProvider defaultTheme="light">
       <div className="">
@@ -27,12 +26,7 @@ export default function LayoutGuide({
           {!isHome && <GuideSidebar />}
           <main className="w-full">
             <ActiveMenuTitle />
-            {isComponentGuide
-              ? <>{children}</>
-              : <ScrollArea className={isHome ? 'h-[calc(100svh-65px)]' : 'h-[calc(100svh-240px)]'}>
-                {children}
-              </ScrollArea>
-            }
+            {children}
           </main>
         </div>
       </div>

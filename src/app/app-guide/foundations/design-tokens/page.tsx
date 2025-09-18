@@ -1,30 +1,18 @@
 'use client';
 
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, Clipboard } from 'lucide-react';
 import { useState, useCallback } from 'react';
 import { toast } from 'sonner';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { designTokensLight, designTokensDark, designTokens } from '@/lib/tokens/design-tokens';
-import { typographyTokens } from '@/lib/tokens/typography';
-import { spacingTokens } from '@/lib/tokens/spacing';
-import { tailwindColors } from '@/lib/tokens/colors';
 
 // 타입 정의
 interface TokenData {
   key: string;
   value: string;
   description?: string;
-}
-
-interface TokenTableProps {
-  title: string;
-  tokens: TokenData[];
-  isCopied: boolean;
-  onCopy: () => void;
 }
 
 interface LightDarkComparisonTableProps {
@@ -61,65 +49,6 @@ const ColorPreview = ({ value, tokenKey }: { value: string; tokenKey: string }) 
   );
 };
 
-// 토큰 테이블 컴포넌트
-const TokenTable = ({ title, tokens, isCopied, onCopy }: TokenTableProps) => {
-  return (
-    <div className="space-y-3">
-      <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold">{title}</h3>
-        <Button
-          variant="ghost"
-          size="sm"
-          className="h-8 px-3"
-          onClick={onCopy}
-        >
-          {isCopied ? (
-            <CheckCircle className="h-4 w-4 text-green-600 mr-2" />
-          ) : (
-            <Clipboard className="h-4 w-4 mr-2" />
-          )}
-          {isCopied ? '복사됨' : '복사'}
-        </Button>
-      </div>
-      <div className="relative">
-        <ScrollArea className="h-96 w-full rounded-md border">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-[200px]">토큰명</TableHead>
-                <TableHead className="w-[80px]">색상</TableHead>
-                <TableHead className="w-[300px]">값</TableHead>
-                <TableHead>설명</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {tokens.map((token) => (
-                <TableRow key={token.key}>
-                  <TableCell className="font-mono text-sm">
-                    <code className="bg-muted px-2 py-1 rounded text-xs">
-                      {token.key}
-                    </code>
-                  </TableCell>
-                  <TableCell className="text-center">
-                    <ColorPreview value={token.value} tokenKey={token.key} />
-                  </TableCell>
-                  <TableCell className="font-mono text-sm">
-                    <code className="bg-muted px-2 py-1 rounded text-xs">
-                      {token.value}
-                    </code>
-                  </TableCell>
-                  <TableCell className="text-sm text-muted-foreground">
-                    {token.description || '-'}
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </ScrollArea>
-      </div>
-    </div>
-  );
-}
 
 // 라이트/다크 비교 테이블 컴포넌트
 const LightDarkComparisonTable = ({
@@ -137,7 +66,7 @@ const LightDarkComparisonTable = ({
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold">{title}</h3>
+        <h3 className="text-lg font-semibold"></h3>
         <div className="flex items-center gap-2">
           <Button
             variant="ghost"
@@ -170,16 +99,16 @@ const LightDarkComparisonTable = ({
         </div>
       </div>
       <div className="relative">
-        <ScrollArea className="h-96 w-full rounded-md border">
+        <ScrollArea className="h-[calc(100svh-360px)] w-full rounded-md border">
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[180px]">토큰명</TableHead>
-                <TableHead className="w-[60px]">Light</TableHead>
-                <TableHead className="w-[200px]">Light 값</TableHead>
-                <TableHead className="w-[60px]">Dark</TableHead>
-                <TableHead className="w-[200px]">Dark 값</TableHead>
-                <TableHead>설명</TableHead>
+                <TableHead className="w-3/12">토큰명</TableHead>
+                <TableHead className="w-2/12"></TableHead>
+                <TableHead className="w-1/12 text-center">Light</TableHead>                
+                <TableHead className="w-1/12 text-center">Dark</TableHead>
+                <TableHead className="w-2/12"></TableHead>
+                <TableHead className="w-3/12">설명</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -189,10 +118,21 @@ const LightDarkComparisonTable = ({
 
                 return (
                   <TableRow key={key}>
-                    <TableCell className="font-mono text-sm">
+                    <TableCell className="text-sm">
                       <code className="bg-muted px-2 py-1 rounded text-xs">
                         {key}
                       </code>
+                    </TableCell>
+
+                    {/* Light 값 */}
+                    <TableCell className="text-sm text-right">
+                      {lightToken ? (
+                        <code className="bg-muted px-2 py-1 rounded text-xs">
+                          {lightToken.value}
+                        </code>
+                      ) : (
+                        <span className="text-muted-foreground text-xs">-</span>
+                      )}
                     </TableCell>
 
                     {/* Light 색상 */}
@@ -209,17 +149,6 @@ const LightDarkComparisonTable = ({
                             title={lightToken.value}
                           />
                         </div>
-                      ) : (
-                        <span className="text-muted-foreground text-xs">-</span>
-                      )}
-                    </TableCell>
-
-                    {/* Light 값 */}
-                    <TableCell className="font-mono text-sm">
-                      {lightToken ? (
-                        <code className="bg-muted px-2 py-1 rounded text-xs">
-                          {lightToken.value}
-                        </code>
                       ) : (
                         <span className="text-muted-foreground text-xs">-</span>
                       )}
@@ -245,7 +174,7 @@ const LightDarkComparisonTable = ({
                     </TableCell>
 
                     {/* Dark 값 */}
-                    <TableCell className="font-mono text-sm">
+                    <TableCell className="text-sm">
                       {darkToken ? (
                         <code className="bg-muted px-2 py-1 rounded text-xs">
                           {darkToken.value}
@@ -287,32 +216,6 @@ const getDesignTokensDarkData = (): TokenData[] => {
   }));
 };
 
-const getTypographyTokensData = (): TokenData[] => {
-  return Object.entries(typographyTokens).map(([key, token]) => ({
-    key,
-    value: token.value,
-    description: token.description.join(', ')
-  }));
-};
-
-const getSpacingTokensData = (): TokenData[] => {
-  return Object.entries(spacingTokens).map(([key, token]) => ({
-    key,
-    value: token.value,
-    description: token.description || ''
-  }));
-};
-
-const getColorsData = (): TokenData[] => {
-  return Object.entries(tailwindColors).flatMap(([colorName, colorScale]) =>
-    Object.entries(colorScale).map(([shade, hexValue]) => ({
-      key: `${colorName}-${shade}`,
-      value: hexValue,
-      description: `Tailwind ${colorName} ${shade}`
-    }))
-  );
-};
-
 // 코드 생성 함수들
 const generateCodeFromTokens = (tokens: Record<string, string>, exportName: string): string => {
   const entries = Object.entries(tokens)
@@ -324,55 +227,6 @@ const generateCodeFromTokens = (tokens: Record<string, string>, exportName: stri
 
 const generateDesignTokensLightCode = () => generateCodeFromTokens(designTokensLight, 'designTokensLight');
 const generateDesignTokensDarkCode = () => generateCodeFromTokens(designTokensDark, 'designTokensDark');
-
-const generateTypographyTokensCode = () => {
-  return `export interface TypographyToken {
-  name: string;
-  description: string[];
-  category: 'font-size' | 'font-weight' | 'letter-spacing' | 'line-height';
-  value: string;
-  class: string[];
-}
-
-export const typographyTokens: TypographyScale = {
-${Object.entries(typographyTokens).map(([key, token]) => {
-    return `  '${key}': {
-    name: '${token.name}',
-    description: [${token.description.map(d => `'${d}'`).join(', ')}],
-    category: '${token.category}',
-    value: '${token.value}',
-    class: [${token.class.map(c => `'${c}'`).join(', ')}]
-  }`;
-  }).join(',\n')}
-};`;
-};
-
-const generateSpacingTokensCode = () => {
-  return `export interface SpacingToken {
-  name: string;
-  value: string;
-  description?: string;
-}
-
-export const spacingTokens: SpacingScale = {
-${Object.entries(spacingTokens).map(([key, token]) => {
-    return `  '${key}': { 
-    name: '${token.name}', 
-    value: '${token.value}'${token.description ? `, description: '${token.description}'` : ''} 
-  }`;
-  }).join(',\n')}
-};`;
-};
-
-const generateColorsCode = () => {
-  return `export const tailwindColors = {
-${Object.entries(tailwindColors).map(([colorName, colorScale]) => {
-    return `  ${colorName}: {
-${Object.entries(colorScale).map(([shade, hexValue]) => `    ${shade}: '${hexValue}'`).join(',\n')}
-  }`;
-  }).join(',\n')}
-};`;
-};
 
 export default function DesignTokensPage() {
   const [copiedTokens, setCopiedTokens] = useState<Set<string>>(new Set());
@@ -400,85 +254,23 @@ export default function DesignTokensPage() {
   }, []);
 
   return (
-    <Tabs defaultValue="design-tokens" className="w-full">
-      <TabsList className="w-full">
-        <TabsTrigger value="design-tokens">디자인 토큰</TabsTrigger>
-        <TabsTrigger value="typography">타이포그래피</TabsTrigger>
-        <TabsTrigger value="spacing">간격</TabsTrigger>
-        <TabsTrigger value="colors">색상</TabsTrigger>
-      </TabsList>
+    <div className="space-y-4">
+      <div>
+        <h2 className="text-2xl font-bold">Design Tokens</h2>
+        <p className="text-muted-foreground">
+          CSS 변수로 정의된 디자인 토큰들입니다. 라이트/다크 테마를 한눈에 비교할 수 있습니다.
+        </p>
+      </div>
 
-      <TabsContent value="design-tokens" className="mt-6 space-y-6">
-        <div className="space-y-4">
-          <div>
-            <h2 className="text-2xl font-bold">디자인 토큰</h2>
-            <p className="text-muted-foreground">
-              CSS 변수로 정의된 디자인 토큰들입니다. 라이트/다크 테마를 한눈에 비교할 수 있습니다.
-            </p>
-          </div>
-
-          <LightDarkComparisonTable
-            title="design-tokens.ts"
-            lightTokens={getDesignTokensLightData()}
-            darkTokens={getDesignTokensDarkData()}
-            lightCopied={copiedTokens.has('design-tokens-light')}
-            darkCopied={copiedTokens.has('design-tokens-dark')}
-            onLightCopy={() => handleCopyCode('design-tokens-light', generateDesignTokensLightCode())}
-            onDarkCopy={() => handleCopyCode('design-tokens-dark', generateDesignTokensDarkCode())}
-          />
-        </div>
-      </TabsContent>
-
-      <TabsContent value="typography" className="mt-6 space-y-6">
-        <div className="space-y-4">
-          <div>
-            <h2 className="text-2xl font-bold">타이포그래피 토큰</h2>
-            <p className="text-muted-foreground">
-              폰트 크기, 두께, 줄 간격, 자간을 정의한 타이포그래피 토큰들입니다.
-            </p>
-          </div>
-          <TokenTable
-            title="typography.ts"
-            tokens={getTypographyTokensData()}
-            isCopied={copiedTokens.has('typography')}
-            onCopy={() => handleCopyCode('typography', generateTypographyTokensCode())}
-          />
-        </div>
-      </TabsContent>
-
-      <TabsContent value="spacing" className="mt-6 space-y-6">
-        <div className="space-y-4">
-          <div>
-            <h2 className="text-2xl font-bold">간격 토큰</h2>
-            <p className="text-muted-foreground">
-              패딩, 마진, 갭 등에 사용되는 간격 토큰들입니다.
-            </p>
-          </div>
-          <TokenTable
-            title="spacing.ts"
-            tokens={getSpacingTokensData()}
-            isCopied={copiedTokens.has('spacing')}
-            onCopy={() => handleCopyCode('spacing', generateSpacingTokensCode())}
-          />
-        </div>
-      </TabsContent>
-
-      <TabsContent value="colors" className="mt-6 space-y-6">
-        <div className="space-y-4">
-          <div>
-            <h2 className="text-2xl font-bold">색상 팔레트</h2>
-            <p className="text-muted-foreground">
-              Tailwind CSS의 공식 색상 팔레트입니다.
-            </p>
-          </div>
-          <TokenTable
-            title="colors.ts"
-            tokens={getColorsData()}
-            isCopied={copiedTokens.has('colors')}
-            onCopy={() => handleCopyCode('colors', generateColorsCode())}
-          />
-        </div>
-      </TabsContent>
-    </Tabs>
+      <LightDarkComparisonTable
+        title="design-tokens.ts"
+        lightTokens={getDesignTokensLightData()}
+        darkTokens={getDesignTokensDarkData()}
+        lightCopied={copiedTokens.has('design-tokens-light')}
+        darkCopied={copiedTokens.has('design-tokens-dark')}
+        onLightCopy={() => handleCopyCode('design-tokens-light', generateDesignTokensLightCode())}
+        onDarkCopy={() => handleCopyCode('design-tokens-dark', generateDesignTokensDarkCode())}
+      />
+    </div>
   );
 }

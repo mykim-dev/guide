@@ -29,11 +29,11 @@ export const designTokens: Record<string, DesignToken> = COMMON_TOKENS;
 
 // 라이트 테마 색상 값
 const LIGHT_VALUES = {
-  '--background': '#fff',
+  '--background': '#ffffff',
   '--foreground': '#0a0a0a',
-  '--card': '#fff',
+  '--card': '#ffffff',
   '--card-foreground': '#0a0a0a',
-  '--popover': '#fff',
+  '--popover': '#ffffff',
   '--popover-foreground': '#0a0a0a',
   '--primary': '#171717',
   '--primary-foreground': '#fafafa',
@@ -60,7 +60,7 @@ const LIGHT_VALUES = {
   '--sidebar-accent-foreground': '#171717',
   '--sidebar-border': '#e5e5e5',
   '--sidebar-ring': '#a1a1a1',
-  '--customer': '#ed4b9a',
+  '--customer': '#fb64b6',
   '--customer-foreground': '#fafafa'
 } as const;
 
@@ -96,7 +96,9 @@ const DARK_VALUES = {
   '--sidebar-accent': '#262626',
   '--sidebar-accent-foreground': '#fafafa',
   '--sidebar-border': 'rgba(255, 255, 255, .1)',
-  '--sidebar-ring': '#737373'
+  '--sidebar-ring': '#737373',
+  '--customer': '#fb64b6',
+  '--customer-foreground': '#fafafa'
 } as const;
 
 export const designTokensLight = LIGHT_VALUES;

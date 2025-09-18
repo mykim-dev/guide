@@ -7,7 +7,7 @@ import { tailwindColors } from '@/lib/tokens';
 import { CheckCircle, Clipboard } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
-
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 export default function PalettePage() {
   const [copiedTokens, setCopiedTokens] = useState<Set<string>>(new Set());
@@ -38,7 +38,7 @@ export default function PalettePage() {
   };
 
   return (
-    <>
+    <ScrollArea className="h-[calc(100svh-240px)]">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {Object.entries(tailwindColors).map(([colorName, colorScale]) => (
           <Card key={colorName} className="overflow-hidden">
@@ -89,6 +89,6 @@ export default function PalettePage() {
           </Card>
         ))}
       </div>
-    </>
+    </ScrollArea>
   );
 }

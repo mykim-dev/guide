@@ -1,50 +1,37 @@
 'use client';
 
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { typographyTokens, TypographyToken } from '@/lib/tokens/typography';
-import { CheckCircle, Clipboard } from 'lucide-react';
-import { useState } from 'react';
-import { toast } from 'sonner';
+import { typographyTokens } from '@/lib/tokens/typography';
 
-// rem을 px로 변환하는 함수 (기본 16px = 1rem)
-const remToPx = (remValue: string): string => {
-  const rem = parseFloat(remValue.replace('rem', ''));
-  const px = Math.round(rem * 16);
-  return `${remValue} | ${px}px`;
-};
-
-// 단위가 있는 값들을 변환하는 함수
-const formatValue = (value: string): string => {
-  if (value.includes('rem')) {
-    return remToPx(value);
-  }
-  if (value.includes('px')) {
-    return value;
-  }
-  if (value.includes('em')) {
-    return value;
-  }
-  if (value.includes('calc(')) {
-    return value;
-  }
-  // 숫자만 있는 경우 (font-weight, line-height 등)
-  return value;
+// TypographyToken 타입 정의
+type TypographyToken = {
+  name: string;
+  description: string[];
+  category: 'typography' | 'font-size' | 'line-height' | 'font-weight' | 'letter-spacing';
+  value: string;
+  lineHeight?: string;
+  letterSpacing?: string;
+  fontWeight?: string;
+  class: string[];
 };
 
 // 카테고리별 토큰을 그룹화하는 함수
 const groupTokensByCategory = () => {
-  const grouped = {
-    'font-size': [] as [string, TypographyToken][],
-    'font-weight': [] as [string, TypographyToken][],
-    'line-height': [] as [string, TypographyToken][],
-    'letter-spacing': [] as [string, TypographyToken][]
+  const grouped: Record<string, [string, TypographyToken][]> = {
+    'typography': [],
+    'font-size': [],
+    'line-height': [],
+    'font-weight': [],    
+    'letter-spacing': []    
   };
 
   Object.entries(typographyTokens).forEach(([key, token]) => {
-    grouped[token.category].push([key, token]);
+    if (grouped[token.category]) {
+      grouped[token.category].push([key, token as TypographyToken]);
+    }
   });
 
   return grouped;
@@ -53,38 +40,22 @@ const groupTokensByCategory = () => {
 // 토큰 카드 컴포넌트
 const TokenCard = ({ 
   tokenKey, 
-  token, 
-  copiedTokens, 
-  onCopyToken 
+  token
 }: { 
   tokenKey: string; 
-  token: TypographyToken; 
-  copiedTokens: Set<string>; 
-  onCopyToken: (key: string, value: string) => void;
+  token: TypographyToken;
 }) => {
-  const getPreviewStyle = () => {
-    switch (token.category) {
-      case 'font-size':
-        return { fontSize: token.value };
-      case 'font-weight':
-        return { fontWeight: token.value };
-      case 'line-height':
-        return { lineHeight: token.value };
-      case 'letter-spacing':
-        return { letterSpacing: token.value };
-      default:
-        return {};
-    }
-  };
 
   const getPreviewText = () => {
     switch (token.category) {
+      case 'typography':
+        return 'The quick brown fox jumps over the lazy dog';
       case 'font-size':
         return 'The quick brown fox jumps over the lazy dog';
-      case 'font-weight':
-        return 'Font Weight Sample';
       case 'line-height':
         return 'Line Height Sample\nMulti-line text example';
+      case 'font-weight':
+        return 'Font Weight Sample';
       case 'letter-spacing':
         return 'Letter Spacing Sample';
       default:
@@ -93,93 +64,63 @@ const TokenCard = ({
   };
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
+    <>
+      <div className="grid grid-cols-[4fr_1fr] gap-4">
+        <div className="flex flex-col items-start justify-between">
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium text-muted-foreground">{token.name}</span>
+            <Badge variant="secondary" className="text-xs">
+              {tokenKey}
+            </Badge>
+          </div>
+          <div className="space-y-2">
+            <div className="text-xs font-medium text-muted-foreground">미리보기:</div>
+            <div className={`border-l-4 border-primary pl-4 ${token.class.join(' ')} bg-muted`}>
+              {getPreviewText()}
+            </div>
+          </div>        
+        </div>      
+
         <div className="flex items-center gap-2">
-          <span className="text-sm font-medium text-muted-foreground">{token.name}</span>
-          <Badge variant="outline" className="text-xs">
-            {tokenKey}
-          </Badge>
-        </div>
-        <div className="flex items-center gap-2">
-          <Badge variant="secondary" className="text-xs">
-            {token.category}: {formatValue(token.value)}
-          </Badge>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="h-6 w-6 p-0"
-            onClick={() => onCopyToken(tokenKey, token.value)}
-          >
-            {copiedTokens.has(tokenKey) ? (
-              <CheckCircle className="h-3 w-3 text-green-600" />
-            ) : (
-              <Clipboard className="h-3 w-3" />
+          <div className="flex flex-col items-start w-full bg-secondary text-sm p-2 rounded-md">
+            {token.category === 'typography' ? 'font-size' : token.category}: {token.value}
+            {token.lineHeight && (
+              <span> line-height: {token.lineHeight}</span>
             )}
-          </Button>
+            {token.fontWeight && (
+              <span> font-weight: {token.fontWeight}</span>
+            )}            
+            {token.letterSpacing && (
+              <span> letter-spacing: {token.letterSpacing}</span>
+            )}
+          </div>
         </div>
+
+        {token.description && (
+          <div className="text-xs text-muted-foreground">
+            <strong>용도:</strong> {token.description.join(', ')}
+          </div>
+        )}
       </div>
-
-      <div className="space-y-2">
-        <div className="text-xs font-medium text-muted-foreground">미리보기:</div>
-        <div 
-          className="border-l-4 border-primary pl-4" 
-          style={getPreviewStyle()}
-        >
-          {getPreviewText()}
-        </div>
-      </div>
-
-      {token.description && (
-        <div className="text-xs text-muted-foreground">
-          <strong>용도:</strong> {token.description.join(', ')}
-        </div>
-      )}
-
-      <Separator />
-    </div>
+      <Separator className="my-4" />
+    </>
   );
 };
 
 export default function TypographyPage() {
-  const [copiedTokens, setCopiedTokens] = useState<Set<string>>(new Set());
   const groupedTokens = groupTokensByCategory();
 
-  const handleCopyToken = async (tokenKey: string, tokenValue: string) => {
-    try {
-      await navigator.clipboard.writeText(tokenValue);
-      setCopiedTokens(prev => new Set(prev).add(tokenKey));
-
-      toast.success('토큰이 복사되었습니다!', {
-        description: `${tokenKey}: ${tokenValue}`
-      });
-
-      // 2초 후 복사 상태 해제
-      setTimeout(() => {
-        setCopiedTokens(prev => {
-          const newSet = new Set(prev);
-          newSet.delete(tokenKey);
-          return newSet;
-        });
-      }, 2000);
-    } catch (error) {
-      console.error('Token copy failed:', error);
-      toast.error('토큰 복사에 실패했습니다.', {
-        description: '다시 시도해주세요.'
-      });
-    }
-  };
-
   const categoryLabels = {
-    'font-size': '폰트 크기',
-    'font-weight': '폰트 두께',
+    'typography': '타이포그래피',
+    'font-size': '폰트 크기',    
     'line-height': '줄 간격',
+    'font-weight': '폰트 두께',
     'letter-spacing': '자간'
   };
 
   return (
-    <Tabs defaultValue="font-size" className="w-full">
-      <TabsList className="grid w-full grid-cols-4">
+    <Tabs defaultValue="typography" className="w-full">
+      <TabsList className="w-full mb-4">
         {Object.entries(categoryLabels).map(([category, label]) => (
           <TabsTrigger key={category} value={category}>
             {label}
@@ -188,21 +129,16 @@ export default function TypographyPage() {
       </TabsList>
 
       {Object.entries(categoryLabels).map(([category, label]) => (
-        <TabsContent key={category} value={category} className="mt-6">
-          <div className="space-y-6">
-            <div className="text-sm text-muted-foreground">
-              {label} 관련 타이포그래피 토큰들
-            </div>
+        <TabsContent key={category} value={category}>
+          <ScrollArea className="h-[calc(100svh-320px)]">              
             {groupedTokens[category as keyof typeof groupedTokens].map(([tokenKey, token]) => (
               <TokenCard
                 key={tokenKey}
                 tokenKey={tokenKey}
                 token={token}
-                copiedTokens={copiedTokens}
-                onCopyToken={handleCopyToken}
               />
             ))}
-          </div>
+          </ScrollArea>
         </TabsContent>
       ))}
     </Tabs>
