@@ -20,13 +20,13 @@ const features = [
     title: 'Resource',
     description: '플랫폼별 로고 및 캐릭터 가이드를 제공합니다.',
     icon: Globe,
-    href: '/app-guide/resource/',
+    href: '/app-guide/resource/logos',
   },
   {
     title: 'Foundations',
     description: '디자인 시스템의 기본 구성 요소인 색상, 타이포그래피, 간격 토큰들을 제공합니다.',
     icon: Palette,
-    href: '/app-guide/foundations/',
+    href: '/app-guide/foundations/design-tokens',
   },
   {
     title: '컴포넌트 가이드',
@@ -44,7 +44,7 @@ const features = [
     title: 'UI 템플릿',
     description: 'OKLCH 색상 공간 기반의 테마 커스터마이징 도구입니다.',
     icon: Settings,
-    href: '/demo-cals-app/',
+    href: '/app-guide/demos/',
   },
 ];
 

@@ -10,7 +10,7 @@ export default function LayoutsPage() {
       slug: 'CALS APP',
       title: 'CALS',
       description: 'CALS 어플리케이션',
-      emoji: '🎨',
+      emoji: '📝',
       href: '/demo-cals-app/',
       features: []
     },
