@@ -1,32 +1,30 @@
 'use client';
 
-import React from 'react';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
-import { ArrowUp } from 'lucide-react';
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import CalsAgentHeader from '@/components/agent/header';
 import CalsAgentPrompt from '@/components/agent/prompt';
+import HeroSection from '@/components/agent/hero-section';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Loader2 } from 'lucide-react';
 
 export default function CalsAgentPromptPage() {
   return (
-    <div className="bg-background">
+    <div className="page-prompt">
       <CalsAgentHeader />
       <main>
-        <section className="h-[calc(100svh-4rem)] flex flex-col items-center justify-center">
-          <div className="container mx-auto space-y-24">
-            <h2 className="text-gradient typography-7xl text-center">
-              한 줄의 프롬프트 <br />에이전트 팀이 완성합니다.
-            </h2>
-
-            <div className="flex items-center justify-center">
-              <span className="flex">기획부터 완성, 운영까지</span>
-              <span className="flex w-8 h-[1px] mx-2 bg-muted-foreground" />
-              <span className="flex">에이전트로 만들고, 로우코드로 운영하세요.</span>
-            </div>
-
-            <CalsAgentPrompt />
+        <HeroSection 
+          title={['한 줄의 프롬프트,', '에이전트 팀이 완성합니다.']}
+          subtitle={['기획부터 완성, 운영까지', '에이전트로 만들고, 로우코드로 운영하세요.']}
+        >
+          <div className="space-y-6">
+            <CalsAgentPrompt 
+              placeholder="예: '온라인 쇼핑몰을 만들어주세요' 또는 '피트니스 앱을 개발해주세요'"
+              buttonText="에이전트 호출"
+            />
           </div>
-        </section>
+        </HeroSection>
       </main>
     </div>
   )

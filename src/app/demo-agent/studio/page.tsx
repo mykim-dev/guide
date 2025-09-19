@@ -3,9 +3,8 @@
 import React from 'react';
 import { useThemeEditorState } from '@/hooks/use-theme-editor';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import { ArrowUp, X, Expand, Download, Loader2, CheckCircle, AlertCircle, FileText, Link, User } from 'lucide-react';
+import { ArrowUp, X, Expand, Download, Loader2, CheckCircle, AlertCircle, FileText, Link, BellDot, UserRound, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 import { SupervisorIcon } from '@/components/agent/icon/SupervisorIcon';
 import { BAIcon } from '@/components/agent/icon/BAIcon';
@@ -124,20 +123,23 @@ export default function CalsAgentStudioPage() {
   }
 
   return (
-    <div className={containerClasses}>
-      <header className="col-span-2 flex justify-around items-center gap-4 px-4 h-12 border-b">
+    <div className={`page-studio ${containerClasses}`}>
+      <header className="col-span-2 flex justify-around items-center gap-4 px-4 h-12 border-b bg-background">
         <div className="flex items-center gap-4">
-          <h1 className="logo text-xl font-bold">Agent Studio</h1>
+          <Button variant="ghost" size="icon" className="cursor-pointer">
+            <ArrowLeft className="size-5" />
+          </Button>
+          <h1 className="font-semibold">자동차 운반선 차량 할당 처리 서비스</h1>
         </div>
         <div className="flex-1 flex items-end gap-4"></div>
         <div className="flex items-center gap-4">
-          <Button variant="outline" size="icon" className="rounded-full cursor-pointer">
-            <User />
+          <Button variant="ghost" size="icon" className="rounded-full cursor-pointer">
+            <UserRound className="size-5" />
           </Button>
         </div>
       </header>
 
-      <aside className={`row-span-2 border-r transition-all duration-300 w-12`}>
+      <aside className="row-span-2 border-r transition-all duration-300 w-12 bg-background">
         <ScrollArea className="h-[calc(100svh-3rem)]">
           <nav className="flex flex-col gap-4 py-2">
             {AGENTS.map((agent) => {
@@ -164,8 +166,8 @@ export default function CalsAgentStudioPage() {
 
       <main>
         <ScrollArea className={scrollAreaClasses}>
-          <div className="contents-wrap grid grid-cols-2 h-[calc(100svh-3rem)]">
-            <div className="contents-left chat-wrap relative p-5">
+          <div className="grid grid-cols-2 h-[calc(100svh-3rem)]">
+            <div className="chat-wrap relative p-5">
               <ScrollArea className="h-[calc(100svh-5rem)]">
                 <div className="chat-wrap">
                   <div className="chat-row">
@@ -401,7 +403,7 @@ export default function CalsAgentStudioPage() {
                 <CalsAgentPrompt />
               </div>
             </div>
-            <div className="contents-right report-wrap relative m-4 border rounded-lg">
+            <div className="relative m-4 border border-border rounded-lg bg-background">
               <div className="h-12 flex justify-between items-center px-4">
                 <h3 className="text-lg font-semibold tracking-tight">Report</h3>
                 <div className="flex items-center">

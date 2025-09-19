@@ -39,7 +39,7 @@ export default function LogoPage() {
               <CardContent>
                 <div className="brand-logo">
                   <img
-                    src="/guide/images/brand/logo-quintet-guide.png"
+                    src="/guide/images/app-guide/brand/logo-quintet-guide.png"
                     alt="시그니처 로고 가이드"
                   />
                 </div>
@@ -54,7 +54,7 @@ export default function LogoPage() {
               <CardContent>
                 <div className="brand-logo">
                   <img
-                    src="/guide/images/brand/logo-quintet.png"
+                    src="/guide/images/app-guide/brand/logo-quintet.png"
                     alt="시그니처 로고"
                   />
                 </div>
@@ -85,7 +85,7 @@ export default function LogoPage() {
               <CardContent>
                 <div className="brand-logo">
                   <img
-                    src="/guide/images/brand/symbol-quintet-guide.png"
+                    src="/guide/images/app-guide/brand/symbol-quintet-guide.png"
                     alt="심볼 로고 가이드"
                   />
                 </div>
@@ -100,7 +100,7 @@ export default function LogoPage() {
               <CardContent>
                 <div className="brand-logo">
                   <img
-                    src="/guide/images/brand/symbol-quintet.png"
+                    src="/guide/images/app-guide/brand/symbol-quintet.png"
                     alt="심볼 로고"
                   />
                 </div>
@@ -142,7 +142,7 @@ export default function LogoPage() {
           <div className="grid grid-cols-1 gap-10 mb-8">
             <div className="flex items-center justify-center bg-background border rounded-lg p-20">
               <img
-                src="/guide/images/brand/logo-quintet.png"
+                src="/guide/images/app-guide/brand/logo-quintet.png"
                 alt=""
               />
             </div>
@@ -159,7 +159,7 @@ export default function LogoPage() {
               <CardContent>
                 <div className="brand-logo">
                   <img
-                    src="/guide/images/brand/logo-mono.png"
+                    src="/guide/images/app-guide/brand/logo-mono.png"
                     alt="모노로고"
                   />
                 </div>
@@ -177,7 +177,7 @@ export default function LogoPage() {
               <CardContent>
                 <div className="brand-logo bg-foreground">
                   <img
-                    src="/guide/images/brand/logo-mono2.png"
+                    src="/guide/images/app-guide/brand/logo-mono2.png"
                     alt="모노로고"
                   />
                 </div>
@@ -204,7 +204,7 @@ export default function LogoPage() {
               <p className="error-logo-description"><CircleX className="text-destructive" />로고의 정해진 비율을 임의로 왜곡하지 마세요.</p>
               <div className="error-logo-img">
                 <img
-                  src="/guide/images/brand/logo-error.png"
+                  src="/guide/images/app-guide/brand/logo-error.png"
                   alt=""
                 />
               </div>
@@ -213,7 +213,7 @@ export default function LogoPage() {
               <p className="error-logo-description"><CircleX className="text-destructive" />로고를 서로 조합하지마세요.</p>
               <div className="error-logo-img">
                 <img
-                  src="/guide/images/brand/logo-error2.png"
+                  src="/guide/images/app-guide/brand/logo-error2.png"
                   alt=""
                 />
               </div>
@@ -222,7 +222,7 @@ export default function LogoPage() {
               <p className="error-logo-description"><CircleX className="text-destructive" />로고의 임의로 자르지 마세요.</p>
               <div className="error-logo-img">
                 <img
-                  src="/guide/images/brand/logo-error3.png"
+                  src="/guide/images/app-guide/brand/logo-error3.png"
                   alt=""
                 />
               </div>
@@ -231,7 +231,7 @@ export default function LogoPage() {
               <p className="error-logo-description"><CircleX className="text-destructive" />로고의 요소들을 임의로 조합하지 마세요.</p>
               <div className="error-logo-img">
                 <img
-                  src="/guide/images/brand/logo-error4.png"
+                  src="/guide/images/app-guide/brand/logo-error4.png"
                   alt=""
                 />
               </div>
@@ -240,7 +240,7 @@ export default function LogoPage() {
               <p className="error-logo-description"><CircleX className="text-destructive" />로고 테두리에 시각적 효과를 적용하지 마세요.</p>
               <div className="error-logo-img">
                 <img
-                  src="/guide/images/brand/logo-error5.png"
+                  src="/guide/images/app-guide/brand/logo-error5.png"
                   alt=""
                 />
               </div>
@@ -249,7 +249,7 @@ export default function LogoPage() {
               <p className="error-logo-description"><CircleX className="text-destructive" />로고를 임의로 비슷하게 만들지 마세요.</p>
               <div className="error-logo-img">
                 <img
-                  src="/guide/images/brand/logo-error6.png"
+                  src="/guide/images/app-guide/brand/logo-error6.png"
                   alt=""
                 />
               </div>
@@ -258,7 +258,7 @@ export default function LogoPage() {
               <p className="error-logo-description"><CircleX className="text-destructive" />임의로 컬러를 조합하지 마세요.</p>
               <div className="error-logo-img">
                 <img
-                  src="/guide/images/brand/logo-error7.png"
+                  src="/guide/images/app-guide/brand/logo-error7.png"
                   alt=""
                 />
               </div>
@@ -267,7 +267,7 @@ export default function LogoPage() {
               <p className="error-logo-description"><CircleX className="text-destructive" />로고에 임의로 그라디언트 효과를 사용하지 마세요.</p>
               <div className="error-logo-img">
                 <img
-                  src="/guide/images/brand/logo-error8.png"
+                  src="/guide/images/app-guide/brand/logo-error8.png"
                   alt=""
                 />
               </div>

@@ -45,16 +45,16 @@ export default function SpacingPage() {
         스페이싱의 기본 단위는 4와 8의 배수에 기반한 8가지로 규정하여 사용합니다. 8의 배수는 가장 큰 기본 배수이며 8이 포함하고 있는 2와 4의 배수도 사용 가능합니다.
         </p>
         <div className="flex items-end justify-center gap-8 p-12 bg-muted rounded-md">
-          <div className="flex flex-col items-center justify-end text-xs space-y-4"><div className="size-1 bg-cyan-500"></div>{4*1}</div>
-          <div className="flex flex-col items-center justify-end text-xs space-y-4"><div className="size-2 bg-cyan-500"></div>{4*2}</div>
-          <div className="flex flex-col items-center justify-end text-xs space-y-4"><div className="size-3 bg-cyan-500"></div>{4*3}</div>
-          <div className="flex flex-col items-center justify-end text-xs space-y-4"><div className="size-4 bg-cyan-500"></div>{4*4}</div>
-          <div className="flex flex-col items-center justify-end text-xs space-y-4"><div className="size-5 bg-cyan-500"></div>{4*5}</div>
-          <div className="flex flex-col items-center justify-end text-xs space-y-4"><div className="size-6 bg-cyan-500"></div>{4*6}</div>
-          <div className="flex flex-col items-center justify-end text-xs space-y-4"><div className="size-7 bg-cyan-500"></div>{4*7}</div>
-          <div className="flex flex-col items-center justify-end text-xs space-y-4"><div className="size-8 bg-cyan-500"></div>{4*8}</div>
-          <div className="flex flex-col items-center justify-end text-xs space-y-4"><div className="size-9 bg-cyan-500"></div>{4*9}</div>
-          <div className="flex flex-col items-center justify-end text-xs space-y-4"><div className="size-10 bg-cyan-500"></div>{4*10}</div>
+          <div className="flex flex-col items-center justify-end text-xs gap-2"><div className="size-1 bg-[#66b1e3]"></div>{4*1}</div>
+          <div className="flex flex-col items-center justify-end text-xs gap-2"><div className="size-2 bg-[#66b1e3]"></div>{4*2}</div>
+          <div className="flex flex-col items-center justify-end text-xs gap-2"><div className="size-3 bg-[#66b1e3]"></div>{4*3}</div>
+          <div className="flex flex-col items-center justify-end text-xs gap-2"><div className="size-4 bg-[#66b1e3]"></div>{4*4}</div>
+          <div className="flex flex-col items-center justify-end text-xs gap-2"><div className="size-5 bg-[#66b1e3]"></div>{4*5}</div>
+          <div className="flex flex-col items-center justify-end text-xs gap-2"><div className="size-6 bg-[#66b1e3]"></div>{4*6}</div>
+          <div className="flex flex-col items-center justify-end text-xs gap-2"><div className="size-7 bg-[#66b1e3]"></div>{4*7}</div>
+          <div className="flex flex-col items-center justify-end text-xs gap-2"><div className="size-8 bg-[#66b1e3]"></div>{4*8}</div>
+          <div className="flex flex-col items-center justify-end text-xs gap-2"><div className="size-9 bg-[#66b1e3]"></div>{4*9}</div>
+          <div className="flex flex-col items-center justify-end text-xs gap-2"><div className="size-10 bg-[#66b1e3]"></div>{4*10}</div>
         </div>
       </div>
       <div className="relative">
@@ -62,9 +62,10 @@ export default function SpacingPage() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>토큰</TableHead>
-                <TableHead>값</TableHead>
-                <TableHead>설명</TableHead>
+                <TableHead className="w-1/4 pl-5">토큰</TableHead>
+                <TableHead className="w-1/4">값</TableHead>
+                <TableHead className="w-1/4">설명</TableHead>
+                <TableHead className="w-1/4"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -75,7 +76,7 @@ export default function SpacingPage() {
 
               return (
                 <TableRow key={key}>
-                  <TableCell>
+                  <TableCell className=" pl-5">
                     <Badge variant="secondary" className="text-xs">{token.name}</Badge>
                   </TableCell>
                   <TableCell>
@@ -85,6 +86,9 @@ export default function SpacingPage() {
                     <span className={key === '4' || key === '6' ? 'font-semibold' : ''}>                  
                       {token.description}
                     </span>
+                  </TableCell>
+                  <TableCell>
+                    m-{token.name} / p-{token.name} / space-{token.name}
                   </TableCell>
                 </TableRow>
                 );

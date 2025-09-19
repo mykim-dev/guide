@@ -25,8 +25,8 @@ export default function IntroductionPage() {
         <div className="space-y-4">
           <h3 className="text-xl font-semibold">주요 특징</h3>
           <ul className="space-y-2 text-muted-foreground">
-            <li>• 50+ UI 컴포넌트 제공</li>
-            <li>• OKLCH 색상 공간 기반 테마 시스템</li>
+            <li>• UI 컴포넌트 제공</li>
+            <li>• 토큰 기반 테마 시스템</li>
             <li>• 반응형 디자인 지원</li>
             <li>• TypeScript 완전 지원</li>
             <li>• 실시간 테마 커스터마이징</li>

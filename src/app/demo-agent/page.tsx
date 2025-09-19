@@ -8,6 +8,7 @@ import { Dialog, DialogTrigger, DialogTitle, DialogDescription, DialogHeader, Di
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import CalsAgentHeader from '@/components/agent/header';
 import CalsAgentPrompt from '@/components/agent/prompt';
+import HeroSection from '@/components/agent/hero-section';
 
 // 타입 정의
 interface WorkflowStep {
@@ -16,6 +17,7 @@ interface WorkflowStep {
 }
 
 interface FeatureCard {
+  icon: string;
   title: string;
   description: string;
 }
@@ -25,18 +27,7 @@ interface FaqItem {
   answer: string;
 }
 
-
 export default function CalsAgentPage() {
-  // SVG 아이콘 경로 함수
-  const getSvgSrc = (index: number): string => {
-    const svgPaths = [
-      '/images/resource/logo-cals.png',
-      '/images/resource/logo-cals.png',
-      '/images/resource/logo-cals.png'
-    ];
-    return svgPaths[index] || svgPaths[0];
-  };
-
   const workflowSteps: WorkflowStep[] = [
     {
       "title": "아이디어 한 줄이면 시작할 수 있어요.",
@@ -58,14 +49,17 @@ export default function CalsAgentPage() {
 
   const featureCards: FeatureCard[] = [
     {
+      "icon": "/guide/images/demo-agent/img-section4-1.svg",
       "title": "막연한 아이디어를 정리하고 싶을 때",
       "description": "에이전트가 생각을 끌어내고 PRD를 자동으로 만들어드립니다. 아이디어가 구체적이지 않아도 시작할 수 있어요."
     },
     {
+      "icon": "/guide/images/demo-agent/img-section4-2.svg",
       "title": "개발 없이 아이디어를 검증하고 싶을 때",
       "description": "프롬프트만 입력하면 기획부터 앱 생성까지 자동으로 진행됩니다. 개발자 없이도 아이디어를 바로 테스트할 수 있어요."
     },
     {
+      "icon": "/guide/images/demo-agent/img-section4-3.svg",
       "title": "빠르게 MVP를 테스트하고 싶을 때",
       "description": "실행 가능한 앱을 즉시 만들고, 사용자 피드백을 통해 빠르게 개선하세요. 기획과 개발을 기다리지 않아도 됩니다."
     }
@@ -99,26 +93,22 @@ export default function CalsAgentPage() {
   ];
 
   return (
-    <div className="bg-background">
+    <div className="page-rendering">
       <CalsAgentHeader />
       <main>
-        <section className="h-[calc(100svh-4rem)] flex flex-col items-center justify-center">
-          <div className="container mx-auto space-y-24">
-            <h2 className="text-gradient typography-7xl text-center">
-              한 줄의 프롬프트 <br />에이전트 팀이 완성합니다.
-            </h2>
-
-            <div className="flex items-center justify-center">
-              <span className="flex">기획부터 완성, 운영까지</span>
-              <span className="flex w-8 h-[1px] mx-2 bg-muted-foreground" />
-              <span className="flex">에이전트로 만들고, 로우코드로 운영하세요.</span>
-            </div>
-
-            <CalsAgentPrompt />
+        <HeroSection 
+          title={['한 줄의 프롬프트,', '에이전트 팀이 완성합니다.']}
+          subtitle={['기획부터 완성, 운영까지', '에이전트로 만들고, 로우코드로 운영하세요.']}
+        >
+          <div className="space-y-6">
+            <CalsAgentPrompt 
+              placeholder="예: '온라인 쇼핑몰을 만들어주세요' 또는 '피트니스 앱을 개발해주세요'"
+              buttonText="에이전트 호출"
+            />
           </div>
-        </section>
+        </HeroSection>
 
-        <section className="h-[calc(100svh-4rem)] flex flex-col items-center justify-center">
+        <section className="h-screen flex flex-col items-center justify-center">
           <div className="container h-[60svh] mx-auto text-center">
             <div className="size-full bg-muted-foreground/10 rounded-2xl">
               앱 생성 화면 이미지 or 영상 (Agent 단계)
@@ -149,7 +139,7 @@ export default function CalsAgentPage() {
           </div>
         </section>
 
-        <section className="h-[calc(100svh-4rem)] flex flex-col items-center justify-center">
+        <section className="h-screen flex flex-col items-center justify-center">
           <div className="container mx-auto space-y-32">
             <div className="space-y-4 text-center">
               <h2 className="typography-3xl">누구를 위한 서비스인가요?</h2>
@@ -159,16 +149,17 @@ export default function CalsAgentPage() {
             </div>
 
             <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-              {featureCards.map((item: FeatureCard, index: number) => {
-                const svgSrc = getSvgSrc(index)
+              {featureCards.map((item: FeatureCard, index: number) => {                
 
                 return (
-                  <Card key={index}>
-                    <CardTitle className="px-6 typography-2xl text-blue-900">
-                      <img src={svgSrc} className="size-16 mb-5" alt="Feature icon" />
+                  <Card key={index} className="bg-gradient-to-b from-[#b1befd] to-[#edf7fe] border-0 rounded-8 p-10 flex flex-col gap-5">
+                    <div className="size-[64px] flex items-center justify-center">
+                      <img src={item.icon} className="size-[64px]" alt="Feature icon" />
+                    </div>
+                    <CardTitle className="text-[30px] font-bold text-[#3b4a96] leading-normal">
                       {item.title}
                     </CardTitle>
-                    <CardContent className="text-muted-foreground">
+                    <CardContent className="text-[18px] text-[#4a5565] leading-normal p-0">
                       {item.description}
                     </CardContent>
                   </Card>
@@ -179,7 +170,7 @@ export default function CalsAgentPage() {
         </section>
 
         {/* FAQ 섹션 */}
-        <section className="h-[calc(100svh-4rem)] flex flex-col items-center justify-center">
+        <section className="h-screen flex flex-col items-center justify-center">
           <div className="container mx-auto space-y-32">
             <div className="space-y-4 text-center">
               <h2 className="typography-3xl">자주 묻는 질문</h2>
@@ -207,7 +198,7 @@ export default function CalsAgentPage() {
         </section>
 
         {/* CTA 섹션 */}
-        <section className="h-[calc(100svh-4rem)] flex flex-col items-center justify-center">
+        <section className="h-screen flex flex-col items-center justify-center">
           <div className="container mx-auto space-y-32">
             <div className="space-y-4 text-center">
               <h2 className="typography-3xl">지금 바로 시작해보세요</h2>
@@ -216,7 +207,7 @@ export default function CalsAgentPage() {
                 <p>복잡한 설정 없이 바로 시작하세요.</p>
                 <p>무료로 체험해보실 수 있습니다.</p>
               </div>
-              <Button variant="customer" size="lg" className="btn-start my-12">
+              <Button variant="customer" size="lg" className="rounded-full cursor-pointer mt-12 border border-cyan-100 scale-125">
                 무료로 시작하기
               </Button>
             </div>
@@ -274,7 +265,7 @@ export default function CalsAgentPage() {
                 </Select>
               </div>
             </div>
-            <p className="my-4 typography-xs text-muted-foreground text-center">
+            <p className="py-4 typography-xs text-muted-foreground text-center">
               COPYRIGHT © QuintetSystems Inc. All Rights Reserved
             </p>
           </div>
