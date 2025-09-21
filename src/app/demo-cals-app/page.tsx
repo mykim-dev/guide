@@ -211,15 +211,6 @@ export default function CalsAppPage() {
           <CollapsibleContent className="component-content">
             {/* typography display */}
             <div className="space-y-6">
-              <div className="flex gap-2">
-                <div className="p-2 text-xs bg-muted text-muted-foreground rounded-md">Muted - 비활성/보조 정보를 위한 색상(비활성 배경, 코드 블록, 구분선)</div>
-                <div className="p-2 text-xs bg-accent text-accent-foreground rounded-md">Accent - 상호작용 요소의 강조 색상(호버 상태, 선택 상태, 포커스 상태)</div>
-              </div>
-              <Separator />
-              {/* <div>
-                <div className="text-xs text-muted-foreground">text-4xl (fontSize: 2.25rem / fontWeight: 700 / lineHeight: 1.375)</div>
-                <div><h4 className="text-4xl font-bold leading-snug">The quick brown fox jumps over the lazy dog</h4></div>
-              </div> */}
               <div>
                 <div className="text-xs text-muted-foreground">text-3xl (fontSize: 1.875rem / fontWeight: 700 / lineHeight: 1.375)</div>
                 <div><h5 className="el-text text-3xl font-bold leading-snug cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-950/20 rounded p-1 transition-colors" onClick={handleTextClick}>The quick brown fox jumps over the lazy dog</h5></div>
@@ -270,7 +261,10 @@ export default function CalsAppPage() {
                 <CardTitle>Card Title</CardTitle>
               </CardHeader>
               <CardContent>
-                <p>Card Content</p>
+                <div className="flex gap-2">
+                  <div className="p-2 text-xs bg-muted text-muted-foreground rounded-md">Muted - 비활성/보조 정보를 위한 색상(비활성 배경, 코드 블록, 구분선)</div>
+                  <div className="p-2 text-xs bg-accent text-accent-foreground rounded-md">Accent - 상호작용 요소의 강조 색상(호버 상태, 선택 상태, 포커스 상태)</div>
+                </div>
               </CardContent>
             </Card>
           </CollapsibleContent>
