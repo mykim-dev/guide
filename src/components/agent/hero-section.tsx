@@ -9,11 +9,11 @@ interface HeroSectionProps {
   className?: string;
 }
 
-export default function HeroSection({ 
-  title, 
-  subtitle, 
-  children, 
-  className = "" 
+export default function HeroSection({
+  title,
+  subtitle,
+  children,
+  className = ""
 }: HeroSectionProps) {
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -21,7 +21,7 @@ export default function HeroSection({
     // 페이지 로드 후 애니메이션 시작
     const timer = setTimeout(() => setIsLoaded(true), 100);
     return () => clearTimeout(timer);
-  }, []);  
+  }, []);
 
   // 배열을 처리하는 헬퍼 함수
   const renderTitle = () => {
@@ -56,27 +56,24 @@ export default function HeroSection({
     <section className={`min-h-screen flex flex-col items-center justify-center ${className}`}>
       <div className="container mx-auto space-y-24">
         {/* 조건부 스타일링 */}
-        <h2 className={`typography-7xl text-center transition-all duration-600 ease-out ${
-          isLoaded 
-            ? "scale-100 opacity-100 translate-y-0" 
-            : "scale-95 opacity-0 translate-y-4"
-        }`}>
+        <h2 className={`text-3xl md:text-5xl lg:text-7xl font-bold leading-snug tracking-tight text-center transition-all duration-600 ease-out ${isLoaded
+          ? "scale-100 opacity-100 translate-y-0"
+          : "scale-95 opacity-0 translate-y-4"
+          }`}>
           {renderTitle()}
         </h2>
 
-        <div className={`flex items-center justify-center typography-xl text-muted-foreground transition-all duration-600 ease-out delay-200 ${
-          isLoaded 
-            ? "opacity-100 translate-y-0" 
-            : "opacity-0 translate-y-4"
-        }`}>
+        <div className={`flex items-center justify-center flex-col lg:flex-row lg:text-xl font-bold leading-snug tracking-tight text-muted-foreground transition-all duration-600 ease-out delay-200 ${isLoaded
+          ? "opacity-100 translate-y-0"
+          : "opacity-0 translate-y-4"
+          }`}>
           {renderSubtitle()}
         </div>
 
-        <div className={`transition-all duration-600 ease-out delay-400 ${
-          isLoaded 
-            ? "opacity-100 translate-y-0" 
-            : "opacity-0 translate-y-4"
-        }`}>
+        <div className={`transition-all duration-600 ease-out delay-400 ${isLoaded
+          ? "opacity-100 translate-y-0"
+          : "opacity-0 translate-y-4"
+          }`}>
           {children}
         </div>
       </div>

@@ -12,7 +12,7 @@ interface CalsAgentPromptProps {
   onSubmit?: (value: string) => void;
 }
 
-export default function CalsAgentPrompt({ 
+export default function CalsAgentPrompt({
   type = 'icon',
   placeholder,
   buttonText,
@@ -40,7 +40,7 @@ export default function CalsAgentPrompt({
 
   const getButtonClassName = () => {
     const baseClasses = "flex items-center justify-center h-8 text-base font-medium text-center text-background rounded-full bg-transparent transition-colors disabled:bg-muted disabled:text-muted-foreground/80 disabled:cursor-not-allowed";
-    
+
     if (effectiveType === 'text') {
       return `${baseClasses} px-4`;
     }
@@ -53,7 +53,7 @@ export default function CalsAgentPrompt({
 
   const handleSubmit = () => {
     if (!value.trim()) return;
-    
+
     onSubmit?.(value);
     setValue('');
   };
@@ -67,26 +67,26 @@ export default function CalsAgentPrompt({
 
   const isButtonDisabled = !value.trim();
 
-    return (
+  return (
     <>
-        <div className="prompt-wrap w-3/5 mx-auto p-3 flex items-end border rounded-4xl bg-background shadow">
-            <Textarea 
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-                onKeyDown={handleKeyDown}
-                className="flex-1 resize-none border-none shadow-none min-h-10 max-h-32"
-                placeholder={getPlaceholder()}
-            />
-            <div className="btn-prompt">
-                <button 
-                    onClick={handleSubmit}
-                    disabled={isButtonDisabled}
-                    className={getButtonClassName()}
-                >
-                    {getButtonContent()}
-                </button>
-            </div>
+      <div className="prompt-wrap w-3/5 mx-auto p-3 flex flex-col md:flex-row items-end border rounded-4xl bg-background shadow">
+        <Textarea
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          onKeyDown={handleKeyDown}
+          className="flex-1 resize-none border-none shadow-none min-h-10 max-h-32"
+          placeholder={getPlaceholder()}
+        />
+        <div className="btn-prompt">
+          <button
+            onClick={handleSubmit}
+            disabled={isButtonDisabled}
+            className={getButtonClassName()}
+          >
+            {getButtonContent()}
+          </button>
         </div>
+      </div>
     </>
-    );
+  );
 }

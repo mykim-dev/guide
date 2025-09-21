@@ -96,12 +96,12 @@ export default function CalsAgentPage() {
     <div className="page-rendering">
       <CalsAgentHeader />
       <main>
-        <HeroSection 
+        <HeroSection
           title={['한 줄의 프롬프트,', '에이전트 팀이 완성합니다.']}
           subtitle={['기획부터 완성, 운영까지', '에이전트로 만들고, 로우코드로 운영하세요.']}
         >
           <div className="space-y-6">
-            <CalsAgentPrompt 
+            <CalsAgentPrompt
               placeholder="예: '온라인 쇼핑몰을 만들어주세요' 또는 '피트니스 앱을 개발해주세요'"
               buttonText="에이전트 호출"
             />
@@ -119,8 +119,8 @@ export default function CalsAgentPage() {
         <section className="flex flex-col items-center justify-center">
           <div className="container mx-auto my-32">
             <div className="space-y-4 text-center">
-              <h2 className="typography-3xl">아이디어만으로 앱 생성, 운영까지 아이디어 한 줄이면 충분해요.</h2>
-              <div className="typography-lg">
+              <h2 className="text-3xl font-semibold leading-snug tracking-tight">아이디어만으로 앱 생성, 운영까지 아이디어 한 줄이면 충분해요.</h2>
+              <div className="text-lg">
                 <p>CALS의 에이전트들이 앱을 생성하고, 로우코드 솔루션 &apos;CALS&apos;에서 운영까지 이어집니다.</p>
                 <p>개발 지식 없이도, 지금 바로 시작해보세요.</p>
               </div>
@@ -130,8 +130,8 @@ export default function CalsAgentPage() {
               <dl key={index} className="grid grid-cols-1 lg:grid-cols-2 my-24 gap-12">
                 <dt className="h-80 border border-border bg-muted-foreground/10 rounded-2xl"></dt>
                 <dd className="flex-1 text-left space-y-4">
-                  <h3 className="typography-2xl">{item.title}</h3>
-                  <p className="typography-lg text-muted-foreground">{item.description}</p>
+                  <h3 className="text-2xl font-medium">{item.title}</h3>
+                  <p className="text-lg text-muted-foreground">{item.description}</p>
                 </dd>
               </dl>
             ))}
@@ -142,14 +142,14 @@ export default function CalsAgentPage() {
         <section className="h-screen flex flex-col items-center justify-center">
           <div className="container mx-auto space-y-32">
             <div className="space-y-4 text-center">
-              <h2 className="typography-3xl">누구를 위한 서비스인가요?</h2>
-              <div className="typography-lg">
+              <h2 className="text-3xl font-semibold leading-snug tracking-tight">누구를 위한 서비스인가요?</h2>
+              <div className="text-lg">
                 <p>다양한 상황에서 CALS를 활용할 수 있습니다.</p>
               </div>
             </div>
 
             <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-              {featureCards.map((item: FeatureCard, index: number) => {                
+              {featureCards.map((item: FeatureCard, index: number) => {
 
                 return (
                   <Card key={index} className="bg-gradient-to-b from-[#b1befd] to-[#edf7fe] border-0 rounded-8 p-10 flex flex-col gap-5">
@@ -173,8 +173,8 @@ export default function CalsAgentPage() {
         <section className="h-screen flex flex-col items-center justify-center">
           <div className="container mx-auto space-y-32">
             <div className="space-y-4 text-center">
-              <h2 className="typography-3xl">자주 묻는 질문</h2>
-              <div className="typography-xl">
+              <h2 className="text-3xl font-semibold leading-snug tracking-tight">자주 묻는 질문</h2>
+              <div className="text-xl font-medium">
                 <p>CALS에 대해 궁금한 점들을 확인해보세요.</p>
               </div>
             </div>
@@ -186,10 +186,10 @@ export default function CalsAgentPage() {
                   value={`item-${index + 1}`}
                 >
                   <AccordionTrigger className="[&>svg]:size-5 [&>svg]:mr-4">
-                    <div className="px-4 typography-lg">{item.question}</div>
+                    <div className="px-4 text-lg">{item.question}</div>
                   </AccordionTrigger>
                   <AccordionContent className="p-5 bg-muted/50">
-                    <div className="typography-base text-muted-foreground">{item.answer}</div>
+                    <div className="text-muted-foreground">{item.answer}</div>
                   </AccordionContent>
                 </AccordionItem>
               ))}
@@ -201,7 +201,7 @@ export default function CalsAgentPage() {
         <section className="h-screen flex flex-col items-center justify-center">
           <div className="container mx-auto space-y-32">
             <div className="space-y-4 text-center">
-              <h2 className="typography-3xl">지금 바로 시작해보세요</h2>
+              <h2 className="text-3xl font-semibold leading-snug tracking-tight">지금 바로 시작해보세요</h2>
               <div>
                 <p>아이디어만 있으면 누구나 앱을 만들 수 있습니다.</p>
                 <p>복잡한 설정 없이 바로 시작하세요.</p>
@@ -265,7 +265,7 @@ export default function CalsAgentPage() {
                 </Select>
               </div>
             </div>
-            <p className="py-4 typography-xs text-muted-foreground text-center">
+            <p className="py-4 text-xs text-muted-foreground text-center">
               COPYRIGHT © QuintetSystems Inc. All Rights Reserved
             </p>
           </div>

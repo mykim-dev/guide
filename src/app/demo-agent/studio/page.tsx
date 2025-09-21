@@ -104,7 +104,7 @@ export default function CalsAgentStudioPage() {
   const { mounted } = useThemeEditorState();
 
   const containerClasses = React.useMemo(() =>
-    'layout-container grid grid-rows-[3rem_1fr] grid-cols-[3rem_1fr] bg-background transition-all duration-300', []
+    'layout-container grid grid-rows-[3rem_1fr] grid-cols-[3rem_1fr] transition-all duration-300', []
   );
 
   const scrollAreaClasses = React.useMemo(() =>

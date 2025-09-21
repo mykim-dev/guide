@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState, useCallback } from 'react';
+import { usePathname } from 'next/navigation';
 import { ThemeProvider } from '@/lib/themes/theme-provider';
 import { useThemeEditorState } from '@/hooks/use-theme-editor';
 import { ModeToggle } from '@/components/mode-toggle';
@@ -100,10 +101,15 @@ export default function DemoAgentLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+
+  // /guide/demo-agent/ 경로가 아닐 때만 FloatingActions 표시
+  const shouldShowFloatingActions = !pathname.startsWith('/guide/demo-agent/');
+
   return (
     <ThemeProvider defaultTheme="dark">
       {children}
-      <FloatingActions />
+      {shouldShowFloatingActions && <FloatingActions />}
     </ThemeProvider>
   );
 }

@@ -4,13 +4,13 @@ import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { typographyTokens } from '@/lib/tokens/typography';
+import { fontSizeTokens, lineHeightTokens, fontWeightTokens, letterSpacingTokens } from '@/lib/tokens/typography';
 
 // TypographyToken 타입 정의
 type TypographyToken = {
   name: string;
   description: string[];
-  category: 'typography' | 'font-size' | 'line-height' | 'font-weight' | 'letter-spacing';
+  category: 'font-size' | 'line-height' | 'font-weight' | 'letter-spacing';
   value: string;
   lineHeight?: string;
   letterSpacing?: string;
@@ -21,14 +21,21 @@ type TypographyToken = {
 // 카테고리별 토큰을 그룹화하는 함수
 const groupTokensByCategory = () => {
   const grouped: Record<string, [string, TypographyToken][]> = {
-    'typography': [],
     'font-size': [],
     'line-height': [],
-    'font-weight': [],    
-    'letter-spacing': []    
+    'font-weight': [],
+    'letter-spacing': []
   };
 
-  Object.entries(typographyTokens).forEach(([key, token]) => {
+  // 모든 토큰 객체를 통합
+  const allTokens = {
+    ...fontSizeTokens,
+    ...lineHeightTokens,
+    ...fontWeightTokens,
+    ...letterSpacingTokens
+  };
+
+  Object.entries(allTokens).forEach(([key, token]) => {
     if (grouped[token.category]) {
       grouped[token.category].push([key, token as TypographyToken]);
     }
@@ -38,22 +45,20 @@ const groupTokensByCategory = () => {
 };
 
 // 토큰 카드 컴포넌트
-const TokenCard = ({ 
-  tokenKey, 
+const TokenCard = ({
+  tokenKey,
   token
-}: { 
-  tokenKey: string; 
+}: {
+  tokenKey: string;
   token: TypographyToken;
 }) => {
 
   const getPreviewText = () => {
     switch (token.category) {
-      case 'typography':
-        return 'The quick brown fox jumps over the lazy dog';
       case 'font-size':
         return 'The quick brown fox jumps over the lazy dog';
       case 'line-height':
-        return 'Line Height Sample\nMulti-line text example';
+        return 'Line Height Sample\nMulti-line text example\nTo demonstrate spacing';
       case 'font-weight':
         return 'Font Weight Sample';
       case 'letter-spacing':
@@ -75,23 +80,31 @@ const TokenCard = ({
           </div>
           <div className="space-y-2">
             <div className="text-xs font-medium text-muted-foreground">미리보기:</div>
-            <div className={`border-l-4 border-primary pl-4 ${token.class.join(' ')} bg-muted`}>
+            <div className={`border-l-4 border-primary pl-4 ${token.class.join(' ')} bg-muted whitespace-pre-line`}>
               {getPreviewText()}
             </div>
-          </div>        
-        </div>      
+          </div>
+        </div>
 
         <div className="flex items-center gap-2">
-          <div className="flex flex-col items-start w-full bg-secondary text-sm p-2 rounded-md">
-            {token.category === 'typography' ? 'font-size' : token.category}: {token.value}
+          <div className="flex flex-col items-start w-full bg-secondary text-sm p-2 rounded-md space-y-1">
+            <div className="font-mono text-xs">
+              {token.category}: {token.value}
+            </div>
             {token.lineHeight && (
-              <span> line-height: {token.lineHeight}</span>
+              <div className="font-mono text-xs">
+                line-height: {token.lineHeight}
+              </div>
             )}
             {token.fontWeight && (
-              <span> font-weight: {token.fontWeight}</span>
-            )}            
+              <div className="font-mono text-xs">
+                font-weight: {token.fontWeight}
+              </div>
+            )}
             {token.letterSpacing && (
-              <span> letter-spacing: {token.letterSpacing}</span>
+              <div className="font-mono text-xs">
+                letter-spacing: {token.letterSpacing}
+              </div>
             )}
           </div>
         </div>
@@ -111,15 +124,14 @@ export default function TypographyPage() {
   const groupedTokens = groupTokensByCategory();
 
   const categoryLabels = {
-    'typography': '타이포그래피',
-    'font-size': '폰트 크기',    
+    'font-size': '폰트 크기',
     'line-height': '줄 간격',
     'font-weight': '폰트 두께',
     'letter-spacing': '자간'
   };
 
   return (
-    <Tabs defaultValue="typography" className="w-full">
+    <Tabs defaultValue="font-size" className="w-full">
       <TabsList className="w-full mb-4">
         {Object.entries(categoryLabels).map(([category, label]) => (
           <TabsTrigger key={category} value={category}>
@@ -130,7 +142,7 @@ export default function TypographyPage() {
 
       {Object.entries(categoryLabels).map(([category, label]) => (
         <TabsContent key={category} value={category}>
-          <ScrollArea className="h-[calc(100svh-320px)]">              
+          <ScrollArea className="h-[calc(100svh-320px)]">
             {groupedTokens[category as keyof typeof groupedTokens].map(([tokenKey, token]) => (
               <TokenCard
                 key={tokenKey}

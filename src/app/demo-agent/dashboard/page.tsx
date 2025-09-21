@@ -13,24 +13,24 @@ import { Badge } from '@/components/ui/badge';
 type Project = { id: string; title: string; date: string; state?: string }
 
 const PROJECTS: ReadonlyArray<Project> = [
-	{ id: 'p1', title: '물류 관리 시스템 물류', state: '요구사항 수집 진행중', date: '2025-02-01' },
-	{ id: 'p2', title: '콘텐츠 분석 에이전트', state: '요구사항 수집 확인 대기중', date: '2025-01-28' },
-	{ id: 'p3', title: '이커머스 대시보드', state: '배포 진행중', date: '2025-01-15' },
-	{ id: 'p4', title: '물류 관리 시스템', state: '배포 완료', date: '2025-02-01' },
-	{ id: 'p5', title: '콘텐츠 분석 에이전트', state: '배표 실패', date: '2025-01-28' },
-	{ id: 'p6', title: '이커머스 대시보드', state: '생성 확인 대기중', date: '2025-01-15' },
-	{ id: 'p7', title: '물류 관리 시스템', state: '생성 확인 대기중', date: '2025-02-01' },
-	{ id: 'p8', title: '콘텐츠 분석 에이전트', state: '생성 확인 대기중', date: '2025-01-28' },
-	{ id: 'p9', title: '이커머스 대시보드', state: '생성 확인 대기중', date: '2025-01-15' },
-	{ id: 'p10', title: '물류 관리 시스템', state: '생성 확인 대기중', date: '2025-02-01' },
-	{ id: 'p11', title: '콘텐츠 분석 에이전트', state: '생성 확인 대기중', date: '2025-01-28' },
-	{ id: 'p12', title: '이커머스 대시보드', state: '생성 확인 대기중', date: '2025-01-15' },
-	{ id: 'p13', title: '물류 관리 시스템', state: '생성 확인 대기중', date: '2025-02-01' },
-	{ id: 'p14', title: '콘텐츠 분석 에이전트', state: '생성 확인 대기중', date: '2025-01-28' },
-	{ id: 'p15', title: '이커머스 대시보드', date: '2025-01-15' },
+  { id: 'p1', title: '물류 관리 시스템 물류', state: '요구사항 수집 진행중', date: '2025-02-01' },
+  { id: 'p2', title: '콘텐츠 분석 에이전트', state: '요구사항 수집 확인 대기중', date: '2025-01-28' },
+  { id: 'p3', title: '이커머스 대시보드', state: '배포 진행중', date: '2025-01-15' },
+  { id: 'p4', title: '물류 관리 시스템', state: '배포 완료', date: '2025-02-01' },
+  { id: 'p5', title: '콘텐츠 분석 에이전트', state: '배표 실패', date: '2025-01-28' },
+  { id: 'p6', title: '이커머스 대시보드', state: '생성 확인 대기중', date: '2025-01-15' },
+  { id: 'p7', title: '물류 관리 시스템', state: '생성 확인 대기중', date: '2025-02-01' },
+  { id: 'p8', title: '콘텐츠 분석 에이전트', state: '생성 확인 대기중', date: '2025-01-28' },
+  { id: 'p9', title: '이커머스 대시보드', state: '생성 확인 대기중', date: '2025-01-15' },
+  { id: 'p10', title: '물류 관리 시스템', state: '생성 확인 대기중', date: '2025-02-01' },
+  { id: 'p11', title: '콘텐츠 분석 에이전트', state: '생성 확인 대기중', date: '2025-01-28' },
+  { id: 'p12', title: '이커머스 대시보드', state: '생성 확인 대기중', date: '2025-01-15' },
+  { id: 'p13', title: '물류 관리 시스템', state: '생성 확인 대기중', date: '2025-02-01' },
+  { id: 'p14', title: '콘텐츠 분석 에이전트', state: '생성 확인 대기중', date: '2025-01-28' },
+  { id: 'p15', title: '이커머스 대시보드', date: '2025-01-15' },
 ]
 
-export default function CalsAgentDashboardPage() {  
+export default function CalsAgentDashboardPage() {
   return (
     <div className="bg-background">
       <CalsAgentHeader className="static" />
@@ -38,7 +38,7 @@ export default function CalsAgentDashboardPage() {
       <main className="bg-secondary/45">
         <div className="container mx-auto py-12">
           <div className="flex justify-between items-center">
-            <h2 className="typography-2xl">프로젝트 목록</h2>
+            <h2 className="text-2xl font-medium">프로젝트 목록</h2>
             <div className="flex items-center gap-4 my-4">
               <Button variant="ghost" size="icon" className="p-0 rounded-full cursor-pointer">
                 <RefreshCcw className="size-4" />
@@ -73,7 +73,7 @@ export default function CalsAgentDashboardPage() {
                   </CardContent>
                 </Card>
               ))}
-            </div>					
+            </div>
           </ScrollArea>
         </div>
       </main>

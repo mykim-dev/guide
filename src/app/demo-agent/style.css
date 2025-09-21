@@ -133,16 +133,18 @@
     background-size: 200% 200%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: textShine 3s ease-in-out infinite;          
+    animation: textShine 3s ease-in-out infinite;
   }
 
   @keyframes textShine {
     0% {
       background-position: 0% 0%;
     }
+
     50% {
       background-position: 100% 100%;
     }
+
     100% {
       background-position: 0% 0%;
     }
@@ -160,8 +162,8 @@
   }
 
   .page-rendering {
-    background: url('/guide/images/demo-agent/bg-top.png') no-repeat right top / 100% 100svh,   
-    url('/guide/images/demo-agent/bg-bottom.png') no-repeat center bottom / 100% 100svh
+    background: url('/guide/images/demo-agent/bg-top.png') no-repeat right top / 100% 100svh,
+      url('/guide/images/demo-agent/bg-bottom.png') no-repeat center bottom / 100% 100svh
   }
 
   .page-prompt {
@@ -173,10 +175,9 @@
     /* background: radial-gradient(ellipse at 50% 100%, rgba(255, 165, 0, 0.2) 0%, transparent 40%); */
     /* background: radial-gradient(rgba(230, 100, 101, 0.1), rgba(145, 152, 229, 0.1)); */
     /* background: radial-gradient(ellipse at top, rgba(230, 100, 101, 0.1), transparent), radial-gradient(ellipse at bottom, rgba(77, 159, 12, 0.1), transparent); */
-    /* background: linear-gradient(-45deg, rgba(230, 100, 101, 0.1), rgba(77, 159, 12, 0.1)); */
-    /* rgb(59 74 150) */
+    /* background: linear-gradient(-45deg, rgba(230, 100, 101, 0.1) 50%, rgba(77, 159, 12, 0.1) 100%); */
   }
-  
+
   .chat-wrap {
     @apply grid grid-cols-1 h-[calc(100svh-3rem)] gap-5 p-5;
 
