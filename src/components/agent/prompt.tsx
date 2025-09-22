@@ -74,7 +74,7 @@ export default function CalsAgentPrompt({
           value={value}
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={handleKeyDown}
-          className="flex-1 resize-none border-none shadow-none min-h-10 max-h-32"
+          className="flex-1 resize-none focus-visible:ring-0 border-none shadow-none min-h-10 max-h-32"
           placeholder={getPlaceholder()}
         />
         <div className="btn-prompt">

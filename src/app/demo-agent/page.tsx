@@ -119,7 +119,7 @@ export default function CalsAgentPage() {
         <section className="flex flex-col items-center justify-center">
           <div className="container mx-auto my-32">
             <div className="space-y-4 text-center">
-              <h2 className="text-3xl font-semibold leading-snug tracking-tight">아이디어만으로 앱 생성, 운영까지 아이디어 한 줄이면 충분해요.</h2>
+              <h2 className="text-4xl font-medium leading-snug tracking-tight">아이디어만으로 앱 생성, 운영까지 아이디어 한 줄이면 충분해요.</h2>
               <div className="text-lg">
                 <p>CALS의 에이전트들이 앱을 생성하고, 로우코드 솔루션 &apos;CALS&apos;에서 운영까지 이어집니다.</p>
                 <p>개발 지식 없이도, 지금 바로 시작해보세요.</p>
@@ -142,7 +142,7 @@ export default function CalsAgentPage() {
         <section className="h-screen flex flex-col items-center justify-center">
           <div className="container mx-auto space-y-32">
             <div className="space-y-4 text-center">
-              <h2 className="text-3xl font-semibold leading-snug tracking-tight">누구를 위한 서비스인가요?</h2>
+              <h2 className="text-4xl font-medium leading-snug tracking-tight">누구를 위한 서비스인가요?</h2>
               <div className="text-lg">
                 <p>다양한 상황에서 CALS를 활용할 수 있습니다.</p>
               </div>
@@ -173,7 +173,7 @@ export default function CalsAgentPage() {
         <section className="h-screen flex flex-col items-center justify-center">
           <div className="container mx-auto space-y-32">
             <div className="space-y-4 text-center">
-              <h2 className="text-3xl font-semibold leading-snug tracking-tight">자주 묻는 질문</h2>
+              <h2 className="text-4xl font-medium leading-snug tracking-tight">자주 묻는 질문</h2>
               <div className="text-xl font-medium">
                 <p>CALS에 대해 궁금한 점들을 확인해보세요.</p>
               </div>
@@ -198,10 +198,10 @@ export default function CalsAgentPage() {
         </section>
 
         {/* CTA 섹션 */}
-        <section className="h-screen flex flex-col items-center justify-center">
+        <section className="h-[64svh] flex flex-col items-center justify-center">
           <div className="container mx-auto space-y-32">
             <div className="space-y-4 text-center">
-              <h2 className="text-3xl font-semibold leading-snug tracking-tight">지금 바로 시작해보세요</h2>
+              <h2 className="text-4xl font-medium leading-snug tracking-tight">지금 바로 시작해보세요</h2>
               <div>
                 <p>아이디어만 있으면 누구나 앱을 만들 수 있습니다.</p>
                 <p>복잡한 설정 없이 바로 시작하세요.</p>

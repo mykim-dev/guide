@@ -63,7 +63,7 @@ export default function HeroSection({
           {renderTitle()}
         </h2>
 
-        <div className={`flex items-center justify-center flex-col lg:flex-row lg:text-xl font-bold leading-snug tracking-tight text-muted-foreground transition-all duration-600 ease-out delay-200 ${isLoaded
+        <div className={`flex items-center justify-center flex-col lg:flex-row lg:text-xl leading-snug tracking-tight text-muted-foreground transition-all duration-600 ease-out delay-200 ${isLoaded
           ? "opacity-100 translate-y-0"
           : "opacity-0 translate-y-4"
           }`}>
