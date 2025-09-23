@@ -1,1 +1,0 @@
-(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,61226,e=>{"use strict";e.s(["default",()=>t]);var l=e.i(1856);function t(){return(0,l.jsx)("div",{className:"flex flex-col gap-24",children:(0,l.jsx)("div",{children:(0,l.jsx)("h2",{className:"text-2xl font-bold mb-2",children:"CALS Loading"})})})}}]);

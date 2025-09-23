@@ -1,0 +1,528 @@
+1:"$Sreact.fragment"
+2:I[80073,["/guide/_next/static/chunks/5d6ebc21204af686.js","/guide/_next/static/chunks/274843f98fc0ce17.js"],"default"]
+3:I[84056,["/guide/_next/static/chunks/5d6ebc21204af686.js","/guide/_next/static/chunks/274843f98fc0ce17.js"],"default"]
+4:I[72090,["/guide/_next/static/chunks/5d6ebc21204af686.js","/guide/_next/static/chunks/274843f98fc0ce17.js"],"ClientSegmentRoot"]
+5:I[38152,["/guide/_next/static/chunks/729ec7a7f2f8b058.js","/guide/_next/static/chunks/d3b0a03653e71dfc.js","/guide/_next/static/chunks/fd6a92bda1940f7f.js","/guide/_next/static/chunks/ded26715d51b4a06.js","/guide/_next/static/chunks/3cf03730f1e2cef9.js","/guide/_next/static/chunks/d2286a9ade740b9e.js"],"default"]
+8:I[20306,["/guide/_next/static/chunks/5d6ebc21204af686.js","/guide/_next/static/chunks/274843f98fc0ce17.js"],"OutletBoundary"]
+a:I[89997,["/guide/_next/static/chunks/5d6ebc21204af686.js","/guide/_next/static/chunks/274843f98fc0ce17.js"],"AsyncMetadataOutlet"]
+c:I[20306,["/guide/_next/static/chunks/5d6ebc21204af686.js","/guide/_next/static/chunks/274843f98fc0ce17.js"],"ViewportBoundary"]
+e:I[20306,["/guide/_next/static/chunks/5d6ebc21204af686.js","/guide/_next/static/chunks/274843f98fc0ce17.js"],"MetadataBoundary"]
+f:"$Sreact.suspense"
+11:I[63551,[],"default"]
+:HL["/guide/_next/static/chunks/9f3ede831574968e.css","style"]
+:HL["/guide/_next/static/chunks/5d9e3693bd6d432f.css","style"]
+:HL["/guide/_next/static/chunks/0f8f4e4c96b455ff.css","style"]
+:HL["/guide/_next/static/media/fca78c2ee6cec166-s.p.a2d50d65.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+0:{"P":null,"b":"9ZuYiPSd3yUddpdpE8RdV","p":"/guide","c":["","app-guide","component-guide","combobox",""],"i":false,"f":[[["",{"children":["app-guide",{"children":["component-guide",{"children":[["slug","combobox","d"],{"children":["__PAGE__",{}]}]}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/guide/_next/static/chunks/9f3ede831574968e.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","1",{"rel":"stylesheet","href":"/guide/_next/static/chunks/5d9e3693bd6d432f.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"ko","suppressHydrationWarning":true,"children":["$","body",null,{"className":"noto_sans_kr_43737ebe-module__lI5GDW__className","children":["$","$L2",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L3",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}]}]]}],{"children":["app-guide",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/guide/_next/static/chunks/0f8f4e4c96b455ff.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/guide/_next/static/chunks/729ec7a7f2f8b058.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/guide/_next/static/chunks/d3b0a03653e71dfc.js","async":true,"nonce":"$undefined"}],["$","script","script-2",{"src":"/guide/_next/static/chunks/fd6a92bda1940f7f.js","async":true,"nonce":"$undefined"}],["$","script","script-3",{"src":"/guide/_next/static/chunks/ded26715d51b4a06.js","async":true,"nonce":"$undefined"}],["$","script","script-4",{"src":"/guide/_next/static/chunks/3cf03730f1e2cef9.js","async":true,"nonce":"$undefined"}],["$","script","script-5",{"src":"/guide/_next/static/chunks/d2286a9ade740b9e.js","async":true,"nonce":"$undefined"}]],["$","$L4",null,{"Component":"$5","slots":{"children":["$","$L2",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L3",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]},"params":{},"promise":"$@6"}]]}],{"children":["component-guide",["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L3",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["slug","combobox","d"],["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L3",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":["__PAGE__",["$","$1","c",{"children":["$L7",[["$","script","script-0",{"src":"/guide/_next/static/chunks/68feddbf95fcb1ac.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/guide/_next/static/chunks/f511ec2b6234aaa2.js","async":true,"nonce":"$undefined"}],["$","script","script-2",{"src":"/guide/_next/static/chunks/4aa3f1fbbc81ef83.js","async":true,"nonce":"$undefined"}],["$","script","script-3",{"src":"/guide/_next/static/chunks/9879a7d801d2cdbe.js","async":true,"nonce":"$undefined"}],["$","script","script-4",{"src":"/guide/_next/static/chunks/b0be061abc067b72.js","async":true,"nonce":"$undefined"}],["$","script","script-5",{"src":"/guide/_next/static/chunks/cb37067b4d7fed03.js","async":true,"nonce":"$undefined"}]],["$","$L8",null,{"children":["$L9",["$","$La",null,{"promise":"$@b"}]]}]]}],{},null,false]},null,false]},null,false]},null,false]},null,false],["$","$1","h",{"children":[null,[["$","$Lc",null,{"children":"$Ld"}],["$","meta",null,{"name":"next-size-adjust","content":""}]],["$","$Le",null,{"children":["$","div",null,{"hidden":true,"children":["$","$f",null,{"fallback":null,"children":"$L10"}]}]}]]}],false]],"m":"$undefined","G":["$11",["$L12","$L13"]],"s":false,"S":true}
+12:["$","link","0",{"rel":"stylesheet","href":"/guide/_next/static/chunks/9f3ede831574968e.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]
+13:["$","link","1",{"rel":"stylesheet","href":"/guide/_next/static/chunks/5d9e3693bd6d432f.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]
+6:"$0:f:0:1:2:children:1:props:children:1:props:params"
+14:I[17934,["/guide/_next/static/chunks/729ec7a7f2f8b058.js","/guide/_next/static/chunks/d3b0a03653e71dfc.js","/guide/_next/static/chunks/fd6a92bda1940f7f.js","/guide/_next/static/chunks/ded26715d51b4a06.js","/guide/_next/static/chunks/3cf03730f1e2cef9.js","/guide/_next/static/chunks/d2286a9ade740b9e.js","/guide/_next/static/chunks/68feddbf95fcb1ac.js","/guide/_next/static/chunks/f511ec2b6234aaa2.js","/guide/_next/static/chunks/4aa3f1fbbc81ef83.js","/guide/_next/static/chunks/9879a7d801d2cdbe.js","/guide/_next/static/chunks/b0be061abc067b72.js","/guide/_next/static/chunks/cb37067b4d7fed03.js"],"MarkdownRenderer"]
+15:T410e,
+## 기본 사용법
+
+```tsx
+import { useState } from "react"
+import { Check, ChevronsUpDown } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { cn } from "@/lib/utils"
+
+const frameworks = [
+  { value: "next.js", label: "Next.js" },
+  { value: "sveltekit", label: "SvelteKit" },
+  { value: "nuxt.js", label: "Nuxt.js" },
+  { value: "remix", label: "Remix" },
+  { value: "astro", label: "Astro" },
+]
+
+export default function BasicCombobox() {
+  const [open, setOpen] = useState(false)
+  const [value, setValue] = useState("")
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          variant="outline"
+          role="combobox"
+          aria-expanded={open}
+          className="w-[200px] justify-between"
+        >
+          {value
+            ? frameworks.find((framework) => framework.value === value)?.label
+            : "프레임워크 선택..."}
+          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[200px] p-0">
+        <Command>
+          <CommandInput placeholder="프레임워크 검색..." />
+          <CommandEmpty>검색 결과가 없습니다.</CommandEmpty>
+          <CommandGroup>
+            {frameworks.map((framework) => (
+              <CommandItem
+                key={framework.value}
+                value={framework.value}
+                onSelect={(currentValue) => {
+                  setValue(currentValue === value ? "" : currentValue)
+                  setOpen(false)
+                }}
+              >
+                <Check
+                  className={cn(
+                    "mr-2 h-4 w-4",
+                    value === framework.value ? "opacity-100" : "opacity-0"
+                  )}
+                />
+                {framework.label}
+              </CommandItem>
+            ))}
+          </CommandGroup>
+        </Command>
+      </PopoverContent>
+    </Popover>
+  )
+}
+```
+
+## 다중 선택 Combobox
+
+```tsx
+import { useState } from "react"
+import { Check, ChevronsUpDown, X } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Badge } from "@/components/ui/badge"
+import { cn } from "@/lib/utils"
+
+const skills = [
+  { value: "react", label: "React" },
+  { value: "vue", label: "Vue.js" },
+  { value: "angular", label: "Angular" },
+  { value: "svelte", label: "Svelte" },
+  { value: "typescript", label: "TypeScript" },
+  { value: "javascript", label: "JavaScript" },
+  { value: "python", label: "Python" },
+  { value: "java", label: "Java" },
+  { value: "csharp", label: "C#" },
+  { value: "go", label: "Go" },
+]
+
+export default function MultiSelectCombobox() {
+  const [open, setOpen] = useState(false)
+  const [selectedValues, setSelectedValues] = useState<string[]>([])
+
+  const handleSelect = (value: string) => {
+    setSelectedValues(prev =>
+      prev.includes(value)
+        ? prev.filter(item => item !== value)
+        : [...prev, value]
+    )
+  }
+
+  const handleRemove = (value: string) => {
+    setSelectedValues(prev => prev.filter(item => item !== value))
+  }
+
+  return (
+    <div className="space-y-4">
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            variant="outline"
+            role="combobox"
+            aria-expanded={open}
+            className="w-[300px] justify-between"
+          >
+            {selectedValues.length > 0
+              ? `${selectedValues.length}개 선택됨`
+              : "기술 스택 선택..."}
+            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-[300px] p-0">
+          <Command>
+            <CommandInput placeholder="기술 스택 검색..." />
+            <CommandEmpty>검색 결과가 없습니다.</CommandEmpty>
+            <CommandGroup>
+              {skills.map((skill) => (
+                <CommandItem
+                  key={skill.value}
+                  value={skill.value}
+                  onSelect={() => handleSelect(skill.value)}
+                >
+                  <Check
+                    className={cn(
+                      "mr-2 h-4 w-4",
+                      selectedValues.includes(skill.value) ? "opacity-100" : "opacity-0"
+                    )}
+                  />
+                  {skill.label}
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </Command>
+        </PopoverContent>
+      </Popover>
+      
+      {selectedValues.length > 0 && (
+        <div className="flex flex-wrap gap-2">
+          {selectedValues.map((value) => {
+            const skill = skills.find(s => s.value === value)
+            return (
+              <Badge key={value} variant="secondary" className="text-sm">
+                {skill?.label}
+                <button
+                  className="ml-1 ring-offset-background rounded-full outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                  onClick={() => handleRemove(value)}
+                >
+                  <X className="h-3 w-3" />
+                </button>
+              </Badge>
+            )
+          })}
+        </div>
+      )}
+    </div>
+  )
+}
+```
+
+## 비동기 데이터 Combobox
+
+```tsx
+import { useState, useEffect } from "react"
+import { Check, ChevronsUpDown, Loader2 } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { cn } from "@/lib/utils"
+
+interface User {
+  id: number
+  name: string
+  email: string
+}
+
+export default function AsyncCombobox() {
+  const [open, setOpen] = useState(false)
+  const [value, setValue] = useState("")
+  const [users, setUsers] = useState<User[]>([])
+  const [loading, setLoading] = useState(false)
+  const [searchTerm, setSearchTerm] = useState("")
+
+  const fetchUsers = async (search: string = "") => {
+    setLoading(true)
+    
+    // API 호출 시뮬레이션
+    await new Promise(resolve => setTimeout(resolve, 500))
+    
+    const mockUsers: User[] = [
+      { id: 1, name: "김철수", email: "kim@example.com" },
+      { id: 2, name: "이영희", email: "lee@example.com" },
+      { id: 3, name: "박민수", email: "park@example.com" },
+      { id: 4, name: "정수진", email: "jung@example.com" },
+      { id: 5, name: "최동현", email: "choi@example.com" },
+    ]
+    
+    const filteredUsers = search
+      ? mockUsers.filter(user => 
+          user.name.toLowerCase().includes(search.toLowerCase()) ||
+          user.email.toLowerCase().includes(search.toLowerCase())
+        )
+      : mockUsers
+    
+    setUsers(filteredUsers)
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    fetchUsers(searchTerm)
+  }, [searchTerm])
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          variant="outline"
+          role="combobox"
+          aria-expanded={open}
+          className="w-[250px] justify-between"
+        >
+          {value
+            ? users.find((user) => user.id.toString() === value)?.name
+            : "사용자 선택..."}
+          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[250px] p-0">
+        <Command>
+          <CommandInput 
+            placeholder="사용자 검색..." 
+            value={searchTerm}
+            onValueChange={setSearchTerm}
+          />
+          {loading ? (
+            <div className="flex items-center justify-center p-4">
+              <Loader2 className="h-4 w-4 animate-spin" />
+              <span className="ml-2 text-sm">검색 중...</span>
+            </div>
+          ) : (
+            <>
+              <CommandEmpty>검색 결과가 없습니다.</CommandEmpty>
+              <CommandGroup>
+                {users.map((user) => (
+                  <CommandItem
+                    key={user.id}
+                    value={user.id.toString()}
+                    onSelect={(currentValue) => {
+                      setValue(currentValue === value ? "" : currentValue)
+                      setOpen(false)
+                    }}
+                  >
+                    <Check
+                      className={cn(
+                        "mr-2 h-4 w-4",
+                        value === user.id.toString() ? "opacity-100" : "opacity-0"
+                      )}
+                    />
+                    <div className="flex flex-col">
+                      <span>{user.name}</span>
+                      <span className="text-sm text-muted-foreground">{user.email}</span>
+                    </div>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </>
+          )}
+        </Command>
+      </PopoverContent>
+    </Popover>
+  )
+}
+```
+
+## 그룹화된 Combobox
+
+```tsx
+import { useState } from "react"
+import { Check, ChevronsUpDown } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { cn } from "@/lib/utils"
+
+const options = [
+  {
+    group: "프론트엔드",
+    items: [
+      { value: "react", label: "React" },
+      { value: "vue", label: "Vue.js" },
+      { value: "angular", label: "Angular" },
+      { value: "svelte", label: "Svelte" },
+    ]
+  },
+  {
+    group: "백엔드",
+    items: [
+      { value: "nodejs", label: "Node.js" },
+      { value: "python", label: "Python" },
+      { value: "java", label: "Java" },
+      { value: "csharp", label: "C#" },
+    ]
+  },
+  {
+    group: "데이터베이스",
+    items: [
+      { value: "mysql", label: "MySQL" },
+      { value: "postgresql", label: "PostgreSQL" },
+      { value: "mongodb", label: "MongoDB" },
+      { value: "redis", label: "Redis" },
+    ]
+  }
+]
+
+export default function GroupedCombobox() {
+  const [open, setOpen] = useState(false)
+  const [value, setValue] = useState("")
+
+  const allItems = options.flatMap(group => group.items)
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          variant="outline"
+          role="combobox"
+          aria-expanded={open}
+          className="w-[250px] justify-between"
+        >
+          {value
+            ? allItems.find((item) => item.value === value)?.label
+            : "기술 선택..."}
+          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[250px] p-0">
+        <Command>
+          <CommandInput placeholder="기술 검색..." />
+          <CommandEmpty>검색 결과가 없습니다.</CommandEmpty>
+          {options.map((group) => (
+            <CommandGroup key={group.group} heading={group.group}>
+              {group.items.map((item) => (
+                <CommandItem
+                  key={item.value}
+                  value={item.value}
+                  onSelect={(currentValue) => {
+                    setValue(currentValue === value ? "" : currentValue)
+                    setOpen(false)
+                  }}
+                >
+                  <Check
+                    className={cn(
+                      "mr-2 h-4 w-4",
+                      value === item.value ? "opacity-100" : "opacity-0"
+                    )}
+                  />
+                  {item.label}
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          ))}
+        </Command>
+      </PopoverContent>
+    </Popover>
+  )
+}
+```
+
+## 컴포넌트 API
+
+Combobox는 여러 컴포넌트를 조합하여 만들어집니다:
+
+### Popover
+드롭다운 컨테이너를 제공합니다.
+
+### Command
+검색 및 선택 기능을 제공합니다.
+
+### CommandInput
+검색 입력 필드입니다.
+
+### CommandEmpty
+검색 결과가 없을 때 표시되는 메시지입니다.
+
+### CommandGroup
+옵션들을 그룹화합니다.
+
+### CommandItem
+개별 선택 옵션입니다.
+
+## 접근성
+
+Combobox는 다음과 같은 접근성 기능을 제공합니다:
+
+- 키보드 네비게이션 지원
+- 스크린 리더 지원
+- ARIA 라벨 및 역할 설정
+- 포커스 관리
+- 검색 기능
+
+## 커스텀 렌더링
+
+```tsx
+import { useState } from "react"
+import { Check, ChevronsUpDown, User } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { cn } from "@/lib/utils"
+
+const users = [
+  { value: "1", name: "김철수", email: "kim@example.com", avatar: "/avatars/01.png" },
+  { value: "2", name: "이영희", email: "lee@example.com", avatar: "/avatars/02.png" },
+  { value: "3", name: "박민수", email: "park@example.com", avatar: "/avatars/03.png" },
+  { value: "4", name: "정수진", email: "jung@example.com", avatar: "/avatars/04.png" },
+]
+
+export default function CustomCombobox() {
+  const [open, setOpen] = useState(false)
+  const [value, setValue] = useState("")
+
+  const selectedUser = users.find(user => user.value === value)
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          variant="outline"
+          role="combobox"
+          aria-expanded={open}
+          className="w-[300px] justify-between"
+        >
+          {selectedUser ? (
+            <div className="flex items-center gap-2">
+              <Avatar className="h-6 w-6">
+                <AvatarImage src={selectedUser.avatar} />
+                <AvatarFallback>{selectedUser.name[0]}</AvatarFallback>
+              </Avatar>
+              <span>{selectedUser.name}</span>
+            </div>
+          ) : (
+            <div className="flex items-center gap-2">
+              <User className="h-4 w-4" />
+              <span>사용자 선택...</span>
+            </div>
+          )}
+          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[300px] p-0">
+        <Command>
+          <CommandInput placeholder="사용자 검색..." />
+          <CommandEmpty>검색 결과가 없습니다.</CommandEmpty>
+          <CommandGroup>
+            {users.map((user) => (
+              <CommandItem
+                key={user.value}
+                value={user.value}
+                onSelect={(currentValue) => {
+                  setValue(currentValue === value ? "" : currentValue)
+                  setOpen(false)
+                }}
+              >
+                <Check
+                  className={cn(
+                    "mr-2 h-4 w-4",
+                    value === user.value ? "opacity-100" : "opacity-0"
+                  )}
+                />
+                <div className="flex items-center gap-2">
+                  <Avatar className="h-6 w-6">
+                    <AvatarImage src={user.avatar} />
+                    <AvatarFallback>{user.name[0]}</AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col">
+                    <span className="text-sm">{user.name}</span>
+                    <span className="text-xs text-muted-foreground">{user.email}</span>
+                  </div>
+                </div>
+              </CommandItem>
+            ))}
+          </CommandGroup>
+        </Command>
+      </PopoverContent>
+    </Popover>
+  )
+}
+```
+7:["$","$L14",null,{"content":"$15"}]
+d:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+9:null
+16:I[27345,["/guide/_next/static/chunks/5d6ebc21204af686.js","/guide/_next/static/chunks/274843f98fc0ce17.js"],"IconMark"]
+b:{"metadata":[["$","title","0",{"children":"Design System Guide"}],["$","meta","1",{"name":"description","content":"A comprehensive design system guide with tokens, components, and playground"}],["$","link","2",{"rel":"icon","href":"/guide/favicon.ico?favicon.0b3bf435.ico","sizes":"256x256","type":"image/x-icon"}],["$","$L16","3",{}]],"error":null,"digest":"$undefined"}
+10:"$b:metadata"
