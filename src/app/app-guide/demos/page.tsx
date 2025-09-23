@@ -24,7 +24,7 @@ export default function LayoutsPage() {
     },
     {
       slug: 'CALS Agent Prompt',
-      title: 'CALS Agent Prpmpt',
+      title: 'CALS Agent Prompt',
       description: '플랫폼 캐릭터의 사용법을 확인하세요.',
       emoji: '📝',
       href: '/demo-agent/prompt',
